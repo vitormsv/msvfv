@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mnPedido" android:title="PEDIDOS" ></item>
+    <item android:id="@+id/mnFinanceiro" android:title="SITUAÇÃO FINANCEIRA" ></item>
+    <item android:id="@+id/mnFicha" android:title="FICHA CADASTRAL" ></item>
+    <item android:id="@+id/mnMix" android:title="MIX PRODUTOS" ></item>
+</menu>

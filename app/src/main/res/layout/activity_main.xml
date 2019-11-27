@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.microserv.msvmobilepdv.MainActivity">
+
+    <!-- Dados do vendedor -->
+    <LinearLayout
+        style="@style/panelIdentityBar"
+        android:id="@+id/pnlVendedor"
+        android:orientation="vertical"
+        android:background="@color/indigo_500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/textIdentityBarAll"
+            android:id="@+id/txtVendedor"
+            android:textStyle="bold"
+            android:text="000187 - RAZAO SOCIAL DO CLIENTE" />
+
+        <TextView
+            style="@style/textIdentityBarAll"
+            android:id="@+id/txtVendedorRegiao"
+            android:text="02.345.678/0001-90" />
+
+    </LinearLayout>
+
+
+    <!-- Título -->
+    <LinearLayout
+        style="@style/panelTitle">
+
+        <TextView
+            style="@style/textTitleAll"
+            android:text="MENU PRINCIPAL" />
+
+    </LinearLayout>
+
+
+    <!-- Menus em forma de botão -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="30dp"
+            android:orientation="vertical">
+
+            <!-- Clientes | Pedidos -->
+            <LinearLayout
+                style="@style/panelMenuRow"
+                android:id="@+id/pnlRow1">
+
+                <!-- Clientes -->
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlCliente">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/contacts" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="CLIENTES" />
+
+                </LinearLayout>
+
+                <!-- Pedido -->
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlPedido">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/clipboard" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="PEDIDOS" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Produtos | Sincronizar -->
+            <LinearLayout
+                style="@style/panelMenuRow"
+                android:id="@+id/pnlRow2">
+
+                <!-- Produto -->
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlProduto">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/cart" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="PRODUTOS" />
+
+                </LinearLayout>
+
+                <!-- Sincronizar -->
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlSincronizarDados">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/download" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="SYNC APP" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Relatorios | Configuracoes -->
+            <!--
+            <LinearLayout
+                style="@style/panelMenuRow"
+                android:id="@+id/pnlRow3">
+
+
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlRelatorio">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/relatorios" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="RELATÓRIOS" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlConfiguracao">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/tools" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="CONFIGURAÇÕES" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            -->
+
+
+            <!-- Atualizacoes | Backup -->
+            <!--
+            <LinearLayout
+                style="@style/panelMenuRow"
+                android:id="@+id/pnlRow4">
+
+
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlAtualizacao">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/celular" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="ATUALIZAÇÕES" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlBackup">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/backup" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="BACKUP" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            -->
+
+
+            <!-- Reset App | Sair -->
+            <!--
+            <LinearLayout
+                style="@style/panelMenuRow"
+                android:id="@+id/pnlRow3">
+
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlResetApp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dev" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="RESET APP" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlSair">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/door" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="SAIR" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            -->
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- Rodapé -->
+    <LinearLayout
+        style="@style/panelTitle"
+        android:id="@+id/llyRodape">
+
+        <TextView
+            style="@style/textTitleAll"
+            android:id="@+id/txtUltimaSincronizacao"
+            android:text="SINCRONIZADO EM: 01/01/2019 08:00"/>
+
+    </LinearLayout>
+
+</LinearLayout>

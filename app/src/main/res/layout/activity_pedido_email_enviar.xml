@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_pedido_email_enviar"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.microserv.msvmobilepdv.cliente.ClienteListaActivity">
+
+
+    <!-- Cabeçalho com dados do cliente -->
+    <include
+        android:id="@+id/inClienteCabecalho"
+        layout="@layout/include_cliente_cabecalho" />
+
+
+    <!-- Titulo (Filtro) -->
+    <LinearLayout
+        android:id="@+id/pnlTituloCnt"
+        android:orientation="horizontal"
+        android:background="@color/colorTitleBackground"
+        android:paddingTop="7dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:text="DADOS DO PEDIDO"
+            android:textColor="@color/colorTitleForeground"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <!-- Cabeçalho com dados do cliente -->
+    <include
+        android:id="@+id/inSemConexao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_sem_conexao" />
+
+
+    <!-- Dados do pedido -->
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/pnlPedidoCnt"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!-- Numero e data de emissao -->
+            <LinearLayout
+                android:id="@+id/pnlNumeroEmissaoDataCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Numero -->
+                <LinearLayout
+                    android:id="@+id/pnlNumero"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="NÚMERO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtNumero"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center_vertical"
+                        android:background="#FFFFFF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Data de emissão -->
+                <LinearLayout
+                    android:id="@+id/pnlEmissaoData"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="DATA EMISSÃO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtDataHora"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Empresa -->
+            <LinearLayout
+                android:id="@+id/pnlEmpresaCnt"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="EMPRESA"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnlEmpresa"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtEmpresa"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Tipo depedido -->
+            <LinearLayout
+                android:id="@+id/pnlTipoPedidoCnt"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="TIPO DE PEDIDO"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnlTipoPedido"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtTipoPedido"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Quantidade de itens / Valor Total Final -->
+            <LinearLayout
+                android:id="@+id/pnlItensValorTotalCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Numero -->
+                <LinearLayout
+                    android:id="@+id/pnlItensQuantidade"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="QTD ITENS"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtItens"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center_vertical"
+                        android:background="#FFFFFF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Valor Total Final -->
+                <LinearLayout
+                    android:id="@+id/pnlValorTotal"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="VALOR TOTAL"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtValorTotal"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- E-mail -->
+            <LinearLayout
+                android:id="@+id/pnlEmailCnt"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="7dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="E-MAIL"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnlEmail"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/img_edit"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
+
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/pnlPedidoConfirmadoObr"
+                    android:background="@color/orange_500"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Atualizar e-mail no cadastro do cliente -->
+            <LinearLayout
+                android:id="@+id/pnlEmailAtualizarCnt"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="7dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="ATUALIZAR E-MAIL"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnlEmailAtualizar"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Switch
+                        android:id="@+id/swiEmailAtualizar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtEmailAtualizar"
+                        android:text="Deseja atualizar o cadastro do cliente ?"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Botao de Enviar -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="7dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnEnviar"
+                    android:text="ENVIAR"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

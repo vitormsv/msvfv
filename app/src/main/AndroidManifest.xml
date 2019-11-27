@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.microserv.msvmobilepdv">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/launch"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="MSVSmartFV"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="MSVSmartFV"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".cliente.ClienteListaActivity"
+            android:label="Clientes"
+            android:logo="@drawable/search_icon"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".produto.ProdutoListaActivity"
+            android:label="Produtos"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".pedido.PedidoMobileEditarActivity"
+            android:label="Pedido"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".cliente.ClienteDetalheActivity"
+            android:label="Clientes | Detalhe"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".pedido.PedidoMobileItemEditarActivity"
+            android:label="Pedido | Itens"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".produto.ProdutoDetalheActivity"
+            android:label="Produto | Detalhe"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".extra.VendedorRegistrarActivity"
+            android:label="Vendedor"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".extra.SincronizacaoDadosListaActivity"
+            android:label="Sincronizar dados"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".pedido.PedidoListaActivity"
+            android:label="Pedidos"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".cliente.ClienteProdutoMixListaActivity"
+            android:label="Produto (mix)"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".cliente.ClienteEditarActivity"
+            android:label="Cliente | Editar"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".produto.ProdutoDetalheImagemActivity"
+            android:label="Produto | Detalhe"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".produto.ProdutoLookupActivity"
+            android:label="Produto | Pesquisa"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pedido.PedidoEmailEnviar"
+            android:label="E-MAIL"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pedido.PedidoEnviarResultadoActivity"
+            android:label="Pedido | Sync"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".extra.SincronizacaoListaActivity"
+            android:label="Minhas sincronizações"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".extra.RelatorioActivity"
+            android:label="Relatórios"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".extra.RobinHoodListaActivity"
+            android:label="Vendedor | Robin Hood"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".pedido.PedidoMobileHistoricoActivity"
+            android:label="Pedidos | Histórico"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".pedido.TipoPedidoTotalGrupoActivity"
+            android:label="Tipo Pedido | Valor"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".cliente.ClienteMixActivity"
+            android:label="Cliente | Mix"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".extra.ResumoActivity" />
+        <activity android:name=".extra.WsEnderecoActivity" />
+        <activity android:name=".produto.ProdutoSearchActivity" />
+        <activity android:name=".produto.ProdutoRecycleViewActivity" />
+        <activity android:name=".extra.ActivateDeviceActivity" />
+        <activity android:name=".bi.BIProducaoMesActivity"></activity>
+    </application>
+
+</manifest>

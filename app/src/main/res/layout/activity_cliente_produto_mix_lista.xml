@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cliente_produto_mix_lista"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="br.com.microserv.msvmobilepdv.cliente.ClienteProdutoMixListaActivity">
+
+    <!-- Cabeçalho com dados do cliente -->
+    <include
+        android:id="@+id/inClienteCabecalho"
+        layout="@layout/include_cliente_cabecalho" />
+
+
+    <include
+        android:id="@+id/inLista"
+        layout="@layout/include_cliente_produto_mix_lista" />
+
+    <include
+        android:id="@+id/inEditar"
+        layout="@layout/include_cliente_produto_mix_editar" />
+
+</LinearLayout>

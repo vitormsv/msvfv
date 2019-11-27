@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.microserv.msvmobilepdv.MainActivity">
+
+    <LinearLayout
+        style="@style/panelIdentityBar"
+        android:id="@+id/pnlVendedor"
+        android:orientation="vertical"
+        android:background="@color/indigo_500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/textIdentityBarAll"
+            android:id="@+id/txtVendedor"
+            android:textStyle="bold"
+            android:text="000187 - RAZAO SOCIAL DO CLIENTE" />
+
+        <TextView
+            style="@style/textIdentityBarAll"
+            android:id="@+id/txtVendedorRegiao"
+            android:text="02.345.678/0001-90" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/panelTitle">
+
+        <TextView
+            style="@style/textTitleAll"
+            android:text="MAIS OPÇÕES" />
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <!-- Relatórios | Sincronizações -->
+            <LinearLayout
+                style="@style/panelMenuRow"
+                android:id="@+id/pnlRow1">
+
+                <!-- FLEX -->
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlFlex">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/relatorios" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="ROBIN HOOD" />
+
+                </LinearLayout>
+
+                <!-- Voltar -->
+                <LinearLayout
+                    style="@style/panelMenuCell"
+                    android:id="@+id/pnlVoltar">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/door" />
+
+                    <TextView
+                        style="@style/textMenu"
+                        android:text="VOLTAR" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_produto_detalhe_imagem"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.microserv.msvmobilepdv.produto.ProdutoDetalheImagemActivity">
+
+
+    <!-- Cabeçalho -->
+    <include
+        android:id="@+id/inProdutoCabecalho"
+        layout="@layout/include_produto_cabecalho" />
+
+
+    <!-- Titulo da activity -->
+    <LinearLayout
+        android:id="@+id/pnlTitulo"
+        android:orientation="horizontal"
+        android:background="@color/colorTitleBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:text="IMAGEM DO PRODUTO"
+            android:textColor="@color/colorTitleForeground"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <!-- Container da imagem -->
+    <ImageView
+        android:id="@+id/imgProdutoImagem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

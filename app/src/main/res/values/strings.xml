@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MICROSERV-PDV</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="main_btnCliente">CLIENTES</string>
+    <string name="main_btnProduto">PRODUTOS</string>
+    <string name="main_btnConfiguracao">CONFIGURAÇÃO</string>
+    <string name="main_btnSincronizar">SINCRONIZAR</string>
+    <string name="main_btnAtualizarDB">ATUALIZAR DATABASE</string>
+</resources>

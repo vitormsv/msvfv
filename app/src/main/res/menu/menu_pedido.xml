@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mnPrincipal"
+        android:title="PRINCIPAL">
+    </item>
+
+    <item
+        android:id="@+id/mnItens"
+        android:title="ITENS">
+    </item>
+
+    <item
+        android:id="@+id/mnResumo"
+        android:title="RESUMO">
+    </item>
+
+    <item
+        android:id="@+id/mnSalvar"
+        android:title="SALVAR"
+        android:icon="@drawable/msv_small_ok"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/mnCancelar"
+        android:title="CANCELAR"
+        android:icon="@drawable/msv_small_cancel"
+        app:showAsAction="always">
+    </item>
+
+</menu>

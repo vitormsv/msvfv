@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/colorTitleBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="PRINCIPAL"
+            android:padding="7dp"
+            android:textColor="@color/colorTitleForeground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <!-- Numero e data de emissao -->
+            <LinearLayout
+                android:id="@+id/pnlNumeroEmissaoDataCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Numero -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="NÚMERO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtNumero"
+                        android:text="0000001"
+                        android:textColor="@color/colorPrimary"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center_vertical"
+                        android:background="#FFFFFF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Data de emissão -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="DATA EMISSÃO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/txtEmissaoDataHora"
+                        android:text="01/01/2016"
+                        android:textColor="@color/colorPrimary"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Empresa -->
+            <LinearLayout
+                android:id="@+id/pnlEmpresaCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Empresa -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="EMPRESA"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlEmpresa"
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:visibility="gone"
+                            android:src="@drawable/search_icon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtEmpresaDescricao"
+                            android:text="MB BUGIGANGAS"
+                            android:textColor="@color/colorPrimary"
+
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Tipo depedido -->
+            <LinearLayout
+                android:id="@+id/pnlTipoPedidoCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Tipo de pedido -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="TIPO DE PEDIDO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlTipoPedido"
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/search_icon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtTipoPedidoDescricao"
+                            android:text="VENDA (PESSOA JURIDICA)"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/pnlTipoPedidoObr"
+                        android:background="@color/orange_500"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Tabela de preço -->
+            <LinearLayout
+                android:id="@+id/pnlTabelaPrecoCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Tabela de preço -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="TABELA DE PREÇO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlTabelaPreco"
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/search_icon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtTabelaPrecoDescricao"
+                            android:text="TABELA (A)"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/pnlTabelaPrecoObr"
+                        android:background="@color/orange_500"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Condiçao de pagamento -->
+            <LinearLayout
+                android:id="@+id/pnlCondicaoPagamentoCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Condição de pagamento -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="CONDIÇÃO DE PAGAMENTO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlCondicaoPagamento"
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/search_icon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtCondicaoPagamentoDescricao"
+                            android:text="TABELA (A)"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/pnlCondicaoPagamentoObr"
+                        android:background="@color/orange_500"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Transportadora -->
+            <LinearLayout
+                android:id="@+id/pnlTransportadoraCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Transportadora -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="TRANSPORTADORA"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlTransportadora"
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/search_icon"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtTransportadoraDescricao"
+                            android:text="ADB TRANSPORTES E LOGISTICA LTDA"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/pnlTransportadoraObr"
+                        android:background="@color/orange_500"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Numero do pedido do cliente -->
+            <LinearLayout
+                android:id="@+id/pnlNumeroClienteCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Numero do pedido do cliente -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="NUMERO PEDIDO CLIENTE"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlNumeroCliente"
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/img_pencil"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtNumeroCliente"
+                            android:text="000987345"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Observação -->
+            <LinearLayout
+                android:id="@+id/pnlObservacaoCnt"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Observacao -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="OBSERVAÇÃO"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlObservacao"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/img_pencil"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtObservacao"
+                            android:text="AQUI VAMOS INFORMAR QUALQUER TIPO DE OBSERVAÇÃO QUE FOR NECESSARIA PARA O PRODUTO"
+                            android:textColor="@color/colorPrimary"
+                            android:background="#FFFFFF"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

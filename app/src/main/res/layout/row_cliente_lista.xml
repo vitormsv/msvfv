@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Imagens -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imvPedido"
+                android:src="@drawable/msv_small_last_buy_black"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+
+            <ImageView
+                android:id="@+id/imvHistorico"
+                android:src="@drawable/msv_small_paste"
+                android:layout_marginTop="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+
+        </LinearLayout>
+
+        <!-- Imagens -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/textPrimary"
+                android:id="@+id/txtRow1"
+                android:text="AUTO POSTO GIGANTÃO DE PRESIDENTE PRUDENTE"
+                android:layout_marginTop="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/textNormal"
+                android:id="@+id/txtRow2"
+                android:text="100904 - AUTO POSTO GIGANTÃO P. P."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/textNormal"
+                android:id="@+id/txtRow3"
+                android:text="(18) 3349-0999 - PRESIDENTE PRUDENTE - SP"
+                android:layout_marginBottom="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cliente_pedido_item"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.microserv.msvmobilepdv.pedido.PedidoMobileItemEditarActivity">
+
+    <!-- Titulo (Filtro) -->
+    <LinearLayout
+        android:id="@+id/pnlTituloCnt"
+        android:orientation="horizontal"
+        android:background="@color/colorTitleBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:text="INSERINDO ITEM"
+            android:padding="7dp"
+            android:textColor="@color/colorTitleForeground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!-- Produto Codigo -->
+            <LinearLayout
+                android:id="@+id/pnlProdutoCodigoCnt"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Produto (código)"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnlProdutoCodigo"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/search_icon"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
+
+                    <TextView
+                        android:id="@+id/txtProdutoCodigo"
+                        android:text="PENTE DARMA 15CM MARROM"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/pnlProdutoCodigoObr"
+                    android:background="@color/orange_500"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Produto Descricao -->
+            <LinearLayout
+                android:id="@+id/pnlProdutoDescricaoCnt"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Produto (descrição)"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnlProdutoDescricao"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/search_icon"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
+
+                    <TextView
+                        android:id="@+id/txtProdutoDescricao"
+                        android:text="PENTE DARMA 15CM MARROM"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:id="@+id/pnlProdutoDescricaoObr"
+                    android:background="@color/orange_500"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Historico de compra | Imagem do produto -->
+            <LinearLayout
+                android:id="@+id/pnlProdutoOpcaoCnt"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Historico de compra -->
+                <LinearLayout
+                    android:id="@+id/pnlProdutoHistoricoCnt"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:background="@color/white"
+                        android:paddingLeft="7dp"
+                        android:paddingTop="7dp"
+                        android:paddingBottom="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/msv_small_last_buy_black"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
+                            android:text="Historico"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Imagem do produto -->
+                <LinearLayout
+                    android:paddingLeft="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/pnlProdutoImagemCnt"
+                        android:background="@color/white"
+                        android:paddingLeft="7dp"
+                        android:paddingTop="7dp"
+                        android:paddingBottom="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:background="@color/white"
+                            android:src="@drawable/msv_small_photo1_black"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp" />
+
+                        <TextView
+                            android:text="Imagem"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Quantidade por embalagem | Valor unitário -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Quantidade por embalagem -->
+                <LinearLayout
+                    android:id="@+id/pnlEmbalagemQuantidadeCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Embalagem (qtd)"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlEmbalagemQuantidade"
+                        android:orientation="horizontal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txtEmbalagemQuantidade"
+                            android:text="1"
+                            android:gravity="center_vertical"
+                            android:background="#FFFFFF"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Valor unitário -->
+                <LinearLayout
+                    android:id="@+id/pnlValorUnitarioCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Valor unitário"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlValorUnitario"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgValorUnitario"
+                             android:src="@drawable/img_pencil"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtValorUnitario"
+                            android:text="R$15,50"
+                            android:textColor="@color/colorPrimary"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical|end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/pnlValorUnitarioObr"
+                        android:orientation="horizontal"
+                        android:background="@color/orange_500"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Desconto (%) | Desconto (R$) -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Desconto (%) -->
+                <LinearLayout
+                    android:id="@+id/pnlDescontoPercentualCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Desconto (%)"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlDescontoPercentual"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txtDescontoPercentual"
+                            android:text="R$15,50"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical|end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <!-- Desconto (R$) -->
+                <LinearLayout
+                    android:id="@+id/pnlDescontoValorCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Desconto (R$)"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlDescontoValor"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/img_pencil"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtDescontoValor"
+                            android:text="R$15,50"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical|end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Quantidade de venda | Valor Unitário Liquido -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Quantidade de venda -->
+                <LinearLayout
+                    android:id="@+id/pnlVendaQuantidadeCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Venda (quantidade)"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlVendaQuantidade"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/img_pencil"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtVendaQuantidade"
+                            android:text="10"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical|end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/pnlVendaQuantidadeObr"
+                        android:orientation="horizontal"
+                        android:background="@color/orange_500"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp">
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Valor total -->
+                <LinearLayout
+                    android:id="@+id/pnlValorUnitarioLiquidoCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Valor unitário (líquido)"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlValorUnitarioLiquido"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txtValorUnitarioLiquido"
+                            android:text="R$15,50"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical|end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Valor Total (Quantidade * Valor Unitário Líquido) -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Desconto (R$) -->
+                <LinearLayout
+                    android:id="@+id/pnlValorUnitarioTotalCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Valor total"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlValorUnitarioTotal"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txtValorUnitarioTotal"
+                            android:text="R$15,50"
+                            android:textStyle="bold"
+                            android:textColor="@color/red_700"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical|end"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Observação -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Observação -->
+                <LinearLayout
+                    android:id="@+id/pnlObservacaoCnt"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Observação"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/pnlObservacao"
+                        android:background="#FFFFFF"
+                        android:padding="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/img_pencil"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp" />
+
+                        <TextView
+                            android:id="@+id/txtObservacao"
+                            android:text="AQUI VAMOS INFORMAR QUALQUER TIPO DE OBSERVAÇÃO QUE FOR NECESSARIA PARA O PRODUTO"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp"
+                            android:background="#FFFFFF"
+                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

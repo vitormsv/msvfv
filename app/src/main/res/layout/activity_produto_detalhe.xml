@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_produto_detalhe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="br.com.microserv.msvmobilepdv.produto.ProdutoDetalheActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Painel de título de informações principais -->
+        <LinearLayout
+            android:background="@color/colorTitleBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="FICHA TÉCNICA DO PRODUTO"
+                android:padding="7dp"
+                android:textColor="@color/colorTitleForeground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <!-- Container de deslizamento -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <!-- Imagem do produto -->
+                <LinearLayout
+                    android:id="@+id/pnlProdutoImagemCnt"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgProdutoImagem"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp" />
+
+                </LinearLayout>
+
+
+                <!-- Ficha técnica do produto -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Título do bloco -->
+                    <LinearLayout
+                        android:background="@color/grey_300"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="DADOS DO PRODUTO"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Código -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Código"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtCodigo"
+                            android:text="CODIGO"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Código de barras EAN13 -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Código de barras (EAN13)"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtEan13"
+                            android:text="EAN13"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Descrição -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Descrição"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtDescricao"
+                            android:text="EAN13"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Linha do produto -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Linha do produto"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtLinhaDescricao"
+                            android:text="EAN13"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Grupo do produto -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Grupo do produto"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtGrupoDescricao"
+                            android:text="EAN13"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Unidade de medida -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Unidade de medida"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtUnidadeMedida"
+                            android:text="EAN13"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Quantidade por embalagem -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Quantidade por embalagem"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtPackQuantidade"
+                            android:text="EAN13"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                    <!-- Peso bruto -->
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Peso bruto"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/txtPesoBruto"
+                            android:text="EAN13"
+                            android:textColor="@color/indigo_500"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            android:padding="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <!-- Preços do produto -->
+                <LinearLayout
+                    android:id="@+id/pnlPrecosCnt"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Título do bloco -->
+                    <LinearLayout
+                        android:background="@color/grey_300"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="PREÇOS DO PRODUTO"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="7dp"
+                            android:paddingRight="10dp"
+                            android:paddingBottom="7dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+
+
+
+    <!--
+    <include
+        android:id="@+id/inPrincipal"
+        layout="@layout/include_produto_detalhe_principal" />
+
+    <include
+        android:id="@+id/inPreco"
+        layout="@layout/include_produto_detalhe_preco" />
+        -->
+
+</LinearLayout>

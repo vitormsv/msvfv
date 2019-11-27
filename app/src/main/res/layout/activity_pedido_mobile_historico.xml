@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cliente_pedido"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="br.com.microserv.msvmobilepdv.pedido.PedidoMobileEditarActivity">
+
+
+    <!-- Detalhes do cliente -->
+    <include
+        android:id="@+id/inClienteCabecalho"
+        layout="@layout/include_cliente_cabecalho" />
+
+
+    <!-- Botões de acesso as guias -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/indigo_500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- PEDIDO -->
+        <LinearLayout
+            android:id="@+id/pnlPrincipalMnt"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="@color/indigo_300"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="PEDIDO"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!-- ITENS -->
+        <LinearLayout
+            android:id="@+id/pnlItensMnt"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="ITENS"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <include
+        android:id="@+id/inPedido"
+        layout="@layout/include_pedido_mobile_historico_pedido" />
+
+    <include
+        android:id="@+id/inItens"
+        layout="@layout/include_pedido_mobile_historico_item" />
+
+</LinearLayout>

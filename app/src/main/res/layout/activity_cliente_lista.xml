@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cliente_lista"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dip"
+    android:paddingLeft="0dip"
+    android:paddingRight="0dip"
+    android:paddingTop="0dip"
+    tools:context="br.com.microserv.msvmobilepdv.cliente.ClienteListaActivity">
+
+
+    <LinearLayout
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Titulo (Filtro) -->
+        <LinearLayout
+            style="@style/panelTitle"
+            android:id="@+id/llyTitulo">
+
+            <TextView
+                style="@style/textTitleLeft"
+                android:id="@+id/txtTitulo"
+                android:text="( - ) FILTRO" />
+
+            <TextView
+                style="@style/textTitleRight"
+                android:id="@+id/txtNovo"
+                android:text="( + ) NOVO" />
+
+        </LinearLayout>
+
+
+        <!-- Filtro -->
+        <LinearLayout
+            style="@style/panelFilterContent"
+            android:id="@+id/llyFiltroCnt">
+
+            <!-- Cidade -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/textFilterLabel"
+                    android:text="CIDADE"/>
+
+                <LinearLayout
+                    style="@style/panelFilter"
+                    android:id="@+id/llyCidade" >
+
+                    <ImageView
+                        style="@style/imageFilterItem"
+                        android:id="@+id/ivFiltroCidade"
+                        android:src="@drawable/search_icon"/>
+
+                    <TextView
+                        style="@style/textFilterItem"
+                        android:id="@+id/txtCidade"
+                        android:text="NOME DA CIDADE" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Separador -->
+            <LinearLayout
+                style="@style/panelFilterSpace" />
+
+            <!-- Cliente -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/textFilterLabel"
+                    android:text="NOME DO CLIENTE"/>
+
+                <LinearLayout
+                    style="@style/panelFilter"
+                    android:id="@+id/llyCliente" >
+
+                    <ImageView
+                        style="@style/imageFilterItem"
+                        android:id="@+id/ivFiltroCliente"
+                        android:src="@drawable/search_icon"/>
+
+                    <TextView
+                        style="@style/textFilterItem"
+                        android:id="@+id/txtCliente"
+                        android:text="NOME DA CIDADE" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:paddingTop="7dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="7dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/livCliente"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/panelTitle"
+        android:id="@+id/llyRodape">
+
+        <TextView
+            style="@style/textTitleAll"
+            android:id="@+id/txtRodape"
+            android:text="REGISTROS: 15"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

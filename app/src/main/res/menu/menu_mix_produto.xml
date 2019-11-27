@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/mnClientHide"
+        android:title="Esconder dados do cliente"
+        android:icon="@drawable/msv_hide_white_64"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/mnClientShow"
+        android:title="Mostrar dados do cliente"
+        android:icon="@drawable/msv_show_white_64"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/mnStockList"
+        android:title="LISTA DOS PRODUTOS DO MIX"
+        android:icon="@drawable/msv_lista_white_64"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/mnStockEdit"
+        android:title="CONTAGEM DO ESTOQUE"
+        android:icon="@drawable/msv_edit_white_64"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/mnSummary"
+        android:title="RESUMO DE COMPRA" />
+
+
+    <item
+        android:id="@+id/mnClear"
+        android:title="LIMPAR DIGITAÇÃO" />
+
+</menu>

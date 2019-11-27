@@ -1,0 +1,56 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.com.microserv.msvmobilepdv.MainActivity">
+
+    <item
+        android:id="@+id/mnCliente"
+        android:title="Clientes"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnPedido"
+        android:title="Pedidos"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnProduto"
+        android:title="Produtos"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnSincronizarDados"
+        android:title="Sincronizar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnRelatorio"
+        android:title="Relatórios"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnConfiguracao"
+        android:title="Configurações"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnAtualizacao"
+        android:title="Atualizações"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnCopiarDados"
+        android:title="Copiar Dados"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnLimparTudo"
+        android:title="Limpar Tudo"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/mnSair"
+        android:title="Sair"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/list_top_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtProdutoCodigo"
+            android:text="0000000"
+            android:textColor="@color/indigo_700"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtProdutoDescricao"
+            android:text="BALDE PLASTICO 50LTRS BRANCO"
+            android:textColor="@color/indigo_700"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtEmbalagemQuantidade"
+            android:text="CX-12"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtValorUnitario"
+            android:text="1.234,50 ($)"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtDescontoPercentual"
+            android:text="100,00 (%)"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtDescontoValor"
+            android:text="100,00 ($)"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/list_top_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtVendaQuantidade"
+            android:text="100"
+            android:textColor="#000000"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtValorUnitarioLiquido"
+            android:text="1.234,50 ($)"
+            android:textAlignment="textEnd"
+            android:textColor="#000000"
+            android:layout_gravity="end"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtValorTotal"
+            android:text="1.256,89 ($)"
+            android:textAlignment="textEnd"
+            android:textColor="@color/red_800"
+            android:layout_gravity="end"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

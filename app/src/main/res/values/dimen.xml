@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="title_padding_left_right">7dp</dimen>
+    <dimen name="title_padding_top_bottom">7dp</dimen>
+
+    <dimen name="listview_margin_top_bottom">7dp</dimen>
+    <dimen name="listview_margin_left_right">7dp</dimen>
+
+    <dimen name="list_top_margin">7dp</dimen>
+    <dimen name="list_bottom_margin">7dp</dimen>
+
+</resources>

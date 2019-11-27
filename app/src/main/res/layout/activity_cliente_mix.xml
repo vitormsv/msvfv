@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cliente_produto_mix_lista"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="br.com.microserv.msvmobilepdv.cliente.ClienteProdutoMixListaActivity">
+
+    <!-- Cabeçalho com dados do cliente -->
+    <include
+        android:id="@+id/inCabecalho"
+        layout="@layout/include_cliente_cabecalho" />
+
+
+    <!-- Botões das guias -->
+    <!-- Recurso removido
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/indigo_500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/llyMixListaCnt"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="@color/indigo_300"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="LISTA"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llyMixContagemCnt"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="CONTAGEM"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    -->
+
+
+    <!-- Formulário lista do mix -->
+    <include
+        android:id="@+id/inLista"
+        layout="@layout/include_cliente_mix_lista" />
+
+
+    <!-- Formulário contagem do mix -->
+    <include
+        android:id="@+id/inEditar"
+        layout="@layout/include_cliente_mix_editar" />
+
+</LinearLayout>

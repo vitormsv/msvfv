@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/activity_cliente_detalhe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="br.com.microserv.msvmobilepdv.cliente.ClienteDetalheActivity">
+
+    <!-- Cabeçalho padrão para cliente -->
+    <include
+        android:id="@+id/inCabecalho"
+        layout="@layout/include_cliente_cabecalho" />
+
+
+    <!-- Botões das guias -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/indigo_500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Pedido -->
+        <LinearLayout
+            android:id="@+id/pnlPedidoMnt"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="@color/indigo_300"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="PEDIDOS"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!-- Financeiro -->
+        <LinearLayout
+            android:id="@+id/pnlFinanceiroMnt"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="FINANCEIRO"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!-- Ficha -->
+        <LinearLayout
+            android:id="@+id/pnlFichaMnt"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="FICHA"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- Container dos includes -->
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <!-- Include de lista de pedido -->
+       <include
+           android:id="@+id/inClienteDetalhePedido"
+           layout="@layout/include_cliente_detalhe_pedido">
+       </include>
+
+       <!-- Include de mix de produtos -->
+       <include
+           android:id="@+id/inClienteDetalheMix"
+           layout="@layout/include_cliente_detalhe_mix">
+       </include>
+
+       <!-- Include de detalhe financeiro -->
+       <include
+           android:id="@+id/inClienteDetalheFinanceiro"
+           layout="@layout/include_cliente_detalhe_financeiro">
+       </include>
+
+       <!-- Include de ficha cadastral do cliente -->
+       <include
+           android:id="@+id/inClienteDetalheFicha"
+           layout="@layout/include_cliente_detalhe_ficha">
+       </include>
+
+   </LinearLayout>
+
+</LinearLayout>

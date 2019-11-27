@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_cliente_editar"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.microserv.msvmobilepdv.extra.WsEnderecoActivity">
+
+    <!-- Titulo (Filtro) -->
+    <LinearLayout
+        android:id="@+id/llyTitulo"
+        style="@style/panelTitle">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            style="@style/textTitleAll"
+            android:text="INSERINDO CLIENTE" />
+
+    </LinearLayout>
+
+
+    <!-- Campos do formulário -->
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <!-- Container principal do ScrollView -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!-- Endereço anterior do WS -->
+            <LinearLayout
+                android:id="@+id/pnlWsOldCnt"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Endereço Atual"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnllWsOld"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtWsOld"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Novo endereço para o WS -->
+            <LinearLayout
+                android:id="@+id/pnlWsNewCnt"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Novo Endereço"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/pnlWsNew"
+                    android:orientation="horizontal"
+                    android:background="#FFFFFF"
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgRazaoSocial"
+                        android:src="@drawable/img_pencil"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
+
+                    <TextView
+                        android:id="@+id/txtWsNew"
+                        android:text=""
+                        android:textColor="@color/colorPrimary"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pnlRazaoSocialObr"
+                    android:orientation="horizontal"
+                    android:background="@color/orange_500"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp">
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- Endereço validado com sucesso -->
+            <LinearLayout
+                android:id="@+id/pnlWsIsOkCnt"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="20dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/pnlWsIsOk"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+
+                    android:padding="7dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imgWsIsOk"
+                        android:src="@drawable/msv_ok_64_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    
+                    <TextView
+                        android:id="@+id/txtWsIsOk"
+                        android:text="ENDEREÇO VALIDADO COM SUCESSO !!!"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

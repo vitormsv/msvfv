@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Titulo da activity -->
+    <LinearLayout
+        android:id="@+id/pnlTitulo"
+        android:orientation="horizontal"
+        android:background="@color/colorTitleBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:text="SITUAÇÃO FINANCEIRA"
+            android:textColor="@color/colorTitleForeground"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_left_right"
+            android:paddingRight="@dimen/title_padding_left_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <!-- Painel das parcelas -->
+    <LinearLayout
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingTop="7dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/livParcelaLista"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"></ListView>
+
+    </LinearLayout>
+
+
+    <!-- Painel de totais vencidos e a vencer -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/grey_100"
+        android:paddingTop="12dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Total geral devido pelo cliente -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Total devido"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtTotalDevidoGeral"
+                android:text="R$ 99.999,99"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!-- Total devido pelo cliente já vencido -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Total já vencido"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtTotalDevidoVencido"
+                android:text="R$ 99.999,99"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <!-- Rodapé da activity -->
+    <LinearLayout
+        android:id="@+id/pnlRodape"
+        android:orientation="horizontal"
+        android:background="@color/colorTitleBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtRegistro"
+            android:text="REGISTROS: 0"
+            android:textColor="@color/colorTitleForeground"
+            android:paddingTop="@dimen/title_padding_top_bottom"
+            android:paddingBottom="@dimen/title_padding_top_bottom"
+            android:paddingLeft="@dimen/title_padding_left_right"
+            android:paddingRight="@dimen/title_padding_left_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

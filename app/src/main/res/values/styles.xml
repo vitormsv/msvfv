@@ -1,0 +1,194 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"></style>
+
+
+    <style name="textPrimary">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="textNormal">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">@color/msv_label</item>
+    </style>
+
+    <!-- Menu Style -->
+    <style name="panelMenuRow">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <style name="panelMenuCell">
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textMenu">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!-- Title Style -->
+    <style name="panelTitle">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/colorTitleBackground</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textTitleAll">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">@color/colorTitleForeground</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textTitleLeft">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">@color/colorTitleForeground</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textTitleRight">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">@color/colorTitleForeground</item>
+        <item name="android:gravity">end</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+    <!-- Subtitle Style -->
+    <style name="panelSubtitle">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/msv_subtitle_background</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="imageSubtitle">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">22dp</item>
+    </style>
+
+    <style name="textSubtitle">
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:textColor">@color/msv_subtitle_foreground</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+    <!-- IdentityBar Style -->
+
+    <style name="panelIdentityBar">
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@color/colorIdentityBarBackground</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textIdentityBarAll">
+        <item name="android:textAppearance">?android:attr/textAppearance</item>
+        <item name="android:textColor">@color/colorIdentityBarForeground</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+    <!-- Filter Style -->
+    <style name="panelFilterContent">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="textFilterLabel">
+        <item name="android:textColor">@color/msv_label</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="panelFilter">
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="imageFilterItem">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+
+    <style name="textFilterItem">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="panelFilterSpace">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">7dp</item>
+    </style>
+    
+</resources>
