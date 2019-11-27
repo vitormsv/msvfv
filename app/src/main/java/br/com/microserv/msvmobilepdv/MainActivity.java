@@ -106,10 +106,8 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
         _ab.setDisplayHomeAsUpEnabled(true);
         _ab.setElevation(0);
 
-
         // Gerar chave única para o dispositivo
         // String _uuid = UUID.randomUUID().toString();
-
 
         this.bindElements();
         this.bindEvents();
