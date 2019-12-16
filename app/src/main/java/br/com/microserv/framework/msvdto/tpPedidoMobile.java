@@ -711,12 +711,12 @@ public class tpPedidoMobile
         _html.append("        <tr>");
         _html.append("            <td a=\"1\">Vendedor</td>");
         _html.append("            <td a=\"1\">Condição de Pagamento</td>");
-        _html.append("            <td a=\"1\">Tabela de Preço</td>");
+        //_html.append("            <td a=\"1\">Tabela de Preço</td>");
         _html.append("        </tr>");
         _html.append("        <tr>");
         _html.append("            <td a=\"2\">" + this.Vendedor.Nome + "</td>");
         _html.append("            <td a=\"2\">" + this.CondicaoPagamento.Descricao + "</td>");
-        _html.append("            <td a=\"2\">" + this.TabelaPreco.Descricao + "</td>");
+        //_html.append("            <td a=\"2\">" + this.TabelaPreco.Descricao + "</td>");
         _html.append("        </tr>");
         _html.append("    </table>");
         _html.append("    <table cellpadding=\"0\" cellspacing=\"0\">");
@@ -765,7 +765,7 @@ public class tpPedidoMobile
             _html.append("        <tr>");
             _html.append("            <td a=\"2\">" + _item.Produto.Codigo + "</td>");
             _html.append("            <td a=\"2\">" + _item.Produto.Descricao + "</td>");
-            _html.append("            <td a=\"2\">" + _item.Produto.UnidadeMedida + "-" + _item.Produto.PackQuantidade + "</td>");
+            _html.append("            <td a=\"2\">" + _item.Produto.UnidadeMedida + "</td>"); // + "-" + _item.Produto.PackQuantidade + );
             _html.append("            <td a=\"2\" class=\"al\">" + MSVUtil.doubleToText(_item.UnidadeValor) + "</td>");
             _html.append("            <td a=\"2\" class=\"al\">" + MSVUtil.doubleToText(_item.UnidadeDescontoValor) + "</td>");
             _html.append("            <td a=\"2\" class=\"al\">" + MSVUtil.doubleToText(_item.UnidadeValorLiquido) + "</td>");

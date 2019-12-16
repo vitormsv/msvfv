@@ -1477,7 +1477,6 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
             );
 
             return;
-
         }
         // endregion
 
@@ -1486,10 +1485,9 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
 
         for (tpPedidoMobile _tp : _lstPedidoMobileFlt) {
 
-            if (_tp.EhSincronizado == 0) {
+            if (_tp.EhSincronizado == 0 && _tp.EhConfirmado == 1) {
                 _lstPedidoMobileSync.add(_tp.IdPedidoMobile);
             }
-
         }
         // endregion
 

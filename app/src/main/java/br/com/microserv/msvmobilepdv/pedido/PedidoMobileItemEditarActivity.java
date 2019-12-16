@@ -40,6 +40,7 @@ import br.com.microserv.framework.msvutil.eSQLConditionType;
 import br.com.microserv.framework.msvutil.eSQLiteDataType;
 import br.com.microserv.framework.msvdal.dbParametro;
 import br.com.microserv.framework.msvdto.tpParametro;
+import br.com.microserv.msvmobilepdv.Exception.ExceptionHandler;
 import br.com.microserv.msvmobilepdv.produto.ProdutoDetalheImagemActivity;
 import br.com.microserv.msvmobilepdv.produto.ProdutoSearchActivity;
 import br.com.microserv.msvmobilepdv.R;
@@ -175,6 +176,7 @@ public class PedidoMobileItemEditarActivity
         setContentView(R.layout.activity_pedido_mobile_item);
         // endregion
 
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this, getIntent().getExtras()));
 
         // region Dando suporte a ActionBar
         ActionBar _ab = getSupportActionBar();
@@ -262,7 +264,7 @@ public class PedidoMobileItemEditarActivity
 
             // region _KEY_LST_PRODUTO_INCLUIDO
 
-            if(_metodoEdicao == _INSERT_VALUE) {
+            if (_metodoEdicao == _INSERT_VALUE) {
 
                 if (_extras.containsKey(_KEY_LST_PRODUTO_INCLUIDO)) {
                     _lstProdutoIncluido = (ArrayList<String>) _extras.getSerializable(_KEY_LST_PRODUTO_INCLUIDO);
@@ -290,6 +292,17 @@ public class PedidoMobileItemEditarActivity
             }
             // endregion
 
+
+            // region _KEY_EXCEPTION
+            if(_extras.containsKey(ExceptionHandler._KEY_EXCEPTION)){
+                Toast.makeText(
+                        this,
+                        "Erro: " + _extras.getString(ExceptionHandler._KEY_EXCEPTION),
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+            // endregion
+
         }
         // endregion
 
@@ -309,8 +322,7 @@ public class PedidoMobileItemEditarActivity
 
 
     // region Método setProperties
-    private void setProperties()
-    {
+    private void setProperties() {
 
         // region Declarando variáveis do método
         SQLiteHelper _sqh = null;
@@ -333,7 +345,7 @@ public class PedidoMobileItemEditarActivity
 
             // region Realizando a leitura dos parametros necessários
             _tpDescontoItemEhPermitido = _db.getDescontoItemEhPermitido();
-            _tpValorItemEhLiberado     = _db.getValorItemEhLiberado();
+            _tpValorItemEhLiberado = _db.getValorItemEhLiberado();
             // endregion
 
             // region Fazendo uso dos parâmetros
@@ -341,11 +353,12 @@ public class PedidoMobileItemEditarActivity
             // region DescontoItemEhPermitido
             if (_tpDescontoItemEhPermitido != null) {
 
-                if(_tpDescontoItemEhPermitido.ValorInteiro == 0)
-                {
+                if (_tpDescontoItemEhPermitido.ValorInteiro == 0) {
                     _DESCONTO_ITEM_EH_PERMITIDO = 0;
                     _pnlDescontoPercentualCnt.setVisibility(View.GONE);
                     _pnlDescontoValorCnt.setVisibility(View.GONE);
+                } else {
+                    _DESCONTO_ITEM_EH_PERMITIDO = 1;
                 }
 
             }
@@ -354,12 +367,13 @@ public class PedidoMobileItemEditarActivity
             // region ValorItemEhLiberado
             if (_tpValorItemEhLiberado != null) {
 
-                if(_tpValorItemEhLiberado.ValorInteiro == 0)
-                {
+                if (_tpValorItemEhLiberado.ValorInteiro == 0) {
+                    _PEDIDO_VALOR_UNITARIO_LIBERADO = 0;
                     _imgValorUnitario.setVisibility(View.INVISIBLE);
                     _txtValorUnitario.setTextColor(Color.GRAY);
+                } else {
+                    _PEDIDO_VALOR_UNITARIO_LIBERADO = 1;
                 }
-
             }
             // endregion
 
@@ -368,7 +382,7 @@ public class PedidoMobileItemEditarActivity
         } catch (Exception e) {
 
             MSVMsgBox.showMsgBoxError(
-                PedidoMobileItemEditarActivity.this,
+                    PedidoMobileItemEditarActivity.this,
                     "Erro ao tentar realizar a leitura de parâmetros do sistema",
                     e.getMessage()
             );
@@ -383,7 +397,7 @@ public class PedidoMobileItemEditarActivity
         // endregion
 
     }
-    // endergion
+    // endregion
 
 
     // region onCreateOptionsMenu
@@ -580,7 +594,40 @@ public class PedidoMobileItemEditarActivity
                             public void onCloseDialog(boolean isOk, String value) {
 
                                 if (!MSVUtil.isNullOrEmpty(value.trim())) {
+
                                     searchProductByCode(value);
+
+                                    if (_tpPedidoMobileItem.Produto != null && _tpPedidoMobileItem.IdProduto != 0) {
+
+                                        MSVMsgBox.getIntValue(
+                                                PedidoMobileItemEditarActivity.this,
+                                                "QUANTIDADE",
+                                                "Informe a quantidade vendida do item",
+                                                Double.valueOf(_tpPedidoMobileItem.UnidadeVendaQuantidade).intValue(),
+                                                new OnCloseDialog() {
+                                                    @Override
+                                                    public void onCloseDialog(boolean isOk, String value) {
+
+                                                        if (isOk) {
+
+                                                            _tpPedidoMobileItem.UnidadeVendaQuantidade = MSVUtil.parseInt(value);
+
+                                                            afterVendaQuantidade();
+                                                            refreshFormData();
+
+                                                        }
+
+                                                    }
+                                                }
+                                        );
+                                    } else {
+                                        Toast.makeText(
+                                                PedidoMobileItemEditarActivity.this,
+                                                "Não existe produto com o Código informado",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+                                    }
+
                                 } else {
                                     Toast.makeText(
                                             PedidoMobileItemEditarActivity.this,
@@ -646,12 +693,9 @@ public class PedidoMobileItemEditarActivity
             public void onClick(View v) {
 
                 // region Validações antes de abrir a janela de dialogo
-
-
                 //Caso o Parametro de PedidoValorEhLiberado seja igual 0,
                 // não deixa abrir nada
-                if(_PEDIDO_VALOR_UNITARIO_LIBERADO == 0)
-                {
+                if (_PEDIDO_VALOR_UNITARIO_LIBERADO == 0) {
                     return;
                 }
 
@@ -1089,7 +1133,6 @@ public class PedidoMobileItemEditarActivity
                     }
 
 
-
                 }
 
             }
@@ -1180,7 +1223,7 @@ public class PedidoMobileItemEditarActivity
                                 "%s - %s",
                                 _tpPedidoMobileItem.Produto.UnidadeMedida,
                                 _tpPedidoMobileItem.PackQuantidade
-                                )
+                        )
                 );
 
                 if (_tpPedidoMobileItem.Produto.TabelaPrecoProduto != null) {
@@ -1230,7 +1273,7 @@ public class PedidoMobileItemEditarActivity
 
 
         // region Completando o código do produto com zeros
-        if (value.length() != 5) {
+        if (value.length() < 5) {
             value = String.format("%05d", Integer.parseInt(value));
         }
         // endregion
@@ -1681,7 +1724,7 @@ public class PedidoMobileItemEditarActivity
 
 
     //region validarDescontoPercentual
-    private boolean validarDescontoPercentual(){
+    private boolean validarDescontoPercentual() {
 
         boolean _Out = true;
 
@@ -1691,15 +1734,14 @@ public class PedidoMobileItemEditarActivity
         // calculando o valor unitário líquido
         double UnidadeValorLiquido = (_tpPedidoMobileItem.UnidadeValor - UnidadeDescontoValor);
 
-        if(this.ceilDecimal(UnidadeValorLiquido) > _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo)
-        {
+        if (this.ceilDecimal(UnidadeValorLiquido) > _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo) {
 
 
             MSVMsgBox.showMsgBoxInfo(
                     PedidoMobileItemEditarActivity.this,
                     "Erro de Validação",
-                    "Atenção, o preço selecionado é maior que o preço máximo permitido. " +  _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo + "."
-                    );
+                    "Atenção, o preço selecionado é maior que o preço máximo permitido. " + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo + "."
+            );
 
             _Out = false;
 
@@ -1707,14 +1749,13 @@ public class PedidoMobileItemEditarActivity
 
         double teste = this.ceilDecimal(UnidadeValorLiquido);
 
-        if(this.ceilDecimal(UnidadeValorLiquido) < _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo)
-        {
+        if (this.ceilDecimal(UnidadeValorLiquido) < _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo) {
 
             MSVMsgBox.showMsgBoxInfo(
                     PedidoMobileItemEditarActivity.this,
                     "Erro de Validação",
-                    "Atenção, o preço selecionado é menor que o preço mínimo permitido. (R$" + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo  + ")."
-                    );
+                    "Atenção, o preço selecionado é menor que o preço mínimo permitido. (R$" + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo + ")."
+            );
 
 
             _Out = false;
@@ -1728,33 +1769,31 @@ public class PedidoMobileItemEditarActivity
 
 
     //region validarDescontoValor
-    private boolean validarDescontoValor(){
+    private boolean validarDescontoValor() {
 
         boolean _Out = true;
 
         double UnidadeValorLiquido = (_tpPedidoMobileItem.UnidadeValor - _tpPedidoMobileItem.UnidadeDescontoValor);
 
-        if(this.ceilDecimal(UnidadeValorLiquido) > _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo)
-        {
+        if (this.ceilDecimal(UnidadeValorLiquido) > _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo) {
 
 
             MSVMsgBox.showMsgBoxInfo(
                     PedidoMobileItemEditarActivity.this,
                     "Erro de Validação",
-                    "Atenção, o preço selecionado é maior que o preço máximo permitido. " +  _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo + "."
+                    "Atenção, o preço selecionado é maior que o preço máximo permitido. " + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo + "."
             );
 
             _Out = false;
 
         }
 
-        if(this.ceilDecimal(UnidadeValorLiquido) < _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo)
-        {
+        if (this.ceilDecimal(UnidadeValorLiquido) < _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo) {
 
             MSVMsgBox.showMsgBoxInfo(
                     PedidoMobileItemEditarActivity.this,
                     "Erro de Validação",
-                    "Atenção, o preço selecionado é menor que o preço mínimo permitido. (R$" + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo  + ")."
+                    "Atenção, o preço selecionado é menor que o preço mínimo permitido. (R$" + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo + ")."
             );
 
 
@@ -1770,7 +1809,7 @@ public class PedidoMobileItemEditarActivity
 
 
     //region validarValorUnitario
-    private boolean validarValorUnitario(){
+    private boolean validarValorUnitario() {
 
         return validarDescontoValor();
 
@@ -1872,23 +1911,21 @@ public class PedidoMobileItemEditarActivity
         }
         // endregion
 
-        if(_tpPedidoMobileItem.UnidadeValorLiquido < _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo)
-        {
+        if (_tpPedidoMobileItem.UnidadeValorLiquido < _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo) {
             MSVMsgBox.showMsgBoxError(
                     PedidoMobileItemEditarActivity.this,
                     "UNIDADE VALOR LIQUIDO",
-                    "Atenção, o preço selecionado é menor que o preço mínimo permitido. " +  _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo + "."
+                    "Atenção, o preço selecionado é menor que o preço mínimo permitido. " + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMinimo + "."
             );
 
             return false;
         }
 
-        if(_tpPedidoMobileItem.UnidadeValorLiquido > _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo)
-        {
+        if (_tpPedidoMobileItem.UnidadeValorLiquido > _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo) {
             MSVMsgBox.showMsgBoxError(
                     PedidoMobileItemEditarActivity.this,
                     "UNIDADE VALOR LIQUIDO",
-                    "Atenção, o preço selecionado é maior que o preço máximo permitido. " +  _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo + "."
+                    "Atenção, o preço selecionado é maior que o preço máximo permitido. " + _tpPedidoMobileItem.Produto.TabelaPrecoProduto.PrecoMaximo + "."
             );
 
             return false;
@@ -1985,11 +2022,10 @@ public class PedidoMobileItemEditarActivity
 
 
     //region formatDecimal
-    private double ceilDecimal(Double Numero){
+    private double ceilDecimal(Double Numero) {
 
 
-        if(Numero == null)
-        {
+        if (Numero == null) {
             Numero = 0D;
         }
 
@@ -1998,5 +2034,6 @@ public class PedidoMobileItemEditarActivity
 
     }
     //endregion
+
 
 }

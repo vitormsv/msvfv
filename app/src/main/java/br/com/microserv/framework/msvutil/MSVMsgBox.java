@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -335,6 +338,8 @@ public class MSVMsgBox {
         // cuidando o campo que permitie a digitação do novo valor
         final EditText _edtDialogNewValue = (EditText) _v.findViewById(R.id.edtDialogNewValue);
         _edtDialogNewValue.setText("");
+        _edtDialogNewValue.setFocusableInTouchMode(true);
+        _edtDialogNewValue.requestFocus();
         // endregion
 
         // atribuindo o evento do botão de cópia
@@ -375,6 +380,7 @@ public class MSVMsgBox {
         });
 
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 
@@ -444,6 +450,7 @@ public class MSVMsgBox {
         });
 
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 
@@ -513,6 +520,7 @@ public class MSVMsgBox {
         });
 
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 
@@ -582,6 +590,7 @@ public class MSVMsgBox {
         });
 
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 
@@ -651,7 +660,14 @@ public class MSVMsgBox {
             }
         });
 
+        TextView _edtNewItem =(TextView) _v.findViewById(R.id.edtDialogNewValue);
+        _edtNewItem.requestFocus();
+
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(_edtNewItem, InputMethodManager.SHOW_IMPLICIT);
+
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 
@@ -722,6 +738,7 @@ public class MSVMsgBox {
         });
 
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 
@@ -792,6 +809,7 @@ public class MSVMsgBox {
         });
 
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 
@@ -863,6 +881,7 @@ public class MSVMsgBox {
         });
 
         AlertDialog _dialog = _builder.create();
+        _dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         _dialog.show();
         // endregion
 

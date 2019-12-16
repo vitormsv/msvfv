@@ -266,7 +266,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
                 MSVMsgBox.getStringValue(
                         ProdutoSearchActivity.this,
                         "PESQUISAR PRODUTO",
-                        "Informa parte do texto que deseja para buscar o produto. O valor informado irá pesquisar nos campos: Código, Código de Barras e Descrição",
+                        "Será pesquisado pelos campos: Código, Código de Barras e Descrição",
                         _txtProdutoDescricao.getText().toString(),
                         new OnCloseDialog() {
                             @Override

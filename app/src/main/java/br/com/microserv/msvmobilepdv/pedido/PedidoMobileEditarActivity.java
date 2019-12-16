@@ -2186,11 +2186,18 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 if ((_tpPedidoMobile.Itens != null) && (_tpPedidoMobile.Itens.size() > 0)) {
 
                     dbProduto _dbProduto = new dbProduto(_sqh);
+                    dbTabelaPrecoProduto _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
+                    SQLClauseHelper _where = new SQLClauseHelper();
+
 
                     for(tpPedidoMobileItem _tp : _tpPedidoMobile.Itens){
                         _tp.Produto = (tpProduto) _dbProduto.getBySourceId(_tp.IdProduto);
-                    }
+                        _where.clearAll();
+                        _where.addEqualInteger("IdProduto", _tp.IdProduto);
+                        _where.addEqualInteger("IdTabelaPreco", _tpPedidoMobile.IdTabelaPreco);
 
+                        _tp.Produto.TabelaPrecoProduto = (tpTabelaPrecoProduto)_dbTabelaPrecoProduto.getOne(_where);
+                    }
                 }
                 // endregion
             }
@@ -2814,6 +2821,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             _lstClienteMix = _dbClienteMix.getList(tpClienteMix.class, _whereClienteMix);
             // endregion
 
+            // region Incluindo a Tabela de preco
+            _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
+            SQLClauseHelper _whereTabelaPrecoProduto = new SQLClauseHelper();
+            // endregion
+
 
             // region Recuperando informações acessorias para cada item do mix
             if ((_lstClienteMix != null) && (_lstClienteMix.size() > 0)) {
@@ -2876,11 +2888,18 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     _tpItem.Produto = (tpProduto) _tpProduto.clone();
                     // endregion
 
+                    // region Incluindo a Tabela de preco ao produto
+                    _whereTabelaPrecoProduto.clearAll();
+                    _whereTabelaPrecoProduto.addEqualInteger("IdProduto", _tpItem.IdProduto);
+                    _whereTabelaPrecoProduto.addEqualInteger("IdTabelaPreco", _tpPedidoMobile.IdTabelaPreco);
+
+                    _tpItem.Produto.TabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_whereTabelaPrecoProduto);
+                    // endregion
+
                     // region Adicionando o item na lista do pedido ********************************
                     _tpPedidoMobile.Itens.add(_tpItem);
                     // endregion
                 }
-
             }
             // endregion
 
