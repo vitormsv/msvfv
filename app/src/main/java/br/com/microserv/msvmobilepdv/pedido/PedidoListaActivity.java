@@ -387,7 +387,7 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
 
                 // region Carregando as informações do pedido selecionado
                 _iPedidoMobileSelected = position;
-                _tpPedidoMobileSelected = _lstPedidoMobile.get(position);
+                _tpPedidoMobileSelected = getPedidoSelected(position);
                 // endregion
 
                 // region Verificando a necessidade de instânciar o adapter
@@ -515,6 +515,18 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
         });
         // endregion
 
+    }
+    // endregion
+
+
+    // region GetPedidoSelected
+    private tpPedidoMobile getPedidoSelected(int position){
+
+        if(_lstPedidoMobileFlt != null && _lstPedidoMobileFlt.size() > 0) {
+            return _lstPedidoMobileFlt.get(position);
+        }else {
+            return _lstPedidoMobile.get(position);
+        }
     }
     // endregion
 
@@ -1450,7 +1462,6 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
         }
         // endregion
 
-
         // region Verificando se existem pedidos para sincronização
         if (_lstPedidoMobileFlt.size() == 0) {
 
@@ -1465,7 +1476,6 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
             return;
         }
         // endregion
-
 
         // region verificando se existe conexão no aparelho
         if (MSVUtil.isConnected(PedidoListaActivity.this) == false) {
@@ -1535,15 +1545,12 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
                                 // endregion
 
                             }
-
                         }
                     }
             );
             // endregion
-
         }
         // endregion
-
     }
     // endregion
 
@@ -1560,7 +1567,6 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
             _pnlFiltroCnt.setVisibility(View.GONE);
             _txtTitulo.setText("( + ) MOSTRAR FILTRO");
         }
-
     }
     // endregion
 
@@ -1610,7 +1616,6 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
         _tpSalvarTexto.ImageResource = R.drawable.msv_small_save_black;
         // endregion
 
-
         // region Adicionando as opções na lista
         if (_lstItemOptions == null) {
             _lstItemOptions = new ArrayList<tpKeyValueRow>();
@@ -1623,14 +1628,12 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
         _lstItemOptions.add(_tpExcluir);
         _lstItemOptions.add(_tpSalvarTexto);
         // endregion
-
     }
     // endregion
 
 
     //region ValidarIntegridadeDosPedidos
-    private void ValidarIntegridadeDosPedidos()
-    {
+    private void ValidarIntegridadeDosPedidos() {
 
         ArrayList<tpPedidoMobile> _lstPedidoMobileToRemove = new ArrayList<tpPedidoMobile>();
 
@@ -1660,29 +1663,23 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
                     EhValido = false;
                 }
 
-
                 //Validando integridada com a tabela Cliente
                 if (_tpPedidoMobile.Cliente == null) {
                     EhValido = false;
                 }
-
 
                 //Validando integridada com a tabela Vendedor
                 if (_tpPedidoMobile.Vendedor == null) {
                     EhValido = false;
                 }
 
-
                 if (EhValido == false) {
                     _lstPedidoMobileToRemove.add(_tpPedidoMobile);
                 }
-
             }
-
         }
 
         _lstPedidoMobile.removeAll(_lstPedidoMobileToRemove);
-
     }
     //endregion
 
@@ -1697,9 +1694,6 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
         _intent.putExtras(_extras);
 
         startActivity(_intent);
-
-
     }
     // endregion
-
 }
