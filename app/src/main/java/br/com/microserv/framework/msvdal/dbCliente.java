@@ -10,6 +10,7 @@ import br.com.microserv.framework.msvdto.tpCidade;
 import br.com.microserv.framework.msvdto.tpCliente;
 import br.com.microserv.framework.msvdto.tpClienteListaRow;
 import br.com.microserv.framework.msvdto.tpClienteProdutoMixRow;
+import br.com.microserv.framework.msvdto.tpCondicaoPagamento;
 import br.com.microserv.framework.msvdto.tpFinanceiro;
 import br.com.microserv.framework.msvdto.tpPedidoMobileItem;
 import br.com.microserv.framework.msvdto.tpProduto;
@@ -57,6 +58,7 @@ public class dbCliente extends dbBase implements dbInterface {
 
         dbCidade _dbCidade = null;
         dbRegiao _dbRegiao = null;
+        dbCondicaoPagamento _dbCondicaoPagamento = null;
         // endregion
 
         // region Bloco protegido de exceção
@@ -70,6 +72,11 @@ public class dbCliente extends dbBase implements dbInterface {
             // region Buscando as informações da Região
             _dbRegiao = new dbRegiao(_dbHelper);
             _tpCliente.Regiao = (tpRegiao) _dbRegiao.getBySourceId(_tpCliente.IdRegiao);
+            // endregion
+
+            // region Buscando as informações da Condicao de Pagamento
+            _dbCondicaoPagamento = new dbCondicaoPagamento(_dbHelper);
+            _tpCliente.CondicaoPagamentoPadrao = (tpCondicaoPagamento) _dbCondicaoPagamento.getBySourceId(_tpCliente.IdCondicaoPagamentoPadrao);
             // endregion
 
             // region Invocando o método da classe ancestral
@@ -111,6 +118,7 @@ public class dbCliente extends dbBase implements dbInterface {
                     _tp.IdCliente = _c.getInt(_c.getColumnIndexOrThrow("IdCliente"));
                     _tp.Codigo = _c.getString(_c.getColumnIndexOrThrow("Codigo"));
                     _tp.RazaoSocial = _c.getString(_c.getColumnIndexOrThrow("RazaoSocial"));
+                    //_tp.IdCondicaoPagamentoPadrao = _c.getColumnIndexOrThrow("IdCondicaoPagamentoPadrao");
 
                     if (_out == null) {
                         _out = new ArrayList<tpCliente>();

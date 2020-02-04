@@ -342,6 +342,21 @@ public class tpCliente extends tpBase implements tpInterface {
     // endregion
 
 
+    // region IdCondicaoPagamentoPadrao
+    @ALongField(
+            initialValue = 0,
+            minValue = 0,
+            maxValue = 0
+    )
+    @APostAction(
+            insert = true,
+            update = true,
+            delete = false
+    )
+    @AWebapiField
+    public long IdCondicaoPagamentoPadrao;
+    // endregion
+
     // --------------------------------------------------- //
 
 
@@ -351,6 +366,10 @@ public class tpCliente extends tpBase implements tpInterface {
 
     // region Regiao
     public tpRegiao Regiao;
+    // endregion
+
+    // region CondicaoPagamentoPadrao
+    public tpCondicaoPagamento CondicaoPagamentoPadrao;
     // endregion
 
     // region Tabela de preço da empresa

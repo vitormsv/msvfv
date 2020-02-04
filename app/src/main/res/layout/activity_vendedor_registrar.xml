@@ -71,11 +71,11 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Para realizar o registro de um vendedor ao dispositivel móvel, certifique-se de o mesmo está com internt ativa, seja ela por wi-fi ou por conexão 3G"
-                android:textColor="@color/indigo_500"
-                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Para realizar o registro de um vendedor ao dispositivel móvel, certifique-se de o mesmo está com internet ativa, seja ela por wi-fi ou por conexão 3G"
+                android:textColor="@color/indigo_500" />
 
         </LinearLayout>
 

@@ -63,7 +63,7 @@ public class ClienteApi extends AsyncTask<Void, Void, Void> {
     private long _last = 0;
     private long _out = 0;
     private long _top = 0;
-
+    private long _idEmpresa = 0;
     // endregion
 
 
@@ -129,11 +129,12 @@ public class ClienteApi extends AsyncTask<Void, Void, Void> {
                 // endregion
 
                 // region Conectando com o webservice e recuperando a string json
-                _url = "http://{ip}/api/cliente/{vendedor}/top/{top}/{last}";
+                _url = "http://{ip}/api/cliente/{vendedor}/top/{top}/{last}/{idempresa}";
                 _url = _url.replace("{ip}", _ip);
                 _url = _url.replace("{vendedor}", _vendedor);
                 _url = _url.replace("{top}", String.valueOf(_top));
                 _url = _url.replace("{last}", String.valueOf(_last));
+                _url = _url.replace("{idempresa}", String.valueOf(_idEmpresa));
 
                 URL url = new URL(_url);
                 URLConnection urlConnection = url.openConnection();
@@ -413,6 +414,7 @@ public class ClienteApi extends AsyncTask<Void, Void, Void> {
             String ip,
             String vendedor,
             int indice,
+            long idEmpresa,
             OnTaskCompleteListner onTaskCompleteListner
     ) {
 
@@ -421,7 +423,7 @@ public class ClienteApi extends AsyncTask<Void, Void, Void> {
         this._vendedor = vendedor;
         this._indice = indice;
         this._onTaskCompleteListner = onTaskCompleteListner;
-
+        this._idEmpresa = idEmpresa;
     }
     // endregion
 

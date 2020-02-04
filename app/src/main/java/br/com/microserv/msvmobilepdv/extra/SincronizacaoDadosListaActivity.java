@@ -276,7 +276,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
 
                 switch (index) {
 
-                    // region Empresa
+                    // region Linha
                     case 0:
 
                         _tp = _lstItens.get(index);
@@ -297,7 +297,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Linha de produtos
+                    // region Grupo Produto
                     case 1:
 
                         _tp = _lstItens.get(index);
@@ -318,7 +318,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Grupo de produtos
+                    // region Tipo de Pedido
                     case 2:
 
                         _tp = _lstItens.get(index);
@@ -339,7 +339,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Tipos de pedido
+                    // region Condicao de Pagamento
                     case 3:
 
                         _tp = _lstItens.get(index);
@@ -360,7 +360,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Condicao de pagamento
+                    // region Transportadora
                     case 4:
 
                         _tp = _lstItens.get(index);
@@ -381,7 +381,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Transportadora
+                    // region Tabela de Preco
                     case 5:
 
                         _tp = _lstItens.get(index);
@@ -402,7 +402,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Tabela de Preço
+                    // region Produto
                     case 6:
 
                         _tp = _lstItens.get(index);
@@ -423,7 +423,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Produto
+                    // region Cidade
                     case 7:
 
                         _tp = _lstItens.get(index);
@@ -444,7 +444,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Cidade
+                    // region Cliente
                     case 8:
 
                         _tp = _lstItens.get(index);
@@ -459,13 +459,14 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                                 _tpServidorRestIp.ValorTexto,
                                 _tpVendedorCodigo.ValorTexto,
                                 9,
+                                EmpresaApi.IDEMPRESA,
                                 onTaskCompleteListner
                         ).execute();
 
                         break;
                     // endregion
 
-                    // region Cliente
+                    // region Parametro
                     case 9:
 
                         _tp = _lstItens.get(index);
@@ -486,7 +487,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                         break;
                     // endregion
 
-                    // region Parametros
+                    // region RobinHood
                     case 10:
 
                         _tp = _lstItens.get(index);

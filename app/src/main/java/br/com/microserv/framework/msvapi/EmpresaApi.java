@@ -27,6 +27,10 @@ import br.com.microserv.framework.msvutil.eTaskCompleteStatus;
 
 public class EmpresaApi extends AsyncTask<Void, Void, Void> {
 
+    // region Variável statica com o IdEmpresa
+    public static long IDEMPRESA;
+    // endregion
+
     // region Declarando variáveis locais da classe
 
     // Delegate
@@ -104,7 +108,7 @@ public class EmpresaApi extends AsyncTask<Void, Void, Void> {
                 // inserindo o objeto _tpEmpresa na tabela Empresa
                 _dbEmpresa.insert(_tpEmpresa);
 
-
+                IDEMPRESA = _tpEmpresa.IdEmpresa;
                 // atualizando a variável de retorno
                 _out += 1;
             }

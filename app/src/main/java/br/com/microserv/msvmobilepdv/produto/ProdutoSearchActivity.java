@@ -30,6 +30,8 @@ import br.com.microserv.msvmobilepdv.R;
 import br.com.microserv.msvmobilepdv.adapter.GrupoDialogSearchAdapter;
 import br.com.microserv.msvmobilepdv.adapter.LinhaDialogSearchAdapter;
 import br.com.microserv.msvmobilepdv.adapter.ProdutoSearchAdapter;
+import br.com.microserv.msvmobilepdv.pedido.PedidoMobileEditarActivity;
+import br.com.microserv.msvmobilepdv.pedido.PedidoMobileItemEditarActivity;
 
 public class ProdutoSearchActivity extends AppCompatActivity implements ActivityInterface {
 
@@ -194,6 +196,11 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         bindElements();
         bindEvents();
         initialize();
+
+        if(!PedidoMobileEditarActivity._PESQUISA_VALUE.isEmpty()){
+            _sProduto = PedidoMobileEditarActivity._PESQUISA_VALUE;
+            this.loadProduto();
+        }
     }
     // endregion
 
@@ -286,6 +293,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
 
                                 } else {
                                     _txtProdutoDescricao.setText(_sProduto.toUpperCase());
+                                    PedidoMobileEditarActivity._PESQUISA_VALUE = _sProduto;
                                     loadProduto();
                                 }
 

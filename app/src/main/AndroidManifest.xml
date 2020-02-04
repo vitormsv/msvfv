@@ -14,13 +14,13 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@drawable/launch"
+        android:icon="@drawable/msv_smart_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="MSVSmartFV"
+            android:label="MsvSmart"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>

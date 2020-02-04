@@ -59,6 +59,7 @@ public class dbProduto extends dbBase implements dbInterface {
         _sb.append("       FROM Produto        AS Pro ");
         _sb.append(" INNER JOIN ProdutoEmpresa AS Pem ON Pro.IdProduto = Pem.IdProduto ");
         _sb.append("      WHERE Pem.IdEmpresa = " + String.valueOf(idEmpresa));
+        _sb.append("      ORDER BY Pro.Descricao");
         // endregion
 
         // region Bloco protegido
@@ -131,6 +132,7 @@ public class dbProduto extends dbBase implements dbInterface {
         _sb.append(" INNER JOIN ProdutoEmpresa AS Pem ON Pro.IdProduto = Pem.IdProduto ");
         _sb.append("      WHERE Pem.IdEmpresa = " + String.valueOf(idEmpresa));
         _sb.append("        AND Pro.IdGrupo = " + String.valueOf(idGrupo));
+        _sb.append("      ORDER BY Pro.Descricao");
         // endregion
 
         // region Bloco protegido
@@ -274,6 +276,7 @@ public class dbProduto extends dbBase implements dbInterface {
         _sb.append("      WHERE Pro.Descricao LIKE '" + Descricao + "' ");
         _sb.append(" 	    AND Pem.IdEmpresa = " + String.valueOf(idEmpresa));
         _sb.append("        AND Tpp.IdTabelaPreco = " + String.valueOf(idTabelaPreco));
+        _sb.append("      ORDER BY Pro.Descricao");
         // endregion
 
         // region Bloco protegido

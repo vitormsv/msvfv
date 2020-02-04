@@ -62,6 +62,10 @@ import br.com.microserv.msvmobilepdv.adapter.TransportadoraDialogSearchAdapter;
 
 public class PedidoMobileEditarActivity extends AppCompatActivity implements ActivityInterface {
 
+    // region Variavel para pegar valor pesquisa produto
+    public static String _PESQUISA_VALUE = "";
+    // endregion
+
     // region Declarando constantes
 
     // RequestCode
@@ -309,7 +313,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 ).show();
             }
 
-            if (_extras.containsKey(_KEY_TP_EMPRESA)){
+            if (_extras.containsKey(_KEY_TP_EMPRESA)) {
                 _tpEmpresa = (tpEmpresa) _extras.getSerializable(_KEY_TP_EMPRESA);
             } else {
                 Toast.makeText(
@@ -319,7 +323,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 ).show();
             }
 
-            if (_extras.containsKey(_KEY_ID_CLIENTE)){
+            if (_extras.containsKey(_KEY_ID_CLIENTE)) {
                 _IdCliente = _extras.getLong(_KEY_ID_CLIENTE);
             } else {
                 Toast.makeText(
@@ -329,7 +333,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 ).show();
             }
 
-            if (_extras.containsKey(_KEY_ID_PEDIDO_MOBILE)){
+            if (_extras.containsKey(_KEY_ID_PEDIDO_MOBILE)) {
                 _IdPedidoMobile = _extras.getLong(_KEY_ID_PEDIDO_MOBILE);
             } else {
                 Toast.makeText(
@@ -1604,7 +1608,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 for (tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
 
                     // region Criando o WHERE para o campo IdTabelaPreco e IdProduto
-                    SQLClauseHelper _sch =  new SQLClauseHelper();
+                    SQLClauseHelper _sch = new SQLClauseHelper();
                     _sch.addEqualInteger("IdTabelaPreco", _tpPedidoMobile.IdTabelaPreco);
                     _sch.addEqualInteger("IdProduto", _tp.IdProduto);
                     // endregion
@@ -1627,7 +1631,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // avisando o usuário que os preços dos produtos já inclusos no pedido
                 // foram recalculados de acordo com a tabela de preço escolhida
-                Toast.makeText(PedidoMobileEditarActivity.this,"Os preços dos produtos foram recalculados, verifique", Toast.LENGTH_SHORT);
+                Toast.makeText(PedidoMobileEditarActivity.this, "Os preços dos produtos foram recalculados, verifique", Toast.LENGTH_SHORT);
             }
 
         } catch (Exception e) {
@@ -1669,7 +1673,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _tpPedidoMobile.DescontoValor1 = 0;
         _tpPedidoMobile.TotalValorLiquido = 0;
 
-        for(tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
+        for (tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
 
             _tpPedidoMobile.ItensQuantidade += 1;
             _tpPedidoMobile.TotalValor += _tp.UnidadeValorTotal;
@@ -1898,7 +1902,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         try {
 
             // region Criando o WHERE para o campo IdEmpresa
-            SQLClauseHelper _sch =  new SQLClauseHelper();
+            SQLClauseHelper _sch = new SQLClauseHelper();
             _sch.addEqualInteger("IdEmpresa", _tpEmpresa.IdEmpresa);
             //_sch.addOrderBy("IdTipoPedido", eSQLSortType.ASC);
             // endregion
@@ -1947,7 +1951,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         try {
 
             // region Criando o WHERE para o campo IdEmpresa
-            SQLClauseHelper _sch =  new SQLClauseHelper();
+            SQLClauseHelper _sch = new SQLClauseHelper();
             _sch.addEqualInteger("IdEmpresa", _tpEmpresa.IdEmpresa);
             //_sch.addOrderBy("IdTabelaPreco", eSQLSortType.ASC);
             // endregion
@@ -1965,13 +1969,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             _iTabelaPreco = 0;
 
             // Definindo a Tabela de Preço padrão
-            if(Long.valueOf(_tpCliente.IdTabelaPreco) != 0) {
+            if (Long.valueOf(_tpCliente.IdTabelaPreco) != 0) {
 
-                for (tpTabelaPreco _tpTabelaPreco : _lstTabelaPreco)
-                {
+                for (tpTabelaPreco _tpTabelaPreco : _lstTabelaPreco) {
 
-                    if(_tpTabelaPreco.IdTabelaPreco == _tpCliente.IdTabelaPreco)
-                    {
+                    if (_tpTabelaPreco.IdTabelaPreco == _tpCliente.IdTabelaPreco) {
 
                         _tpTabelaPreco.Descricao += " ( Padrão )";
 
@@ -2018,7 +2020,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         try {
 
             // region Criando o WHERE para o campo IdEmpresa
-            SQLClauseHelper _sch =  new SQLClauseHelper();
+            SQLClauseHelper _sch = new SQLClauseHelper();
             _sch.addEqualInteger("IdEmpresa", _tpEmpresa.IdEmpresa);
             //_sch.addOrderBy("Descricao", eSQLSortType.ASC);
             // endregion
@@ -2032,6 +2034,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             dbCondicaoPagamento _dbCondicaoPagamento = new dbCondicaoPagamento(_sqh);
             _lstCondicaoPagamento = (ArrayList<tpCondicaoPagamento>) _dbCondicaoPagamento.getList(tpCondicaoPagamento.class, _sch);
             // endregion
+
 
             // region Emitindo mensagem ao usuário se não existir registro
             if (_lstCondicaoPagamento == null) {
@@ -2125,6 +2128,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 dbTabelaPreco _dbTabelaPreco = new dbTabelaPreco(_sqh);
                 _tpCliente.TabelaPrecoEmpresa = _dbTabelaPreco.getTabelaDoCliente(_tpCliente.IdCliente, _tpEmpresa.IdEmpresa);
 
+                if (_tpCliente.IdCondicaoPagamentoPadrao != 0) {
+                    dbCondicaoPagamento _dbCondicaoPagamento = new dbCondicaoPagamento(_sqh);
+                    _tpCliente.CondicaoPagamentoPadrao = (tpCondicaoPagamento) _dbCondicaoPagamento.getById(_tpCliente.IdCondicaoPagamentoPadrao);
+                }
             }
             // endregion
 
@@ -2190,13 +2197,13 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     SQLClauseHelper _where = new SQLClauseHelper();
 
 
-                    for(tpPedidoMobileItem _tp : _tpPedidoMobile.Itens){
+                    for (tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
                         _tp.Produto = (tpProduto) _dbProduto.getBySourceId(_tp.IdProduto);
                         _where.clearAll();
                         _where.addEqualInteger("IdProduto", _tp.IdProduto);
                         _where.addEqualInteger("IdTabelaPreco", _tpPedidoMobile.IdTabelaPreco);
 
-                        _tp.Produto.TabelaPrecoProduto = (tpTabelaPrecoProduto)_dbTabelaPrecoProduto.getOne(_where);
+                        _tp.Produto.TabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_where);
                     }
                 }
                 // endregion
@@ -2236,7 +2243,20 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             // region Condicao de Pagamento
             if ((_lstCondicaoPagamento != null) && (_lstCondicaoPagamento.size() > 0)) {
                 _iCondicaoPagamento = 0;
-                _tpPedidoMobile.IdCondicaoPagamento = _lstCondicaoPagamento.get(_iCondicaoPagamento).IdCondicaoPagamento;
+                if (_tpCliente != null && _tpCliente.IdCondicaoPagamentoPadrao != 0) {
+                    _tpPedidoMobile.IdCondicaoPagamento = _tpCliente.IdCondicaoPagamentoPadrao;
+
+                    for (int i = 0; i < _lstCondicaoPagamento.size(); i++) {
+                       if(_tpCliente.IdCondicaoPagamentoPadrao ==  _lstCondicaoPagamento.get(i).IdCondicaoPagamento){
+                           _lstCondicaoPagamento.get(i).Descricao += " ( Padrão )";
+                            _iCondicaoPagamento = i;
+                            break;
+                       }
+                    }
+
+                } else {
+                    _tpPedidoMobile.IdCondicaoPagamento = _lstCondicaoPagamento.get(_iCondicaoPagamento).IdCondicaoPagamento;
+                }
             }
             // endregion
 
@@ -2339,7 +2359,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 for (int i = 0; i < _lstSimNao.size(); i++) {
 
-                    int _a = (int)_lstSimNao.get(i).Key;
+                    int _a = (int) _lstSimNao.get(i).Key;
                     int _b = _tpPedidoMobile.EhConfirmado;
 
                     if (_a == _b) {
@@ -2926,4 +2946,12 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     }
     // endregion
 
+
+    // region onDestroy
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        _PESQUISA_VALUE = "";
+    }
+    // endregion
 }
