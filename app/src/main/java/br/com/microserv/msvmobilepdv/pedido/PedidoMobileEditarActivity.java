@@ -66,6 +66,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     public static String _PESQUISA_VALUE = "";
     // endregion
 
+
     // region Declarando constantes
 
     // RequestCode
@@ -244,6 +245,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     ArrayList<tpTransportadora> _lstTransportadora = null;
     ArrayList<tpKeyValueRow> _lstSimNao = null;
     ArrayList<tpKeyValueRow> _lstOption = null;
+    ArrayList<tpPedidoMobileItem> _lstItensMix = null;
 
     // tp
     tpEmpresa _tpEmpresa = null;
@@ -269,6 +271,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     // long
     long _IdCliente = 0;
     long _IdPedidoMobile = 0;
+
+    // Boolean
+    boolean _mixImportado = false;
 
     // endregion
 
@@ -1660,6 +1665,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         }
         // endregion
 
+        VerifyMixItens();
 
         // region Ligando o adaptardor na lista de itens
         _ite_livItens.setAdapter(_adpItens);
@@ -1687,6 +1693,151 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
     }
     //endregion
+
+
+    // region VerifyMixItens
+    private void VerifyMixItens() {
+
+        boolean existeItemMix = false;
+
+        //Verificando se contem itens do mix já incluso no Pedido
+        if (_lstItensMix != null && _lstItensMix.size() > 0) {
+            for (tpPedidoMobileItem _tpMix : _lstItensMix) {
+                for (tpPedidoMobileItem _tpItem : _tpPedidoMobile.Itens) {
+                    if (_tpMix.IdProduto == _tpItem.IdProduto) {
+                        existeItemMix = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (existeItemMix) {
+
+            // region Abrindo a janela para escolha
+            MSVMsgBox.showMsgBoxQuestionWithButtonAdditional(
+                    PedidoMobileEditarActivity.this,
+                    "AVISO",
+                    "Alguns itens do mix que está sendo importado já foram adicionados previamente no pedido. Deseja manter os itens do mix, pedido ou somar?",
+                    new OnCloseDialog() {
+                        @Override
+                        public void onCloseDialog(boolean isOk, String value) {
+
+                            switch (Integer.parseInt(value)) {
+                                case 0:
+                                    ApplySum();
+                                    break;
+                                case 1:
+                                    ApplyPedido();
+                                    break;
+                                case 2:
+                                    ApplyMix();
+                                    break;
+                            }
+
+                            _lstItensMix.clear();
+
+                            refreshResumo();
+                            refreshItens();
+
+                            _mixImportado = true;
+                        }
+                    },
+                    "SOMAR",
+                    "PEDIDO",
+                    "MIX"
+            );
+            // endregion
+        } else {
+
+            //Não existe conflitos entao vamos importar
+            if (_lstItensMix != null && _lstItensMix.size() > 0) {
+                for (tpPedidoMobileItem _tpMix : _lstItensMix) {
+                    _tpPedidoMobile.Itens.add(_tpMix);
+                }
+
+                _lstItensMix.clear();
+
+                refreshResumo();
+                refreshItens();
+
+                _mixImportado = true;
+            }
+        }
+    }
+    // endregion
+
+
+    // region ApplySum
+    public void ApplySum() {
+        int _index = 0;
+        boolean _existe = false;
+
+        for (tpPedidoMobileItem _tpMix : _lstItensMix) {
+            for (int i = 0; i < _tpPedidoMobile.Itens.size(); i++) {
+                if (_tpMix.IdProduto == _tpPedidoMobile.Itens.get(i).IdProduto) {
+                    _index = i;
+                    _existe = true;
+                }
+            }
+
+            if (_existe) {
+                _tpPedidoMobile.Itens.get(_index).UnidadeVendaQuantidade += _tpMix.UnidadeVendaQuantidade;
+                _tpPedidoMobile.Itens.get(_index).UnidadeValorTotal += _tpMix.UnidadeValorTotal;
+                _tpPedidoMobile.Itens.get(_index).UnidadeDescontoValor += _tpMix.UnidadeDescontoValor;
+            } else {
+                _tpPedidoMobile.Itens.add(_tpMix);
+            }
+            _existe = false;
+        }
+    }
+    // endregion
+
+
+    // region ApplyPedido
+    public void ApplyPedido() {
+
+        boolean _existe = false;
+
+        for (tpPedidoMobileItem _tpMix : _lstItensMix) {
+            for (int i = 0; i < _tpPedidoMobile.Itens.size(); i++) {
+                if (_tpMix.IdProduto == _tpPedidoMobile.Itens.get(i).IdProduto) {
+                    _existe = true;
+                }
+            }
+
+            if (!_existe) {
+                _tpPedidoMobile.Itens.add(_tpMix);
+            }
+            _existe = false;
+        }
+    }
+    // endregion
+
+
+    // region ApplyMix
+    public void ApplyMix() {
+
+        int _index = 0;
+        boolean _existe = false;
+
+        for (tpPedidoMobileItem _tpMix : _lstItensMix) {
+            for (int i = 0; i < _tpPedidoMobile.Itens.size(); i++) {
+                if (_tpMix.IdProduto == _tpPedidoMobile.Itens.get(i).IdProduto) {
+                    _index = i;
+                    _existe = true;
+                }
+            }
+            if(_existe){
+                _tpPedidoMobile.Itens.remove(_index);
+                _tpPedidoMobile.Itens.add(_tpMix);
+            }else {
+                _tpPedidoMobile.Itens.add(_tpMix);
+            }
+            _existe = false;
+        }
+    }
+    // endregion
 
 
     // region refreshResumo
@@ -2247,11 +2398,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     _tpPedidoMobile.IdCondicaoPagamento = _tpCliente.IdCondicaoPagamentoPadrao;
 
                     for (int i = 0; i < _lstCondicaoPagamento.size(); i++) {
-                       if(_tpCliente.IdCondicaoPagamentoPadrao ==  _lstCondicaoPagamento.get(i).IdCondicaoPagamento){
-                           _lstCondicaoPagamento.get(i).Descricao += " ( Padrão )";
+                        if (_tpCliente.IdCondicaoPagamentoPadrao == _lstCondicaoPagamento.get(i).IdCondicaoPagamento) {
+                            _lstCondicaoPagamento.get(i).Descricao += " ( Padrão )";
                             _iCondicaoPagamento = i;
                             break;
-                       }
+                        }
                     }
 
                 } else {
@@ -2802,154 +2953,157 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     // endregion
 
 
-    // ---------------------------------------------------------- //
-
     // region importarMix
     private void importarMix() {
 
-        SQLiteHelper _sqh = null;
-        dbClienteMix _dbClienteMix = null;
-        dbProduto _dbProduto = null;
-        dbTabelaPrecoProduto _dbTabelaPrecoProduto = null;
-        SQLClauseHelper _whereClienteMix = null;
-        SQLClauseHelper _whereProduto = null;
-        SQLClauseHelper _wherePreco = null;
-        List<tpClienteMix> _lstClienteMix;
-        tpPedidoMobileItem _tpItem = null;
-        tpProduto _tpProduto = null;
-        tpTabelaPrecoProduto _tpTabelaPrecoProduto = null;
+        if (!_mixImportado) {
+
+            SQLiteHelper _sqh = null;
+            dbClienteMix _dbClienteMix = null;
+            dbProduto _dbProduto = null;
+            dbTabelaPrecoProduto _dbTabelaPrecoProduto = null;
+            SQLClauseHelper _whereClienteMix = null;
+            SQLClauseHelper _whereProduto = null;
+            SQLClauseHelper _wherePreco = null;
+            List<tpClienteMix> _lstClienteMix;
+            tpPedidoMobileItem _tpItem = null;
+            tpProduto _tpProduto = null;
+            tpTabelaPrecoProduto _tpTabelaPrecoProduto = null;
+            _lstItensMix = new ArrayList<>();
+
+            try {
+
+                // region Montando WHERE para o mix de produtos do cliente
+                _whereClienteMix = new SQLClauseHelper();
+                _whereClienteMix.addEqualInteger("IdCliente", _IdCliente);
+                _whereClienteMix.addEqualInteger("IdEmpresa", _tpEmpresa.IdEmpresa);
+                _whereClienteMix.addEqualInteger("EhItemConfirmado", 1);
+                // endregion
 
 
-        try {
-
-            // region Montando WHERE para o mix de produtos do cliente
-            _whereClienteMix = new SQLClauseHelper();
-            _whereClienteMix.addEqualInteger("IdCliente", _IdCliente);
-            _whereClienteMix.addEqualInteger("IdEmpresa", _tpEmpresa.IdEmpresa);
-            _whereClienteMix.addEqualInteger("EhItemConfirmado", 1);
-            // endregion
+                // region Abrindo a conexão com o banco de dados
+                _sqh = new SQLiteHelper(PedidoMobileEditarActivity.this);
+                _sqh.open(false);
+                // endregion
 
 
-            // region Abrindo a conexão com o banco de dados
-            _sqh = new SQLiteHelper(PedidoMobileEditarActivity.this);
-            _sqh.open(false);
-            // endregion
+                // region Recuperando o mix de produtos do cliente
+                _dbClienteMix = new dbClienteMix(_sqh);
+                _lstClienteMix = _dbClienteMix.getList(tpClienteMix.class, _whereClienteMix);
+                // endregion
+
+                // region Incluindo a Tabela de preco
+                _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
+                SQLClauseHelper _whereTabelaPrecoProduto = new SQLClauseHelper();
+                // endregion
 
 
-            // region Recuperando o mix de produtos do cliente
-            _dbClienteMix = new dbClienteMix(_sqh);
-            _lstClienteMix = _dbClienteMix.getList(tpClienteMix.class, _whereClienteMix);
-            // endregion
+                // region Recuperando informações acessorias para cada item do mix
+                if ((_lstClienteMix != null) && (_lstClienteMix.size() > 0)) {
 
-            // region Incluindo a Tabela de preco
-            _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
-            SQLClauseHelper _whereTabelaPrecoProduto = new SQLClauseHelper();
-            // endregion
+                    // Aqui vamos excluir os itens já anexados no pedido para dar
+                    // lugar ao mix de produtos confirmados para compra
+                    // Não será mais limpos os itens do pedido, vai ser incluido junto com o mix
+                    _lstItensMix.clear();
 
+                    // Percorrendo os itens do mix confirmados para formar a nova
+                    // lista de itens do pedido
+                    for (tpClienteMix _tp : _lstClienteMix) {
 
-            // region Recuperando informações acessorias para cada item do mix
-            if ((_lstClienteMix != null) && (_lstClienteMix.size() > 0)) {
+                        // region Buscando informações do produto **************************************
+                        // region Montando WHERE para o produto
+                        _whereProduto = new SQLClauseHelper();
+                        _whereProduto.addEqualInteger("IdProduto", _tp.IdProduto);
+                        // endregion
 
-                // Aqui vamos excluir os itens já anexados no pedido para dar
-                // lugar ao mix de produtos confirmados para compra
-                _tpPedidoMobile.Itens.clear();
+                        // region Executando a consulta no banco de dados
+                        if (_dbProduto == null) {
+                            _dbProduto = new dbProduto(_sqh);
+                        }
 
-                // Percorrendo os itens do mix confirmados para formar a nova
-                // lista de itens do pedido
-                for (tpClienteMix _tp : _lstClienteMix) {
+                        _tpProduto = (tpProduto) _dbProduto.getOne(_whereProduto);
+                        // endregion
+                        // endregion
 
-                    // region Buscando informações do produto **************************************
-                    // region Montando WHERE para o produto
-                    _whereProduto = new SQLClauseHelper();
-                    _whereProduto.addEqualInteger("IdProduto", _tp.IdProduto);
-                    // endregion
+                        // region Buscando informações do preço do produto *****************************
+                        // region Montando WHERE para a tabela de preço
+                        _wherePreco = new SQLClauseHelper();
+                        _wherePreco.addEqualInteger("IdProduto", _tp.IdProduto);
+                        _wherePreco.addEqualInteger("IdTabelaPreco", _lstTabelaPreco.get(_iTabelaPreco).IdTabelaPreco);
+                        // endregion
 
-                    // region Executando a consulta no banco de dados
-                    if (_dbProduto == null) {
-                        _dbProduto = new dbProduto(_sqh);
+                        // region Executando a consulta no banco de dados
+                        if (_dbTabelaPrecoProduto == null) {
+                            _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
+                        }
+
+                        _tpTabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_wherePreco);
+                        // endregion
+                        // endregion
+
+                        // region Montando um objeto tpPedidoMobileItem ********************************
+                        _tpItem = new tpPedidoMobileItem();
+                        _tpItem.IdPedidoMobileItem = 0;
+                        _tpItem.IdPedidoMobile = 0;
+                        _tpItem.IdProduto = _tp.IdProduto;
+                        _tpItem.PackQuantidade = _tpProduto.PackQuantidade;
+                        _tpItem.UnidadeValor = _tpTabelaPrecoProduto.Preco;
+                        _tpItem.UnidadeDescontoPercentual = 0;
+                        _tpItem.UnidadeDescontoValor = 0;
+                        _tpItem.UnidadeValorLiquido = _tpTabelaPrecoProduto.Preco;
+                        _tpItem.UnidadeVendaQuantidade = _tp.PedidoQuantidade;
+                        _tpItem.UnidadeValorTotal = _tpItem.UnidadeValor * _tpItem.UnidadeVendaQuantidade;
+                        _tpItem.Observacao = null;
+                        _tpItem.DataAlteracao = MSVUtil.sqliteHojeHora();
+                        _tpItem.UsuarioAlteracao = _tpVendedor.Codigo;
+
+                        _tpItem.Produto = (tpProduto) _tpProduto.clone();
+                        // endregion
+
+                        // region Incluindo a Tabela de preco ao produto
+                        _whereTabelaPrecoProduto.clearAll();
+                        _whereTabelaPrecoProduto.addEqualInteger("IdProduto", _tpItem.IdProduto);
+                        _whereTabelaPrecoProduto.addEqualInteger("IdTabelaPreco", _tpPedidoMobile.IdTabelaPreco);
+
+                        _tpItem.Produto.TabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_whereTabelaPrecoProduto);
+                        // endregion
+
+                        // region Adicionando o item na lista do Itens mix ********************************
+                        _lstItensMix.add(_tpItem);
+                        // endregion
                     }
+                }
+                // endregion
 
-                    _tpProduto = (tpProduto) _dbProduto.getOne(_whereProduto);
-                    // endregion
-                    // endregion
 
-                    // region Buscando informações do preço do produto *****************************
-                    // region Montando WHERE para a tabela de preço
-                    _wherePreco = new SQLClauseHelper();
-                    _wherePreco.addEqualInteger("IdProduto", _tp.IdProduto);
-                    _wherePreco.addEqualInteger("IdTabelaPreco", _lstTabelaPreco.get(_iTabelaPreco).IdTabelaPreco);
-                    // endregion
+                // region Atualizando a lista de produtos do pedido
+                this.refreshItens();
+                // endregion
 
-                    // region Executando a consulta no banco de dados
-                    if (_dbTabelaPrecoProduto == null) {
-                        _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
-                    }
+            } catch (Exception e) {
 
-                    _tpTabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_wherePreco);
-                    // endregion
-                    // endregion
+                MSVMsgBox.showMsgBoxError(
+                        PedidoMobileEditarActivity.this,
+                        "Erro ao importar os itens confirmados do mix de produto do cliente",
+                        e.getMessage()
+                );
 
-                    // region Montando um objeto tpPedidoMobileItem ********************************
-                    _tpItem = new tpPedidoMobileItem();
-                    _tpItem.IdPedidoMobileItem = 0;
-                    _tpItem.IdPedidoMobile = 0;
-                    _tpItem.IdProduto = _tp.IdProduto;
-                    _tpItem.PackQuantidade = _tpProduto.PackQuantidade;
-                    _tpItem.UnidadeValor = _tpTabelaPrecoProduto.Preco;
-                    _tpItem.UnidadeDescontoPercentual = 0;
-                    _tpItem.UnidadeDescontoValor = 0;
-                    _tpItem.UnidadeValorLiquido = _tpTabelaPrecoProduto.Preco;
-                    _tpItem.UnidadeVendaQuantidade = _tp.PedidoQuantidade;
-                    _tpItem.UnidadeValorTotal = _tpItem.UnidadeValor * _tpItem.UnidadeVendaQuantidade;
-                    _tpItem.Observacao = null;
-                    _tpItem.DataAlteracao = MSVUtil.sqliteHojeHora();
-                    _tpItem.UsuarioAlteracao = _tpVendedor.Codigo;
+            } finally {
 
-                    _tpItem.Produto = (tpProduto) _tpProduto.clone();
-                    // endregion
-
-                    // region Incluindo a Tabela de preco ao produto
-                    _whereTabelaPrecoProduto.clearAll();
-                    _whereTabelaPrecoProduto.addEqualInteger("IdProduto", _tpItem.IdProduto);
-                    _whereTabelaPrecoProduto.addEqualInteger("IdTabelaPreco", _tpPedidoMobile.IdTabelaPreco);
-
-                    _tpItem.Produto.TabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_whereTabelaPrecoProduto);
-                    // endregion
-
-                    // region Adicionando o item na lista do pedido ********************************
-                    _tpPedidoMobile.Itens.add(_tpItem);
-                    // endregion
+                if ((_sqh != null) && (_sqh.isOpen())) {
+                    _sqh.close();
                 }
             }
-            // endregion
-
-
-            // region Atualizando a lista de produtos do pedido
-            this.refreshItens();
-            // endregion
-
-        } catch (Exception e) {
-
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "Erro ao importar os itens confirmados do mix de produto do cliente",
-                    e.getMessage()
-            );
-
-        } finally {
-
-            if ((_sqh != null) && (_sqh.isOpen())) {
-                _sqh.close();
-            }
+        } else {
+            Toast.makeText(this, "Mix já importado.", Toast.LENGTH_LONG).show();
         }
-
     }
     // endregion
 
 
     // region onDestroy
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         _PESQUISA_VALUE = "";
     }

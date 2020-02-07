@@ -3,7 +3,10 @@ package br.com.microserv.framework.msvutil;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,7 +40,6 @@ public class MSVMsgBox {
     // region Declarando delegates
     private OnCloseDialog _onCloseDialog;
     // endregion
-
 
     // region showMsgBoxInfo
     public static void showMsgBoxInfo(Context context, String message) {
@@ -208,6 +211,115 @@ public class MSVMsgBox {
         _dialog.show();
         // endregion
 
+    }
+    // endregion
+
+
+    public static void showMsgBoxQuestionWithButtonAdditional(Context context, String message, String description, final OnCloseDialog onCloseDialog, String btnLeftText, String btnCenterText, String btnRightText) {
+
+        // region Buttons
+        Button btnLeft;
+        Button btnCenter;
+        Button btnRight;
+        // endregion
+
+        // region Inflando o layout customizado para o AlertDialog
+        // inflando o layout
+        LayoutInflater _inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View _v = (View) _inflater.inflate(R.layout.dialog_personalizado_alert_additional_button, null);
+
+        // cuidando do título da janela
+        TextView _txtDialogTitle = (TextView) _v.findViewById(R.id.txtDialogTitle);
+        _txtDialogTitle.setText("PERGUNTA");
+        _txtDialogTitle.setBackgroundResource(R.color.colorAccent);
+
+        // cuidando do icone que deverá ser apresentado ao usuário
+        ImageView _imvDialogMessage = (ImageView) _v.findViewById(R.id.imvDialogMessage);
+        _imvDialogMessage.setImageResource(R.drawable.img_question_48);
+
+        // cuidando da mensagem que será apresentada na janela
+        TextView _txtDialogMessage = (TextView) _v.findViewById(R.id.txtDialogMessage);
+        _txtDialogMessage.setText(message);
+
+        // cuidando da mensagem de complemento que poderá ser apresentada na janela
+        TextView _txtDialogComplement = (TextView) _v.findViewById(R.id.txtDialogComplement);
+        _txtDialogComplement.setVisibility(View.GONE);
+
+        if (MSVUtil.isNullOrEmpty(description) == false) {
+            _txtDialogComplement.setVisibility(View.VISIBLE);
+            _txtDialogComplement.setText(description);
+        }
+        // endregion
+
+        // region Pegando os botoes e setando
+        btnLeft = (Button)_v.findViewById(R.id.btnLeft);
+        btnCenter = (Button)_v.findViewById(R.id.btnCenter);
+        btnRight = (Button)_v.findViewById(R.id.btnRight);
+
+        btnLeft.setText(btnLeftText);
+        btnCenter.setText(btnCenterText);
+        btnRight.setText(btnRightText);
+        // endregion
+
+        // region Criando a janela modal AlertDialog
+        final AlertDialog.Builder _builder = new AlertDialog.Builder(context);
+        _builder.setView(_v);
+
+        final AlertDialog _dialog = _builder.create();
+
+        btnLeft.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                onCloseDialog.onCloseDialog(true, "0");
+                _dialog.dismiss();
+            }
+        });
+        btnLeft.setOnTouchListener(effectButton());
+
+        btnCenter.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                onCloseDialog.onCloseDialog(true, "1");
+                _dialog.dismiss();
+            }
+        });
+        btnCenter.setOnTouchListener(effectButton());
+
+        btnRight.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                onCloseDialog.onCloseDialog(true, "2");
+                _dialog.dismiss();
+            }
+        });
+        btnRight.setOnTouchListener(effectButton());
+
+        _dialog.show();
+        // endregion
+    }
+    // endregion
+
+
+    // region Gerando metódo para criar animação nos botoes manuais
+    public static View.OnTouchListener effectButton(){
+        return new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        view.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        view.getBackground().clearColorFilter();
+                        view.invalidate();
+                        break;
+                }
+
+                return false;
+            }
+        };
     }
     // endregion
 
@@ -660,7 +772,7 @@ public class MSVMsgBox {
             }
         });
 
-        TextView _edtNewItem =(TextView) _v.findViewById(R.id.edtDialogNewValue);
+        TextView _edtNewItem = (TextView) _v.findViewById(R.id.edtDialogNewValue);
         _edtNewItem.requestFocus();
 
         InputMethodManager imm = (InputMethodManager) context.getSystemService(context.INPUT_METHOD_SERVICE);
@@ -697,7 +809,7 @@ public class MSVMsgBox {
         // cuidando o campo que permitie a digitação do novo valor
         final EditText _edtDialogNewValue = (EditText) _v.findViewById(R.id.edtDialogNewValue);
         _edtDialogNewValue.setText("");
-        _edtDialogNewValue.setRawInputType( TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        _edtDialogNewValue.setRawInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         // endregion
 
         // atribuindo o evento do botão de cópia
@@ -918,7 +1030,7 @@ public class MSVMsgBox {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // recuperando o objeto tp selecionado na lista
-                tpBase _tp = (tpBase)baseAdapter.getItem(position);
+                tpBase _tp = (tpBase) baseAdapter.getItem(position);
 
                 // atualizando o título da janela de lookup
                 String _title = _tp.getListIdentifierValue();
