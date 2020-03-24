@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.microserv.framework.msvdal.dbClienteHistoricoCompra;
 import br.com.microserv.framework.msvdal.dbProduto;
@@ -65,6 +67,7 @@ public class PedidoMobileItemEditarActivity
     static final String _KEY_ITEM_INDEX = "ItemIndex";
     static final String _KEY_LST_PRODUTO_INCLUIDO = "lstProdutoIncluido";
     static final String _KEY_ID_CLIENTE = "IdCliente";
+    static final String _KEY_LST_PEDIDO_MOBILE_ITEM = "lstPedidoMobileItem";
 
     // Value
     static final int _INSERT_VALUE = 0;
@@ -72,10 +75,9 @@ public class PedidoMobileItemEditarActivity
     static final int _LOOKUP_VALUE = 3;
     static final int _DETAIL_VALUE = 4;
     static final String _CLIENTE_PEDIDO_MOBILE_ITEM_VALUE = "PedidoMobileItemEditarActivity";
-
     // endregion
 
-    //Parametros
+    // region Parametros
     int _PEDIDO_VALOR_UNITARIO_LIBERADO = 0;
     int _DESCONTO_ITEM_EH_PERMITIDO = 0;
     //endregion
@@ -125,6 +127,10 @@ public class PedidoMobileItemEditarActivity
     TextView _txtValorUnitarioTotal = null;
     TextView _txtObservacao = null;
 
+    // endregion
+
+    // region Listas
+    List<tpPedidoMobileItem> _itens;
     // endregion
 
     // ImageView
@@ -292,7 +298,6 @@ public class PedidoMobileItemEditarActivity
             }
             // endregion
 
-
             // region _KEY_EXCEPTION
             if(_extras.containsKey(ExceptionHandler._KEY_EXCEPTION)){
                 Toast.makeText(
@@ -303,6 +308,18 @@ public class PedidoMobileItemEditarActivity
             }
             // endregion
 
+            // region _KEY_LST_PEDIDO_MOBILE_ITEM
+            if (_extras.containsKey(_KEY_LST_PEDIDO_MOBILE_ITEM)) {
+
+                _itens = (List<tpPedidoMobileItem>)_extras.getSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM);
+            } else {
+                Toast.makeText(
+                        PedidoMobileItemEditarActivity.this,
+                        "O parâmetro _KEY_LST_PEDIDO_MOBILE_ITEM não foi informado",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+            // endregion
         }
         // endregion
 
@@ -671,6 +688,7 @@ public class PedidoMobileItemEditarActivity
                 _extras.putString(_KEY_SOURCE_ACTIVITY, _CLIENTE_PEDIDO_MOBILE_ITEM_VALUE);
                 _extras.putSerializable(_KEY_TP_EMPRESA, _tpEmpresa);
                 _extras.putSerializable(_KEY_TP_TABELA_PRECO, _tpTabelaPreco);
+                _extras.putSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM, (Serializable) _itens);
                 // endregion
 
                 // region Abrindo a tela de pesquisa de produto
@@ -1116,6 +1134,7 @@ public class PedidoMobileItemEditarActivity
                         _extras.putInt(_KEY_ITEM_INDEX, 0);
                         _extras.putString(_KEY_SOURCE_ACTIVITY, _CLIENTE_PEDIDO_MOBILE_ITEM_VALUE);
                         _extras.putSerializable(_KEY_TP_PRODUTO, _tpPedidoMobileItem.Produto);
+                        _extras.putSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM, (Serializable) _itens);
 
                         Intent _i = new Intent(PedidoMobileItemEditarActivity.this, ProdutoDetalheImagemActivity.class);
                         _i.putExtras(_extras);

@@ -1,6 +1,8 @@
 package br.com.microserv.msvmobilepdv.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.microserv.framework.msvdto.tpProduto;
 import br.com.microserv.framework.msvdto.tpProdutoSearch;
 import br.com.microserv.framework.msvutil.MSVUtil;
 import br.com.microserv.msvmobilepdv.R;
@@ -23,14 +24,12 @@ public class ProdutoSearchAdapter extends BaseAdapter {
     Context _context = null;
     ArrayList<tpProdutoSearch> _items = null;
 
-
     public ProdutoSearchAdapter(Context context, ArrayList<tpProdutoSearch> items) {
 
         super();
 
         _context = context;
         _items = items;
-
     }
 
 
@@ -52,6 +51,7 @@ public class ProdutoSearchAdapter extends BaseAdapter {
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -91,7 +91,12 @@ public class ProdutoSearchAdapter extends BaseAdapter {
         _txtProdutoPreco = (TextView) _view.findViewById(R.id.txtProdutoPreco);
         _txtProdutoPreco.setText(MSVUtil.doubleToText("R$", _tp.Preco));
 
-        return _view;
+        if (_tp.color != 0) {
+            _txtDescricao.setTextColor(_tp.color);
+        } else {
+            _txtDescricao.setTextColor(Color.rgb(63, 81, 181));
+        }
 
+        return _view;
     }
 }

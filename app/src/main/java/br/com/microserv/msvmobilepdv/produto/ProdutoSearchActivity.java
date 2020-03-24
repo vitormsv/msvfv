@@ -2,6 +2,7 @@ package br.com.microserv.msvmobilepdv.produto;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.microserv.framework.msvdal.dbProduto;
 import br.com.microserv.framework.msvdto.tpEmpresa;
 import br.com.microserv.framework.msvdto.tpGrupo;
 import br.com.microserv.framework.msvdto.tpLinha;
+import br.com.microserv.framework.msvdto.tpPedidoMobileItem;
 import br.com.microserv.framework.msvdto.tpProdutoSearch;
 import br.com.microserv.framework.msvdto.tpTabelaPreco;
 import br.com.microserv.framework.msvhelper.SQLiteHelper;
@@ -43,6 +46,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     static final String _KEY_TP_EMPRESA = "tpEmpresa";
     static final String _KEY_TP_PRODUTO = "tpProduto";
     static final String _KEY_TP_TABLE_PRECO = "tpTabelaPreco";
+    static final String _KEY_LST_PEDIDO_MOBILE_ITEM = "lstPedidoMobileItem";
 
     // Value
     static final int _INSERT_VALUE = 0;
@@ -51,6 +55,10 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     static final int _DETAIL_VALUE = 4;
     static final String _PRODUTO_SEARCH_VALUE = "ProdutoSearchActivity";
 
+    // endregion
+
+    // region Listas
+    List<tpPedidoMobileItem> _itens;
     // endregion
 
 
@@ -188,6 +196,19 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
             }
             // endregion
 
+            // region _KEY_LST_PEDIDO_MOBILE_ITEM
+            if (_extras.containsKey(_KEY_LST_PEDIDO_MOBILE_ITEM)) {
+
+                _itens = (List<tpPedidoMobileItem>) _extras.getSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM);
+            } else {
+                Toast.makeText(
+                        ProdutoSearchActivity.this,
+                        "O parâmetro _KEY_LST_PEDIDO_MOBILE_ITEM não foi informado",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+            // endregion
+
         }
         // endregion
 
@@ -197,7 +218,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         bindEvents();
         initialize();
 
-        if(!PedidoMobileEditarActivity._PESQUISA_VALUE.isEmpty()){
+        if (!PedidoMobileEditarActivity._PESQUISA_VALUE.isEmpty()) {
             _sProduto = PedidoMobileEditarActivity._PESQUISA_VALUE;
             this.loadProduto();
         }
@@ -340,7 +361,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
 
 
     // region initialize
-    public void initialize(){
+    public void initialize() {
 
         // region Cuidando de informações iniciais do form
         _txtProdutoDescricao.setText("");
@@ -404,6 +425,12 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
                 _lstProdutoSearch = _lstProdutoSearchResult;
                 // endregion
 
+                // region Verificando os itens existentes para alterar a cor
+                if (_itens != null && _itens.size() > 0) {
+                    setColorItensExistente();
+                }
+                // endregion
+
                 // region Atualizando as informações do produto na tela
                 this.refreshProduto();
                 // endregion
@@ -434,7 +461,6 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
             _txtProdutoDescricao.setText(_sProduto.toUpperCase());
         }
 
-
         // atualizando a lista
         _adpProduto = new ProdutoSearchAdapter(
                 ProdutoSearchActivity.this,
@@ -457,10 +483,8 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         }
         */
 
-
         // atualiando a quantidade de registros
         _txtRodapeRegistro.setText("REGISTROS: " + String.valueOf(_lstProdutoSearch.size()));
-
     }
     // endregion
 
@@ -478,6 +502,21 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
             _txtTituloDescricao.setText("( + ) MOSTRAR FILTRO");
         }
 
+    }
+    // endregion
+
+
+    // region
+    private void setColorItensExistente() {
+
+        for (int i = 0; i < _itens.size(); i++) {
+            for (int p = 0; p < _lstProdutoSearch.size(); p++) {
+                if (_itens.get(i).Produto.IdProduto == _lstProdutoSearch.get(p).IdProduto) {
+                    _lstProdutoSearch.get(p).color = Color.rgb(35, 142, 35);
+                    break;
+                }
+            }
+        }
     }
     // endregion
 

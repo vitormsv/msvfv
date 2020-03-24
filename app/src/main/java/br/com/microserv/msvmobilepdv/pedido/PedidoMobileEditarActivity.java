@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     static final String _KEY_ID_PEDIDO_MOBILE = "IdPedidoMobile";
     static final String _KEY_LST_PRODUTO_INCLUIDO = "lstProdutoIncluido";
     static final String _AUTOMATICO = "AUTOMÁTICO";
+    static final String _KEY_LST_PEDIDO_MOBILE_ITEM = "lstPedidoMobileItem";
 
     // Value
     static final int _INSERT_VALUE = 0;
@@ -1031,6 +1033,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _extras.putSerializable(_KEY_TP_EMPRESA, _tpEmpresa);
                 _extras.putSerializable(_KEY_TP_TABELA_PRECO, _lstTabelaPreco.get(_iTabelaPreco));
                 _extras.putSerializable(_KEY_TP_PEDIDO_MOBILE_ITEM, _tpPedidoMobileItem);
+                _extras.putSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM, (Serializable) _tpPedidoMobile.Itens);
 
                 // enviamos esta lista para verificar na tela de inclusão do item
                 // se o produto já está vinculado no pedido
@@ -2919,6 +2922,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _extras.putSerializable(_KEY_TP_PEDIDO_MOBILE_ITEM, _tpPedidoMobileItem);
         _extras.putSerializable(_KEY_ID_CLIENTE, _tpCliente);
         _extras.putInt(_KEY_ITEM_INDEX, itemIndex);
+        _extras.putSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM, (Serializable) _tpPedidoMobile.Itens);
 
         // invocando a nova activity
         Intent _i = new Intent(PedidoMobileEditarActivity.this, PedidoMobileItemEditarActivity.class);

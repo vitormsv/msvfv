@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="MsvSmart"
+            android:label="Distribuidora"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
