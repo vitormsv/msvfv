@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -147,7 +148,6 @@ public class ClienteListaActivity extends AppCompatActivity implements ActivityI
         _ab.setDisplayHomeAsUpEnabled(true);
         _ab.setElevation(0);
 
-
         // region Selecionando os parametros enviados através do Bundle
         Bundle _extras = getIntent().getExtras();
 
@@ -156,6 +156,15 @@ public class ClienteListaActivity extends AppCompatActivity implements ActivityI
             // region _KEY_EMPRESA
             if (_extras.containsKey(_KEY_TP_EMPRESA)) {
                 _tpEmpresa = (tpEmpresa) _extras.getSerializable(_KEY_TP_EMPRESA);
+
+                if(_tpEmpresa.Descricao.toLowerCase().contains("distribuidora") && _tpEmpresa.Descricao.toLowerCase().contains("biazom")) {
+
+                    _ab.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorTitleBackground)));
+
+                    _ab.setTitle(_ab.getTitle() + " - Distribuidora");
+
+                }
+
             } else {
                 Toast.makeText(
                         ClienteListaActivity.this,

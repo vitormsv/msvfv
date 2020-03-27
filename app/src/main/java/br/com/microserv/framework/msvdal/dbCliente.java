@@ -144,6 +144,47 @@ public class dbCliente extends dbBase implements dbInterface {
     }
     // endregion
 
+    //region getClientesNaoSincronizados
+    public List<tpCliente> getClientesNaoSincronizados(){
+
+        List<tpCliente> _Out = new ArrayList<>();
+        Cursor _c = null;
+
+        StringBuilder _sb = new StringBuilder();
+        _sb.append("     SELECT Cli.* ");
+        _sb.append("       FROM Cliente AS Cli ");
+        _sb.append("      WHERE Cli.IdCliente > 9999999999" ); //Clientes inseridos e não sincronizados possuem um id com mais de 10 digitos
+
+        try {
+
+            _c = this.executeWithResult(_sb.toString());
+
+            if (_c != null) {
+
+                while (_c.moveToNext()) {
+
+                    tpCliente _tpCliente = new tpCliente();
+
+                    this.fill(_c, _tpCliente);
+
+                    _Out.add(_tpCliente);
+
+                }
+
+            }
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+
+        } finally {
+            if (_c != null && _c.isClosed() == false){
+                _c.close();
+            }
+        }
+
+        return _Out;
+    }
 
     // region getForClienteLista
     public List<tpClienteListaRow> getForClienteLista(long idCidade){

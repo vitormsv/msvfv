@@ -2,7 +2,10 @@ package br.com.microserv.msvmobilepdv;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
@@ -13,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.StackView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -239,7 +243,6 @@ public class MainActivity extends AppCompatActivity implements ActivityInterface
 
     }
     // endregion
-
 
     // region bindElements
     @Override
