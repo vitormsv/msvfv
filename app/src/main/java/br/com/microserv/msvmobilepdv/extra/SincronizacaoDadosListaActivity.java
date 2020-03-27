@@ -12,9 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.microserv.framework.msvapi.CidadeApi;
 import br.com.microserv.framework.msvapi.ClienteApi;
+import br.com.microserv.framework.msvapi.ClientePutApi;
 import br.com.microserv.framework.msvapi.CondicaoPagamentoApi;
 import br.com.microserv.framework.msvapi.EmpresaApi;
 import br.com.microserv.framework.msvapi.GrupoApi;
@@ -25,11 +27,13 @@ import br.com.microserv.framework.msvapi.TipoPedidoApi;
 import br.com.microserv.framework.msvapi.ProdutoApi;
 import br.com.microserv.framework.msvapi.TabelaPrecoApi;
 import br.com.microserv.framework.msvapi.TransportadoraApi;
+import br.com.microserv.framework.msvdal.dbCliente;
 import br.com.microserv.framework.msvdal.dbParametro;
 import br.com.microserv.framework.msvdal.dbPedidoMobile;
 import br.com.microserv.framework.msvdal.dbPedidoMobileItem;
 import br.com.microserv.framework.msvdal.dbSincronizacao;
 import br.com.microserv.framework.msvdal.dbVendedor;
+import br.com.microserv.framework.msvdto.tpCliente;
 import br.com.microserv.framework.msvdto.tpKeyValueRow;
 import br.com.microserv.framework.msvdto.tpParametro;
 import br.com.microserv.framework.msvdto.tpPedidoMobile;
@@ -42,6 +46,7 @@ import br.com.microserv.framework.msvinterface.ActivityInterface;
 import br.com.microserv.framework.msvinterface.OnCloseDialog;
 import br.com.microserv.framework.msvinterface.OnTaskCompleteListner;
 import br.com.microserv.framework.msvinterface.tpInterface;
+import br.com.microserv.framework.msvutil.AsyncTaskResult;
 import br.com.microserv.framework.msvutil.MSVGPSTracker;
 import br.com.microserv.framework.msvutil.MSVMsgBox;
 import br.com.microserv.framework.msvutil.MSVUtil;
@@ -576,6 +581,26 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
     };
     // endregion
 
+    // region onTaskCompleteListner_ClientePut
+    private OnTaskCompleteListner onTaskCompleteListner_ClientePut = new OnTaskCompleteListner() {
+        @Override
+        public void onTaskComplete(int index, eTaskCompleteStatus status, long out, tpInterface tpOut, ArrayList<tpInterface> lstOut) {
+
+            // region Acoes que serão executadas quando o status for sucesso
+            if (status == eTaskCompleteStatus.SUCCESS) {
+
+                Toast.makeText(
+                        SincronizacaoDadosListaActivity.this,
+                        "Clientes sincronizados com sucesso.",
+                        Toast.LENGTH_LONG
+                ).show();
+
+            }
+            // endregion
+
+        }
+    };
+    // endregion
 
     // region bindEvents
     @Override
@@ -613,27 +638,7 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
                                     _btnIniciar.setVisibility(View.GONE);
                                     // endregion
 
-                                    // region Gerando histórico e excluindo os pedidos sincronizados
-                                    deleteAndSaveHistorySinc();
-                                    // endregion
-
-                                    // region Inicializando o objeto log de sincronização
-                                    if (_tpSincronizacao == null) {
-                                        _tpSincronizacao = new tpSincronizacao();
-                                        _tpSincronizacao.InicioDataHora = MSVUtil.sqliteHojeHora();
-                                        _tpSincronizacao.IdVendedor = _tpVendedor.IdVendedor;
-                                    }
-                                    // endregion
-
-                                    // region Invocando o método da API para o início da sincronização
-                                    new EmpresaApi(
-                                            SincronizacaoDadosListaActivity.this,
-                                            _tpServidorRestIp.ValorTexto,
-                                            _tpVendedorCodigo.ValorTexto,
-                                            0,
-                                            onTaskCompleteListner
-                                    ).execute();
-                                    // endregion
+                                    Sincronizar();
 
                                 }
 
@@ -683,6 +688,9 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
         this.loadPedidoNaoSincronizado();
         this.loadVendedor();
         // endregion
+
+
+        this.sendClientesBeforeSync();
 
 
         // region Verificando o que será apresentado ao usuário
@@ -746,6 +754,33 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
     }
     // endregion
 
+    //region Sincronizar
+    private void Sincronizar()
+    {
+        // region Gerando histórico e excluindo os pedidos sincronizados
+        deleteAndSaveHistorySinc();
+        // endregion
+
+        // region Inicializando o objeto log de sincronização
+        if (_tpSincronizacao == null) {
+            _tpSincronizacao = new tpSincronizacao();
+            _tpSincronizacao.InicioDataHora = MSVUtil.sqliteHojeHora();
+            _tpSincronizacao.IdVendedor = _tpVendedor.IdVendedor;
+        }
+        // endregion
+
+        // region Invocando o método da API para o início da sincronização
+        new EmpresaApi(
+                SincronizacaoDadosListaActivity.this,
+                _tpServidorRestIp.ValorTexto,
+                _tpVendedorCodigo.ValorTexto,
+                0,
+                onTaskCompleteListner
+        ).execute();
+        // endregion
+
+    }
+    //endregion
 
     // region loadPedidoNaoSincronizado
     private void loadPedidoNaoSincronizado() {
@@ -878,6 +913,71 @@ public class SincronizacaoDadosListaActivity extends AppCompatActivity implement
     }
     // endregion
 
+    //region sendBeforeSync
+    //Envia para o servidor as informações que precisam ser enviadas
+    // antes da sincronização limpar o banco de dados do celular
+    private void sendClientesBeforeSync() {
+
+        try {
+
+            SQLiteHelper _sqh = new SQLiteHelper(SincronizacaoDadosListaActivity.this);
+            _sqh.open(false);
+
+            List<tpCliente> _lstCliente = (new dbCliente(_sqh)).getClientesNaoSincronizados();
+
+            if(_lstCliente.size() > 0)
+
+                MSVMsgBox.showMsgBoxQuestion(
+                        SincronizacaoDadosListaActivity.this,
+                        "Sincronização",
+                        "Deseja sincronizar os clientes que não foram sincronizados?",
+                        new OnCloseDialog() {
+                            @Override
+                            public void onCloseDialog(boolean isOk, String value) {
+
+                                if(isOk)
+                                {
+
+                                    SQLiteHelper _sqh = new SQLiteHelper(SincronizacaoDadosListaActivity.this);
+                                    _sqh.open(false);
+
+                                    try {
+
+                                        List<tpCliente> _lstCliente = (new dbCliente(_sqh)).getClientesNaoSincronizados();
+
+                                    for (tpCliente _tpCliente : _lstCliente) {
+
+                                        ClientePutApi _ClientePutApi = new ClientePutApi(
+                                                SincronizacaoDadosListaActivity.this,
+                                                _tpServidorRestIp.ValorTexto,
+                                                _tpCliente,
+                                                EmpresaApi.IDEMPRESA,
+                                                onTaskCompleteListner_ClientePut);
+
+                                        _ClientePutApi.execute();
+
+                                    }
+
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }finally {
+                                        _sqh.close();
+                                    }
+                                }
+
+                            }
+
+                        });
+
+
+        } catch (Exception b) {
+
+            b.getLocalizedMessage();
+
+        }
+
+    }
+    //endregion
 
     // region deleteAndSaveHistorySinc
     private boolean deleteAndSaveHistorySinc() {

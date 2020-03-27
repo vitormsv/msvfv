@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -170,6 +171,17 @@ public class PedidoListaActivity extends AppCompatActivity implements ActivityIn
             // region _KEY_METODO_EDICAO
             if (_extras.containsKey(_KEY_METODO_EDICAO)) {
                 _metodoEdicao = _extras.getInt(_KEY_METODO_EDICAO);
+
+                _tpEmpresa = (tpEmpresa) _extras.getSerializable(_KEY_TP_EMPRESA);
+
+                if(_tpEmpresa.Descricao.toLowerCase().contains("distribuidora") && _tpEmpresa.Descricao.toLowerCase().contains("biazom")) {
+
+                    _ab.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorTitleBackground)));
+
+                    _ab.setTitle(_ab.getTitle() + " - Distribuidora");
+
+                }
+
             } else {
                 Toast.makeText(
                         PedidoListaActivity.this,
