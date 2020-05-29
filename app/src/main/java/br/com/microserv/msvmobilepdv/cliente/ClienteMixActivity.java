@@ -54,7 +54,6 @@ import br.com.microserv.msvmobilepdv.pedido.PedidoMobileEditarActivity;
 
 public class ClienteMixActivity extends AppCompatActivity implements ActivityInterface {
 
-
     // region Declarando constantes
 
     // Key
@@ -70,7 +69,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
     // endregion
 
-
     // region Declarando as variáveis que vinculam elementos do layout
 
     // View
@@ -78,19 +76,16 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
     View _inLista = null;
     View _inEditar = null;
 
-
     // Menu
     MenuItem _mnClientHide = null;
     MenuItem _mnClientShow = null;
     MenuItem _mnStockList = null;
     MenuItem _mnStockEdit = null;
 
-
     // LinearLayout
     LinearLayout _l_llyTitulo = null;
     LinearLayout _l_llyFilterCnt = null;
     LinearLayout _l_llyTabelaPreco = null;
-
     LinearLayout _e_llyEstoqueQuantidade = null;
     LinearLayout _e_llyEstoqueQuantidadeMenos = null;
     LinearLayout _e_llyEstoqueQuantidadeMais = null;
@@ -100,20 +95,16 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
     LinearLayout _e_llyAnterior = null;
     LinearLayout _e_llyProximo = null;
 
-
     // ListView
     ListView _l_livMix = null;
-
 
     // TextView
     TextView _c_txtClienteNomeFantasia = null;
     TextView _c_txtClienteRazaoSocial = null;
     TextView _c_txtClienteDocumento = null;
-
     TextView _l_txtTitulo = null;
     TextView _l_txtTabelaPreco = null;
     TextView _l_txtRodapeRegistro = null;
-
     TextView _e_txtProdutoCodigo = null;
     TextView _e_txtProdutoEan13 = null;
     TextView _e_txtProdutoDescricao = null;
@@ -127,16 +118,11 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
     TextView _e_txtPedidoQuantidade = null;
     TextView _e_txtContador = null;
 
-
-    // Button
-
-
     // Switch
     Switch _e_swiGoToNext = null;
     Switch _e_swiEhItemConfirmado = null;
 
     // endregion
-
 
     // region Declarando outras variaveis de uso da activity
 
@@ -152,9 +138,9 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
     // List of Objects
 
-
     // String
     String _sourceActivity = "";
+    String _value_tabelaPrecoSelected = "";
 
     // long
     long _idCliente = 0;
@@ -164,12 +150,12 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
     int _metodoEdicao = 0;
     int _iTabelaPreco = -1;
     int _iClienteMix = -1;
+    int _index_tabelaPrecoSelected = 0;
 
     // Boolean
     boolean _IsShowFilter;
 
     // endregion
-
 
     // region onCreate
     @Override
@@ -180,13 +166,11 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         setContentView(R.layout.activity_cliente_mix);
         // endregion
 
-
         // region Adicionando suporte a ActionBar
         ActionBar _ab = getSupportActionBar();
         _ab.setDisplayHomeAsUpEnabled(true);
         _ab.setElevation(0);
         // endregion
-
 
         // region Selecionando os parametros enviados através do Bundle
         Bundle _extras = getIntent().getExtras();
@@ -245,17 +229,14 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         }
         // endregion
 
-
         // region Invocando os metodos de inicialização activity
         this.bindElements();
         this.bindEvents();
 
         this.initialize();
         // endregion
-
     }
     // endregion
-
 
     // region onCreateOptionsMenu
     @Override
@@ -276,10 +257,8 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         // endregion
 
         return true;
-
     }
     // endregion
-
 
     // region onOptionsItemSelected
     @Override
@@ -363,14 +342,11 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                 );
                 // endregion
                 break;
-
         }
 
         return super.onOptionsItemSelected(item);
-
     }
     // endregion
-
 
     // region bindElements
     @Override
@@ -382,11 +358,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         _inEditar = (View) findViewById(R.id.inEditar);
         // endregion
 
-        // LinearLayout
+        // region LinearLayout
         _l_llyTitulo = (LinearLayout) _inLista.findViewById(R.id.llyTitulo);
         _l_llyFilterCnt = (LinearLayout) _inLista.findViewById(R.id.llyFilterCnt);
         _l_llyTabelaPreco = (LinearLayout) _inLista.findViewById(R.id.llyTabelaPreco);
-
         _e_llyEstoqueQuantidade = (LinearLayout) _inEditar.findViewById(R.id.llyEstoqueQuantidade);
         _e_llyEstoqueQuantidadeMenos = (LinearLayout) _inEditar.findViewById(R.id.llyEstoqueQuantidadeMenos);
         _e_llyEstoqueQuantidadeMais = (LinearLayout) _inEditar.findViewById(R.id.llyEstoqueQuantidadeMais);
@@ -395,21 +370,19 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         _e_llyPedidoQuantidadeMais = (LinearLayout) _inEditar.findViewById(R.id.llyPedidoQuantidadeMais);
         _e_llyAnterior = (LinearLayout) _inEditar.findViewById(R.id.llyAnterior);
         _e_llyProximo = (LinearLayout) _inEditar.findViewById(R.id.llyProximo);
+        // endregion
 
-
-        // ListView
+        // region ListView
         _l_livMix = (ListView) _inLista.findViewById(R.id.livMix);
+        // endregion
 
-
-        // TextView
+        // region TextView
         _c_txtClienteNomeFantasia = (TextView) _inCabecalho.findViewById(R.id.txtClienteNomeFantasia);
         _c_txtClienteRazaoSocial = (TextView) _inCabecalho.findViewById(R.id.txtClienteRazaoSocial);
         _c_txtClienteDocumento = (TextView) _inCabecalho.findViewById(R.id.txtClienteDocumento);
-
         _l_txtTitulo = (TextView) _inLista.findViewById(R.id.txtTitulo);
         _l_txtTabelaPreco = (TextView) _inLista.findViewById(R.id.txtTabelaPreco);
         _l_txtRodapeRegistro = (TextView) _inLista.findViewById(R.id.txtRodapeRegistro);
-
         _e_txtProdutoCodigo = (TextView) _inEditar.findViewById(R.id.txtProdutoCodigo);
         _e_txtProdutoEan13 = (TextView) _inEditar.findViewById(R.id.txtProdutoEan13);
         _e_txtProdutoDescricao = (TextView) _inEditar.findViewById(R.id.txtProdutoDescricao);
@@ -422,18 +395,14 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         _e_txtEstoqueQuantidade = (TextView) _inEditar.findViewById(R.id.txtEstoqueQuantidade);
         _e_txtPedidoQuantidade = (TextView) _inEditar.findViewById(R.id.txtPedidoQuantidade);
         _e_txtContador = (TextView) _inEditar.findViewById(R.id.txtContador);
+        // endregion
 
-
-        // Button
-
-
-        // Switch
+        // region Switch
         _e_swiEhItemConfirmado = (Switch) _inEditar.findViewById(R.id.swiEhItemConfirmado);
         _e_swiGoToNext = (Switch) _inEditar.findViewById(R.id.swiGoToNext);
-
+        // endregion
     }
     // endregion
-
 
     // region bindEvents
     @Override
@@ -448,7 +417,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             }
         });
         // endregion
-
 
         // region Evento CLICK em _l_llyTabelaPreco
         _l_llyTabelaPreco.setOnClickListener(new View.OnClickListener() {
@@ -469,24 +437,27 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
-
+                                _index_tabelaPrecoSelected = position;
+                                _value_tabelaPrecoSelected = tp.getListIdentifierValue();
                             }
                         },
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
-
+                                _l_txtTabelaPreco.setText(_value_tabelaPrecoSelected);
+                                _iTabelaPreco = _index_tabelaPrecoSelected;
+                                loadMix();
+                                refreshMix();
                             }
                         }
                 );
-
             }
         });
         // endregion
 
-
         // region Evento CLICK em _l_liv
         _l_livMix.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -494,11 +465,9 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                 showMixItem();
 
                 onOptionsItemSelected(_mnStockEdit);
-
             }
         });
         // endregion
-
 
         // region Evento CLICK em _e_llyEstoqueQuantidade
         _e_llyEstoqueQuantidade.setOnClickListener(new View.OnClickListener() {
@@ -542,13 +511,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                             }
                     );
                     // endregion
-
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK _e_llyEstoqueQuantidadeMenos
         _e_llyEstoqueQuantidadeMenos.setOnClickListener(new View.OnClickListener() {
@@ -595,20 +561,16 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                                 Toast.LENGTH_SHORT
                         ).show();
                         // endregion
-
                     }
                     // endregion
 
                     // region Atualizando os dados dos items na tela
                     showMixItem();
                     // endregion
-
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK _e_llyEstoqueQuantidadeMais
         _e_llyEstoqueQuantidadeMais.setOnClickListener(new View.OnClickListener() {
@@ -646,13 +608,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     // region Atualizando os dados dos items na tela
                     showMixItem();
                     // endregion
-
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK em _e_llyPedidoQuantidade
         _e_llyPedidoQuantidade.setOnClickListener(new View.OnClickListener() {
@@ -696,13 +655,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                             }
                     );
                     // endregion
-
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK _e_llyPedidoQuantidadeMenos
         _e_llyPedidoQuantidadeMenos.setOnClickListener(new View.OnClickListener() {
@@ -739,20 +695,16 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     } else {
 
                         _tp.PedidoQuantidade -= 1;
-
                     }
                     // endregion
 
                     // region Imprimindo os dados do items na tela
                     showMixItem();
                     // endregion
-
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK _e_llyPedidoQuantidadeMais
         _e_llyPedidoQuantidadeMais.setOnClickListener(new View.OnClickListener() {
@@ -782,13 +734,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     // region Imprimendo o item já processado no produto
                     showMixItem();
                     // endregion
-
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK em _e_llyAnterior
         _e_llyAnterior.setOnClickListener(new View.OnClickListener() {
@@ -809,13 +758,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     showMixItem();
 
                     MSVUtil.vibrate(ClienteMixActivity.this);
-
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK em _e_llyProximo
         _e_llyProximo.setOnClickListener(new View.OnClickListener() {
@@ -838,11 +784,9 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     MSVUtil.vibrate(ClienteMixActivity.this);
 
                 }
-
             }
         });
         // endregion
-
 
         // region Evento CLICK em EhItemConfirmado
         _e_swiEhItemConfirmado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -867,14 +811,11 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     _e_llyProximo.callOnClick();
                 }
                 // endregion
-
             }
         });
         // endregion
-
     }
     // endregion
-
 
     // region initialize
     @Override
@@ -887,22 +828,15 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
         try {
 
-            // region Aplicando valores padrões
-
-            // endregion
-
-
             // region Carregando os dados do cliente
             this.loadCliente();
             this.refreshCliente();
             // endregion
 
-
             // region Carregando os dados das tabelas de preço
             this.loadTabelaPreco();
             this.refreshTabelaPreco();
             // endregion
-
 
             // region Carregando os dados do mix de produtos
             this.loadMix();
@@ -916,13 +850,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     e.getMessage()
             );
         }
-
     }
     // endregion
 
-
     // ######################## NOVOS METODOS AQUI ########################
-
 
     // region refreshFilter
     private void refreshFilter() {
@@ -936,10 +867,8 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             _l_llyFilterCnt.setVisibility(View.GONE);
             _l_txtTitulo.setText("( + ) MOSTRAR FILTRO");
         }
-
     }
     // endregion
-
 
     // region Método loadCliente
     private void loadCliente() {
@@ -949,7 +878,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         dbCliente _dbCliente = null;
         // endregion
 
-
         // region Método protegido de exceção
         try {
 
@@ -957,7 +885,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             _sqlHelper = new SQLiteHelper(ClienteMixActivity.this);
             _sqlHelper.open(false);
             // endregion
-
 
             // region Recuperando os dados do cliente
             _dbCliente = new dbCliente(_sqlHelper);
@@ -977,13 +904,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             if ((_sqlHelper != null) && (_sqlHelper.isOpen())) {
                 _sqlHelper.close();
             }
-
         }
         // endregion
-
     }
     // endregion
-
 
     // region Método loadTabelaPreco
     private void loadTabelaPreco() {
@@ -994,7 +918,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         SQLClauseHelper _whereTabelaPreco = null;
         // endregion
 
-
         // region Método protegido de exceção
         try {
 
@@ -1002,24 +925,20 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             _iTabelaPreco = -1;
             // endregion
 
-
             // region Montando o where para a tabela ClienteMix
             _whereTabelaPreco = new SQLClauseHelper();
             _whereTabelaPreco.addEqualInteger("IdEmpresa", _idEmpresa);
             // endregion
-
 
             // region Abrindo a conexão com o banco de dados
             _sqlHelper = new SQLiteHelper(ClienteMixActivity.this);
             _sqlHelper.open(false);
             // endregion
 
-
             // region Recuperando o mix de produtos do cliente
             _dbTabelaPreco = new dbTabelaPreco(_sqlHelper);
             _lstTabelaPreco = (ArrayList<tpTabelaPreco>) _dbTabelaPreco.getList(tpTabelaPreco.class, _whereTabelaPreco);
             // endregion
-
 
             // region Organizando as tabelas por ordem de descrição da tabela
             if ((_lstTabelaPreco != null) && (_lstTabelaPreco.size() > 0)) {
@@ -1041,7 +960,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                 );
 
                 finish();
-
             }
             // endregion
 
@@ -1058,13 +976,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             if ((_sqlHelper != null) && (_sqlHelper.isOpen())) {
                 _sqlHelper.close();
             }
-
         }
         // endregion
-
     }
     // endregion
-
 
     // region Método loadMix
     private void loadMix() {
@@ -1079,7 +994,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         SQLClauseHelper _whereTabelaPrecoProduto = null;
         // endregion
 
-
         // region Método protegido de exceção
         try {
 
@@ -1089,25 +1003,21 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             _lstClienteMixRemove = null;
             // endregion
 
-
             // region Montando o where para a tabela ClienteMix
             _whereClienteMix = new SQLClauseHelper();
             _whereClienteMix.addEqualInteger("IdCliente", _idCliente);
             _whereClienteMix.addEqualInteger("IdEmpresa", _tpEmpresa.IdEmpresa);
             // endregion
 
-
             // region Abrindo a conexão com o banco de dados
             _sqlHelper = new SQLiteHelper(ClienteMixActivity.this);
             _sqlHelper.open(false);
             // endregion
 
-
             // region Recuperando o mix de produtos do cliente
             _dbClienteMix = new dbClienteMix(_sqlHelper);
             _lstClienteMix = (ArrayList<tpClienteMix>)_dbClienteMix.getList(tpClienteMix.class, _whereClienteMix);
             // endregion
-
 
             // region Recuperando informações acessorias para cada item do mix
             if ((_lstClienteMix != null) && (_lstClienteMix.size() > 0)) {
@@ -1115,6 +1025,7 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                 for (tpClienteMix _tp : _lstClienteMix) {
 
                     // region Buscando as informações do produto
+
                     // region Montando a clausula where
                     if (_whereProduto == null) {
                         _whereProduto = new SQLClauseHelper();
@@ -1132,10 +1043,11 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
                     _tp.Produto = (tpProduto) _dbProduto.getOne(_whereProduto);
                     // endregion
+
                     // endregion
 
-
                     // region Buscando as informações do preço do produto
+
                     // region Montando a clausula where
                     if (_whereTabelaPrecoProduto == null) {
                         _whereTabelaPrecoProduto = new SQLClauseHelper();
@@ -1154,8 +1066,8 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
                     _tp.TabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_whereTabelaPrecoProduto);
                     // endregion
-                    // endregion
 
+                    // endregion
 
                     // region verificando se o item deve ser removido da lista
                     if ((_tp.Produto == null) || (_tp.TabelaPrecoProduto == null)) {
@@ -1165,14 +1077,11 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                         }
 
                         _lstClienteMixRemove.add(_tp);
-
                     }
                     // endregion
                 }
-
             }
             // endregion
-
 
             // region Removendo os itens que não tem produto ou preço relacionado
             if ((_lstClienteMixRemove != null) && (_lstClienteMixRemove.size() > 0)) {
@@ -1194,12 +1103,14 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
             } else {
 
+                _l_livMix.setAdapter(null);
+                _adpClienteMix = null;
+
                 Toast.makeText(
                         ClienteMixActivity.this,
                         "Não existe um mix de produtos configurados para este cliente",
                         Toast.LENGTH_LONG
                 ).show();
-
             }
             // endregion
 
@@ -1216,81 +1127,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             if ((_sqlHelper != null) && (_sqlHelper.isOpen())) {
                 _sqlHelper.close();
             }
-
         }
         // endregion
-
     }
     // endregion
-
-
-    // region Método loadTabelaPrecoProduto
-    private void loadTabelaPrecoProduto() {
-
-        // region Declarando as variáveis locais do método
-        SQLiteHelper _sqlHelper = null;
-        dbTabelaPrecoProduto _dbTabelaPrecoProduto = null;
-        SQLClauseHelper _whereTabelaPrecoProduto = null;
-        // endregion
-
-
-        // region Método protegido de exceção
-        try {
-
-            if ((_lstClienteMix != null) && (_lstClienteMix.size() > 0)) {
-
-                for (tpClienteMix _tp : _lstClienteMix) {
-
-                    // region Montando o where para a tabela TabelaPrecoProduto
-                    if (_whereTabelaPrecoProduto == null) {
-                        _whereTabelaPrecoProduto = new SQLClauseHelper();
-                    } else {
-                        _whereTabelaPrecoProduto.clearAll();
-                    }
-
-                    _whereTabelaPrecoProduto.addEqualInteger("IdProduto", _tp.IdProduto);
-                    _whereTabelaPrecoProduto.addEqualInteger("IdTabelaPreco", _lstTabelaPreco.get(_iTabelaPreco).IdTabelaPreco);
-                    // endregion
-
-
-                    // region Abrindo a conexão com o banco de dados
-                    _sqlHelper = new SQLiteHelper(ClienteMixActivity.this);
-                    _sqlHelper.open(false);
-                    // endregion
-
-
-                    // region Submetendo a consulta ao banco
-                    if (_dbTabelaPrecoProduto == null) {
-                        _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqlHelper);
-                    }
-
-                    _tp.TabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_whereTabelaPrecoProduto);
-                    // endregion
-
-                }
-
-            }
-
-        } catch (Exception e) {
-
-            MSVMsgBox.showMsgBoxError(
-                    ClienteMixActivity.this,
-                    "Erro ao realizar a atualização dos preços do produtos relacionados no mix",
-                    e.getMessage()
-            );
-
-        } finally {
-
-            if ((_sqlHelper != null) && (_sqlHelper.isOpen())) {
-                _sqlHelper.close();
-            }
-
-        }
-        // endregion
-
-    }
-    // endregion
-
 
     // region Método refreshCliente
     private void refreshCliente() {
@@ -1312,13 +1152,10 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             } else {
                 _c_txtClienteDocumento.setText(MSVUtil.formatCpf(_tpCliente.CnpjCpf));
             }
-
         }
         // endregion
-
     }
     // endregion
-
 
     // region Método refreshTabelaPreco
     private void refreshTabelaPreco() {
@@ -1331,7 +1168,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
     }
     // endregion
-
 
     // region Método refreshMix
     private void refreshMix() {
@@ -1352,16 +1188,12 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             } else {
 
                 _adpClienteMix.updateItems(_lstClienteMix);
-
             }
 
             _l_txtRodapeRegistro.setText("REGISTROS: " + _lstClienteMix.size());
-
         }
-
     }
     // endregion
-
 
     // region Método showMixItem
     private void showMixItem() {
@@ -1406,12 +1238,9 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             );
 
             finish();
-
         }
-
     }
     // endregion
-
 
     // region Método updateItem
     private boolean updateItem(tpClienteMix item) {
@@ -1449,10 +1278,8 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         }
 
         return _out;
-
     }
     // endregion
-
 
     // region Método resetMix
     private void resetMix() {
@@ -1462,7 +1289,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         dbClienteMix _dbClienteMix = null;
         // endregion
 
-
         try {
 
             // region Cuidando da conexão com o banco de dados
@@ -1470,11 +1296,9 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             _sqh.open(true);
             // endregion
 
-
             // region Instânciando objeto de acesso ao banco para o mix de produtos
             _dbClienteMix = new dbClienteMix(_sqh);
             // endregion
-
 
             // region Para cada item vamos zerar as informações de estoque e pedido
             for (tpClienteMix _tp : _lstClienteMix) {
@@ -1484,15 +1308,12 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                 _tp.EhItemConfirmado = 0;
 
                 _dbClienteMix.update(_tp);
-
             }
             // endregion
-
 
             // region Atualizando a lista de itens
             _adpClienteMix.updateItems(_lstClienteMix);
             // endregion
-
 
             // region Ativando a guia de lista do mix
             onOptionsItemSelected(_mnStockList);
@@ -1507,7 +1328,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
                     e.getMessage()
             );
             // endregion
-
         } finally {
 
             // region Encerrando a conexão com o banco de dados
@@ -1516,10 +1336,8 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             }
             // endregion
         }
-
     }
     // endregion
-
 
     // region Metodo showSummary
     private void showSummary() {
@@ -1538,7 +1356,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             }
         }
         // endregion
-
 
         // region Inflando o layout customizado para a janela do resumo
 
@@ -1575,7 +1392,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
         // endregion
 
-
         // region Montando a janela de dialogo
         final AlertDialog.Builder _builder = new AlertDialog.Builder(ClienteMixActivity.this);
 
@@ -1590,8 +1406,6 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         AlertDialog _dialog = _builder.create();
         _dialog.show();
         // endregion
-
     }
     // endregion
-
 }
