@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -463,9 +464,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _inItens.setVisibility(View.VISIBLE);
                 _inResumo.setVisibility(View.GONE);
 
+                _pnlResumoMnt.setBackgroundResource(R.color.indigo_400);
                 _pnlPrincipalMnt.setBackgroundResource(R.color.indigo_400);
                 _pnlItensMnt.setBackgroundResource(R.color.indigo_300);
-                _pnlResumoMnt.setBackgroundResource(R.color.indigo_400);
                 break;
 
             case R.id.mnResumo:
@@ -2946,7 +2947,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                         if (isOk) {
                             _tpPedidoMobile.Itens.remove(itemIndex);
-                            refreshItens();
+                            _adpItens.notifyDataSetChanged();
                         }
 
                     }
