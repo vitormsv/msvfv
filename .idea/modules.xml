@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GitHub-msvfv.iml" filepath="$PROJECT_DIR$/.idea/modules/GitHub-msvfv.iml" group="msvfv" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GitHub-msvfv-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GitHub-msvfv-app.iml" group="msvfv/app" />
       <module fileurl="file://$PROJECT_DIR$/MSVFv-msvfv.iml" filepath="$PROJECT_DIR$/MSVFv-msvfv.iml" group="msvfv" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="msvfv/app" />
       <module fileurl="file://$PROJECT_DIR$/msvfv.iml" filepath="$PROJECT_DIR$/msvfv.iml" group="msvfv" />

@@ -298,7 +298,6 @@ public class ClienteProdutoMixListaActivity extends AppCompatActivity implements
 
                 _tpSelected = (tpClienteProdutoMixRow) _l_livProduto.getAdapter().getItem(position);
 
-
                 _e_txtProdutoCodigo.setText(_tpSelected.ProdutoCodigo);
                 _e_txtProdutoEan13.setText(_tpSelected.ProdutoEan13);
                 _e_txtProdutoDescricao.setText(_tpSelected.ProdutoDescricao);
@@ -308,7 +307,6 @@ public class ClienteProdutoMixListaActivity extends AppCompatActivity implements
                 _e_txtComprarQuantidade .setText(String.valueOf(_tpSelected.ComprarQuantidade));
                 _e_txtUnidadeValor.setText(MSVUtil.doubleToText("R$", _tpSelected.Preco));
                 _e_txtTotalValor.setText(MSVUtil.doubleToText("R$", _tpSelected.Preco * _tpSelected.ComprarQuantidade));
-
 
                 _inLista.setVisibility(View.GONE);
                 _inEditar.setVisibility(View.VISIBLE);

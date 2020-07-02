@@ -768,7 +768,7 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             @Override
             public void onClick(View view) {
 
-                if (_iClienteMix == (_lstClienteMix.size() -1)) {
+                if (_iClienteMix == (_lstClienteMix.size() - 1)) {
 
                     Toast.makeText(
                             ClienteMixActivity.this,
@@ -943,13 +943,15 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             // region Organizando as tabelas por ordem de descrição da tabela
             if ((_lstTabelaPreco != null) && (_lstTabelaPreco.size() > 0)) {
 
-                Collections.sort(_lstTabelaPreco, new Comparator<tpTabelaPreco>() {
-                    public int compare(tpTabelaPreco p1, tpTabelaPreco p2) {
-                        return p1.Descricao.compareTo(p2.Descricao);
+                int indexTabelaPadrao = 0;
+                for (tpTabelaPreco item : _lstTabelaPreco) {
+                    if (item.IdTabelaPreco == _tpCliente.IdTabelaPreco) {
+                        break;
                     }
-                });
+                    indexTabelaPadrao++;
+                }
 
-                _iTabelaPreco = 0;
+                _iTabelaPreco = indexTabelaPadrao >= _lstTabelaPreco.size() ? 0 : indexTabelaPadrao;
 
             } else {
 
@@ -1016,7 +1018,7 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
 
             // region Recuperando o mix de produtos do cliente
             _dbClienteMix = new dbClienteMix(_sqlHelper);
-            _lstClienteMix = (ArrayList<tpClienteMix>)_dbClienteMix.getList(tpClienteMix.class, _whereClienteMix);
+            _lstClienteMix = (ArrayList<tpClienteMix>) _dbClienteMix.getList(tpClienteMix.class, _whereClienteMix);
             // endregion
 
             // region Recuperando informações acessorias para cada item do mix
@@ -1381,7 +1383,7 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
         _llyQuantidadeTotal.getLayoutParams().width = 400;
         _llyQuantidadeOfertada.requestLayout();
 
-        _llyQuantidadeOfertada.getLayoutParams().width = (int)((400 * _quantidadeOfertada) / _quantidadeTotal);
+        _llyQuantidadeOfertada.getLayoutParams().width = (int) ((400 * _quantidadeOfertada) / _quantidadeTotal);
         _llyQuantidadeOfertada.requestLayout();
         // endregion
 

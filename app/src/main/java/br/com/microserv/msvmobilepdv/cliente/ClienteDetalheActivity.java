@@ -876,7 +876,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         });
         // endregion
 
-        // region Clieque em AGENDA (ADD)
+        // region Clique em AGENDA (ADD)
         _fca_imgAgendaAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1524,7 +1524,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 // endregion
 
                 // endregion
-
             }
             // endregion
 
@@ -1596,11 +1595,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     "Aplicativo Whatsapp não instalado neste dispositivo",
                     "Acesso sua loja de aplicativos e baixe o aplicativo Whatsapp para compartilhar o pedido com o seu cliente"
             );
-
         }
         // endregion
-
-
     }
     // endregion
 
