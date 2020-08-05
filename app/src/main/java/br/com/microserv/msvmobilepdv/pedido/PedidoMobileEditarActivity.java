@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -154,7 +153,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     TextView _ped_txtTransportadoraDescricao = null;
     TextView _ped_txtNumeroCliente = null;
     TextView _ped_txtObservacao = null;
-
     // endregion
 
 
@@ -167,7 +165,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     TextView _ite_txtNovoItem = null;
     TextView _ite_txtRegistro = null;
     TextView _ite_txtValorTotal = null;
-
     // endregion
 
 
@@ -220,9 +217,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     TextView _res_txtDescontoValor = null;
     TextView _res_txtItensValorTotalLiquido = null;
     TextView _res_txtPedidoConfirmado = null;
-
     // endregion
-
     // endregion
 
 
@@ -270,14 +265,12 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     int _iEhConfirmado = 0;
     int _metodoEdicao = 0;
 
-
     // long
     long _IdCliente = 0;
     long _IdPedidoMobile = 0;
 
     // Boolean
     boolean _mixImportado = false;
-
     // endregion
 
 
@@ -365,7 +358,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         // region Incovando o método de inicializacao da activity
         initialize();
         // endregion
-
     }
     // endregion
 
@@ -432,7 +424,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         getMenuInflater().inflate(R.menu.menu_pedido, menu);
         return true;
-
     }
     // endregion
 
@@ -444,6 +435,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         switch (item.getItemId()) {
 
             case android.R.id.home:
+            case R.id.mnCancelar:
                 this.cancel();
                 break;
 
@@ -484,15 +476,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             case R.id.mnSalvar:
                 this.save();
                 break;
-
-            case R.id.mnCancelar:
-                this.cancel();
-                break;
-
         }
 
         return super.onOptionsItemSelected(item);
-
     }
     // endregion
 
@@ -516,7 +502,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     }
                 }
         );
-
     }
     // endregion
 
@@ -534,14 +519,12 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _txtClienteCodigo = (TextView) _inClienteCabecalho.findViewById(R.id.txtClienteCodigo);
         // endregion
 
-
         // region INCLUDE
         _inClienteCabecalho = (View) findViewById(R.id.inClienteCabecalho);
         _inPrincipal = (View) findViewById(R.id.inPrincipal);
         _inItens = (View) findViewById(R.id.inItens);
         _inResumo = (View) findViewById(R.id.inResumo);
         // endregion
-
 
         // region NAVEGADOR
         _pnlPrincipalMnt = (LinearLayout) findViewById(R.id.pnlPrincipalMnt);
@@ -581,7 +564,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         // endregion
 
-
         // region ITENS
 
         // ListView
@@ -593,7 +575,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _ite_txtValorTotal = (TextView) _inItens.findViewById(R.id.txtValorTotal);
 
         // endregion
-
 
         // region RESUMO
 
@@ -646,7 +627,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _res_txtPedidoConfirmado = (TextView) _inResumo.findViewById(R.id.txtPedidoConfirmado);
 
         // endregion
-
     }
     // endregion
 
@@ -713,7 +693,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         // endregion
 
         // endregion
-
 
         // region Guia PRINCIPAL
 
@@ -1001,8 +980,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         // endregion
 
-
-        // region Guia ITEM **************************************************
+        // region Guia ITEM
 
         // region Click em NOVO ITEM
         _ite_txtNovoItem.setOnClickListener(new View.OnClickListener() {
@@ -1134,8 +1112,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                                     if (_tpSelectedOptoin.Key == 0) {
                                         edit(_itemIndex);
+
                                     } else if (_tpSelectedOptoin.Key == 1) {
                                         delete(_itemIndex);
+
                                     }
 
                                 }
@@ -1152,7 +1132,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         // endregion
 
         // endregion
-
 
         // region Guia RESUMO
 
@@ -1295,7 +1274,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
 
         // endregion
-
     }
     // endregion
 
@@ -1675,26 +1653,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _ite_livItens.setAdapter(_adpItens);
         // endregion
 
-
-        // region Atualizando campos calculados do pedido de acordo com os itens
-        _tpPedidoMobile.ItensQuantidade = 0;
-        _tpPedidoMobile.TotalValor = 0;
-        _tpPedidoMobile.DescontoPercentual1 = 0;
-        _tpPedidoMobile.DescontoValor1 = 0;
-        _tpPedidoMobile.TotalValorLiquido = 0;
-
-        for (tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
-
-            _tpPedidoMobile.ItensQuantidade += 1;
-            _tpPedidoMobile.TotalValor += _tp.UnidadeValorTotal;
-            _tpPedidoMobile.TotalValorLiquido += _tp.UnidadeValorTotal;
-
-        }
-
-        _ite_txtRegistro.setText("REGISTROS: " + String.valueOf(_tpPedidoMobile.ItensQuantidade));
-        _ite_txtValorTotal.setText(MSVUtil.doubleToText("R$", _tpPedidoMobile.TotalValor));
-        // endregion
-
+        this.atualizaValorTotalItens();
     }
     //endregion
 
@@ -2948,12 +2907,37 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         if (isOk) {
                             _tpPedidoMobile.Itens.remove(itemIndex);
                             _adpItens.notifyDataSetChanged();
+
+                            atualizaValorTotalItens();
                         }
 
                     }
                 }
         );
 
+    }
+    // endregion
+
+
+    // region
+    private void atualizaValorTotalItens(){
+
+        // region Atualizando campos calculados do pedido de acordo com os itens
+        _tpPedidoMobile.ItensQuantidade = 0;
+        _tpPedidoMobile.TotalValor = 0;
+        _tpPedidoMobile.DescontoPercentual1 = 0;
+        _tpPedidoMobile.DescontoValor1 = 0;
+        _tpPedidoMobile.TotalValorLiquido = 0;
+
+        for (tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
+
+            _tpPedidoMobile.ItensQuantidade += 1;
+            _tpPedidoMobile.TotalValor += _tp.UnidadeValorTotal;
+            _tpPedidoMobile.TotalValorLiquido += _tp.UnidadeValorTotal;
+        }
+
+        _ite_txtRegistro.setText("REGISTROS: " + String.valueOf(_tpPedidoMobile.ItensQuantidade));
+        _ite_txtValorTotal.setText(MSVUtil.doubleToText("R$", _tpPedidoMobile.TotalValor));
     }
     // endregion
 
