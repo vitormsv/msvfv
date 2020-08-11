@@ -96,7 +96,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     static final int _UPDATE_VALUE = 1;
     static final int _LOOKUP_VALUE = 3;
     static final String _CLIENTE_DETALHE_VALUE = "ClienteDetalheActivity";
-
     // endregion
 
 
@@ -168,6 +167,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     TextView _fca_txtNomeFantasia = null;
     TextView _fca_txtCnpjCpf = null;
     TextView _fca_txtIeRg = null;
+    TextView _fca_txtTabelaPrecoPadrao = null;
     TextView _fca_txtTelefoneFixo = null;
     TextView _fca_txtTelefoneCelular = null;
     TextView _fca_txtEmail = null;
@@ -237,7 +237,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
     // boolean
     boolean _isSyncToday = false;
-
     // endregion
 
 
@@ -250,13 +249,11 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         setContentView(R.layout.activity_cliente_detalhe);
         // endregion
 
-
         // region Adicionando suporte a ActionBar
         ActionBar _ab = getSupportActionBar();
         _ab.setDisplayHomeAsUpEnabled(true);
         _ab.setElevation(0);
         // endregion
-
 
         // region Selecionando os parametros enviados através do Bundle
         Bundle _extras = getIntent().getExtras();
@@ -311,10 +308,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             }
             // endregion
 
-
             // region _KEY_CLIENTE_id
             if (_extras.containsKey(_KEY_CLIENTE_id)) {
-                _id =  _extras.getLong(_KEY_CLIENTE_id);
+                _id = _extras.getLong(_KEY_CLIENTE_id);
             } else {
                 Toast.makeText(
                         ClienteDetalheActivity.this,
@@ -323,10 +319,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 ).show();
             }
             // endregion
-
         }
         // endregion
-
 
         // region Por padrão vamos informar que o formulário resultou OK
         // isto é necessário para informar a activity ClienteListaActivity que a
@@ -335,14 +329,11 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         setResult(Activity.RESULT_OK);
         // endregion
 
-
         // region Invocando os metodos que tratam dos elementos da tela
         bindElements();
         bindEvents();
-
         initialize();
         // endregion
-
     }
     // endregion
 
@@ -361,10 +352,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _mnMix.setVisible(false);
             }
         }*/
-
-
         return true;
-
     }
     // endregion
 
@@ -390,7 +378,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 this.showPedido();
 
                 _inClienteDetalhePedido.setVisibility(View.VISIBLE);
-
 
                 _pnlPedidoMnt.setBackgroundResource(R.color.indigo_300);
                 _pnlFinanceiroMnt.setBackgroundResource(R.color.indigo_500);
@@ -437,15 +424,12 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _pnlFinanceiroMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlFichaMnt.setBackgroundResource(R.color.indigo_300);
                 break;
-
         }
         // endregion
-
 
         // region Invocando o método construtor
         return super.onOptionsItemSelected(item);
         // endregion
-
     }
     // endregion
 
@@ -458,7 +442,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         super.onActivityResult(requestCode, resultCode, data);
         // endregion
 
-
         // region De acordo com o código de retorno fazer...
         switch (requestCode) {
 
@@ -470,9 +453,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     this.loadPedido();
                     this.showPedido();
                     // endregion
-
                 }
-
                 break;
 
             case _CONTACT_ADD_REQUEST_CODE:
@@ -480,22 +461,17 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 if (resultCode == Activity.RESULT_OK) {
                     this.showAgendaContent();
                 }
-
                 break;
 
-            case _CLIENTE_EDITAR_REQUEST_CODE :
+            case _CLIENTE_EDITAR_REQUEST_CODE:
 
-                if(resultCode == Activity.RESULT_OK)
-                {
+                if (resultCode == Activity.RESULT_OK) {
                     this.loadCliente();
                     this.showCliente();
                 }
-
                 break;
-
         }
         // endregion
-
     }
     //endregion
 
@@ -511,7 +487,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _inClienteDetalheFinanceiro = (View) findViewById(R.id.inClienteDetalheFinanceiro);
         _inClienteDetalheFicha = (View) findViewById(R.id.inClienteDetalheFicha);
 
-
         // region Include do cabecalho
         // TextView
         _cab_txtClienteNomeFantasia = (TextView) _inCabecalho.findViewById(R.id.txtClienteNomeFantasia);
@@ -520,14 +495,12 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _cab_txtClienteCodigo = (TextView) _inCabecalho.findViewById(R.id.txtClienteCodigo);
         // endregion
 
-
         // region Guias
         // LinearLayout
         _pnlPedidoMnt = (LinearLayout) findViewById(R.id.pnlPedidoMnt);
         _pnlFinanceiroMnt = (LinearLayout) findViewById(R.id.pnlFinanceiroMnt);
         _pnlFichaMnt = (LinearLayout) findViewById(R.id.pnlFichaMnt);
         // endregion
-
 
         // region Include de pedidos
         // TextView
@@ -540,7 +513,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _ped_livPedidoLista = (ListView) _inClienteDetalhePedido.findViewById(R.id.livPedidoLista);
         // endregion
 
-
         // region Include de Mix de Produtos
         // TextView
         _mix_txtContarEstoque = (TextView) _inClienteDetalheMix.findViewById(R.id.txtContarEstoque);
@@ -549,7 +521,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // ListView
         _mix_livMixLista = (ListView) _inClienteDetalheMix.findViewById(R.id.livMixLista);
         // endregion
-
 
         // region Situação Financeira
         // TextView
@@ -560,7 +531,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // ListView
         _fin_livParcelaLista = (ListView) _inClienteDetalheFinanceiro.findViewById(R.id.livParcelaLista);
         // endregion
-
 
         // region Ficha cadastral
         // LinearLayout
@@ -574,6 +544,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _fca_txtNomeFantasia = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtNomeFantasia);
         _fca_txtCnpjCpf = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtCnpjCpf);
         _fca_txtIeRg = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtIeRg);
+        _fca_txtTabelaPrecoPadrao = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtTabelaPreco);
         _fca_txtTelefoneFixo = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtTelefoneFixo);
         _fca_txtTelefoneCelular = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtTelefoneCelular);
         _fca_txtEmail = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtEmail);
@@ -596,7 +567,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _fca_imgAgendaOk = (ImageView) _inClienteDetalheFicha.findViewById(R.id.imgAgendaOk);
         _fca_imgAgendaAdd = (ImageView) _inClienteDetalheFicha.findViewById(R.id.imgAgendaAdd);
         // endregion
-
     }
     // endregion
 
@@ -619,7 +589,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _pnlPedidoMnt.setBackgroundResource(R.color.indigo_300);
                 _pnlFinanceiroMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlFichaMnt.setBackgroundResource(R.color.indigo_500);
-
             }
         });
         // endregion
@@ -636,7 +605,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _pnlPedidoMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlFinanceiroMnt.setBackgroundResource(R.color.indigo_300);
                 _pnlFichaMnt.setBackgroundResource(R.color.indigo_500);
-
             }
         });
         // endregion
@@ -653,11 +621,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _pnlPedidoMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlFinanceiroMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlFichaMnt.setBackgroundResource(R.color.indigo_300);
-
             }
         });
         // endregion
-
         // endregion
 
         // region Clique em NOVO PEDIDO
@@ -686,9 +652,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     _intent.putExtras(_extras);
 
                     startActivityForResult(_intent, _PEDIDO_REQUEST_CODE);
-
                 }
-
             }
         });
         // endregion
@@ -743,7 +707,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                                         ).show();
 
                                         return;
-
                                     }
                                     // endregion
 
@@ -795,12 +758,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                                                     }
                                                 }
                                         );
-
                                     }
                                     // endregion
-
                                     // endregion
-
                                 }
                                 // endregion
                             }
@@ -809,7 +769,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 // endregion
 
                 return true;
-
             }
         });
         // endregion
@@ -827,13 +786,11 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _params.putSerializable(_KEY_TP_EMPRESA, _tpEmpresa);
                 // endregion
 
-
                 // region Invocando a proxima activity (ClienteOpcaoActivity)
                 Intent _i = new Intent(ClienteDetalheActivity.this, ClienteEditarActivity.class);
                 _i.putExtras(_params);
                 startActivityForResult(_i, _CLIENTE_EDITAR_REQUEST_CODE);
                 // endregion
-
             }
         });
         // endregion
@@ -847,7 +804,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 String _subject = "Assunto...";
 
                 sendMail(_to, _subject, "Texto do e-mail...");
-
             }
         });
         // endregion
@@ -859,7 +815,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
                 Intent _i = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", _tpCliente.TelefoneFixo, null));
                 startActivity(_i);
-
             }
         });
         // endregion
@@ -871,7 +826,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
                 Intent _i = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", _tpCliente.TelefoneCelular, null));
                 startActivity(_i);
-
             }
         });
         // endregion
@@ -882,11 +836,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             public void onClick(View view) {
 
                 addContact();
-
             }
         });
         // endregion
-
     }
     // endregion
 
@@ -899,7 +851,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _inClienteDetalheMix.setVisibility(View.GONE);
         _inClienteDetalheFinanceiro.setVisibility(View.GONE);
         _inClienteDetalheFicha.setVisibility(View.GONE);
-
         _inClienteDetalhePedido.setVisibility(View.VISIBLE);
         // endregion
 
@@ -922,7 +873,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         if (_tpCliente != null) {
 
             this.loadFinanceiro();
-
             this.showCliente();
             this.showAgendaContent();
             this.showFinanceiro();
@@ -943,7 +893,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // region Lendo as opções do pedido selecionado
         this.loadItemOptions();
         // endregion
-
     }
     // endregion
 
@@ -976,9 +925,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
-
         }
-
     }
     // endregion
 
@@ -995,7 +942,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
             // region Carregando os dados de cliente
             dbCliente _dbCliente = new dbCliente(_sqh);
-
 
             // region Montando WHERE para o campo _id
             SQLClauseHelper _sch = new SQLClauseHelper();
@@ -1016,6 +962,10 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _tpCliente.Regiao = (tpRegiao) _dbRegiao.getBySourceId(_tpCliente.IdRegiao);
                 // endregion
 
+                // region 03 - Carregando Tabela de Preco
+                dbTabelaPreco _dbTabelaPreco = new dbTabelaPreco(_sqh);
+                _tpCliente.TabelaPrecoEmpresa = (tpTabelaPreco) _dbTabelaPreco.getBySourceId(_tpCliente.IdTabelaPreco);
+                // endregion
             }
             // endregion
 
@@ -1026,7 +976,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _sqh.close();
             }
         }
-
     }
     // endregion
 
@@ -1048,14 +997,12 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             }
             // endregion
 
-
             // region Imprimindo as informações da ficha cadastral
 
             // region 01 - Imprimindo os dados básicos do objeto _tpCliente
             _fca_txtCodigo.setText(_tpCliente.Codigo);
             _fca_txtRazaoSocial.setText(_tpCliente.RazaoSocial);
             _fca_txtNomeFantasia.setText(_tpCliente.NomeFantasia);
-
             _fca_txtIeRg.setText(_tpCliente.IeRg);
             _fca_txtTelefoneFixo.setText(MSVUtil.formatTelefoneFixo(_tpCliente.TelefoneFixo));
             _fca_txtTelefoneCelular.setText(MSVUtil.formatTelefoneCelular(_tpCliente.TelefoneCelular));
@@ -1072,6 +1019,10 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _fca_txtCnpjCpf.setText(MSVUtil.formatCpf(_tpCliente.CnpjCpf));
             } else {
                 _fca_txtCnpjCpf.setText(MSVUtil.formatCnpj(_tpCliente.CnpjCpf));
+            }
+
+            if (_tpCliente.TabelaPrecoEmpresa != null) {
+                _fca_txtTabelaPrecoPadrao.setText(_tpCliente.TabelaPrecoEmpresa.Descricao);
             }
 
             // verificando a necessidade de mostrar a imagem de email
@@ -1109,11 +1060,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _fca_txtArea.setText(_tpCliente.Regiao.AreaDescricao);
             }
             // endregion
-
             // endregion
-
         }
-
     }
     // endregion
 
@@ -1130,10 +1078,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             _sch.addEqualInteger("IdCliente", _tpCliente.IdCliente);
             _sch.addOrderBy("Numero", eSQLSortType.DESC);
 
-
             _sqh = new SQLiteHelper(ClienteDetalheActivity.this);
             _sqh.open(false);
-
 
             dbPedidoMobile _dbPedidoMobile = new dbPedidoMobile(_sqh);
             _lstPedidoMobile = (ArrayList<tpPedidoMobile>) _dbPedidoMobile.getList(tpPedidoMobile.class, _sch);
@@ -1147,7 +1093,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     _tp.TipoPedido = (tpTipoPedido) _dbTipoPedido.getBySourceId(_tp.IdTipoPedido);
                     _tp.CondicaoPagamento = (tpCondicaoPagamento) _dbCondicaoPagamento.getBySourceId(_tp.IdCondicaoPagamento);
                 }
-
             }
 
         } catch (Exception e) {
@@ -1165,9 +1110,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
-
         }
-
     }
     // endregion
 
@@ -1189,7 +1132,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
 
             return;
-
         }
         // endregion
 
@@ -1218,9 +1160,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
             startActivityForResult(_intent, _PEDIDO_REQUEST_CODE);
             // endregion
-
         }
-
     }
     // endregion
 
@@ -1229,7 +1169,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     private void confirmPedido(int itemIndex) {
 
         // region Lendo o objeto do pedido selecionado
-        tpPedidoMobile _tp = ((tpPedidoMobile)_adpPedidoMobile.getItem(itemIndex));
+        tpPedidoMobile _tp = ((tpPedidoMobile) _adpPedidoMobile.getItem(itemIndex));
         // endregion
 
         // region Verificano se o mesmo já está confirmado
@@ -1242,12 +1182,10 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
 
             return;
-
         }
         // endregion
 
         // region Realizando a confirmação do pedido
-
         SQLiteHelper _sqh = null;
 
         try {
@@ -1258,7 +1196,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             _db.setConfirmedOrder(_tp.IdPedidoMobile);
 
             _sqh.close();
-
 
             //((tpPedidoMobile)_adpPedidoMobile.getItem(itemIndex)).EhConfirmado = 1;
             _tp.EhConfirmado = 1;
@@ -1279,11 +1216,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _sqh.close();
             }
             // endregion
-
         }
-
         // endregion
-
     }
     // endregion
 
@@ -1305,7 +1239,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
 
             return;
-
         }
         // endregion
 
@@ -1319,7 +1252,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
 
             return;
-
         }
         // endregion
 
@@ -1333,7 +1265,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
 
             return;
-
         }
         // endregion
 
@@ -1367,14 +1298,11 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                                     onTaskCompleteListner
                             ).execute();
                             // endregion
-
                         }
-
                     }
                 }
         );
         // endregion
-
     }
     // endregion
 
@@ -1394,10 +1322,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // region Invocando a activity de envio de email
         Intent _intent = new Intent(ClienteDetalheActivity.this, PedidoEmailEnviar.class);
         _intent.putExtras(_extras);
-
         startActivity(_intent);
         // endregion
-
     }
     // endregion
 
@@ -1417,14 +1343,11 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         dbVendedor _dbVendedor = null;
         dbPedidoMobileItem _dbPedidoMobileItem = null;
         dbProduto _dbProduto = null;
-
         SQLClauseHelper _schPedido = null;
         File _htmlFile = null;
-
         String _htmlName = null;
         String _directory = null;
         // endregion
-
 
         // region Tratando as informações do produto
         try {
@@ -1444,28 +1367,28 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 // region Buscando as informações para a empresa
                 if (_tp.Empresa == null) {
                     _dbEmpresa = new dbEmpresa(_sqh);
-                    _tp.Empresa = (tpEmpresa)_dbEmpresa.getBySourceId(_tp.IdEmpresa);
+                    _tp.Empresa = (tpEmpresa) _dbEmpresa.getBySourceId(_tp.IdEmpresa);
                 }
                 // endregion
 
                 // region Buscando as informações para o tipo de pedido
                 if (_tp.TipoPedido == null) {
                     _dbTipoPedido = new dbTipoPedido(_sqh);
-                    _tp.TipoPedido = (tpTipoPedido)_dbTipoPedido.getBySourceId(_tp.IdTipoPedido);
+                    _tp.TipoPedido = (tpTipoPedido) _dbTipoPedido.getBySourceId(_tp.IdTipoPedido);
                 }
                 // endregion
 
                 // region Buscando as informações para o cliente
                 if (_tp.Cliente == null) {
                     _dbCliente = new dbCliente(_sqh);
-                    _tp.Cliente = (tpCliente)_dbCliente.getBySourceId(_tp.IdCliente);
+                    _tp.Cliente = (tpCliente) _dbCliente.getBySourceId(_tp.IdCliente);
                 }
                 // endregion
 
                 // region Buscando as informações para a cidade do cliente
                 if (_tp.Cliente.Cidade == null) {
                     _dbCidade = new dbCidade(_sqh);
-                    _tp.Cliente.Cidade = (tpCidade)_dbCidade.getBySourceId(_tp.Cliente.IdCidade);
+                    _tp.Cliente.Cidade = (tpCidade) _dbCidade.getBySourceId(_tp.Cliente.IdCidade);
                 }
                 // endregion
 
@@ -1512,17 +1435,15 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 // region Buscando os produtos dos itens do pedido
                 if (_tp.Itens != null) {
 
-                    if (_dbProduto ==  null) {
+                    if (_dbProduto == null) {
                         _dbProduto = new dbProduto(_sqh);
                     }
 
                     for (tpPedidoMobileItem _item : _tp.Itens) {
                         _item.Produto = (tpProduto) _dbProduto.getBySourceId(_item.IdProduto);
                     }
-
                 }
                 // endregion
-
                 // endregion
             }
             // endregion
@@ -1533,9 +1454,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             // endregion
 
             // region Buscando o anexo em forma de arquivo
-            _directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
-                    + "/msvsmart/html";
-
+            _directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/msvsmart/html";
             _htmlFile = new File(_directory, _htmlName);
 
             if ((_htmlFile != null) && (_htmlFile.exists() == false)) {
@@ -1550,10 +1469,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     "Erro ao gerar o conteúdo do pedido para envio ao cliente",
                     e.getMessage()
             );
-
         }
         // endregion
-
 
         // region Realizando o envido do pedido pelo whatsapp
         if (MSVUtil.isPackageManeger(ClienteDetalheActivity.this, MSVUtil.WHATSAPP_INTENT)) {
@@ -1585,7 +1502,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                         "WIFI | 3G",
                         "O seu dispositivo está off-line no momento, e por isso não será possível enviar o pedido via whatsapp"
                 );
-
             }
 
         } else {
@@ -1605,7 +1521,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     private void deletePedido(int itemIndex) {
 
         // region Lendo o objeto do pedido selecionado
-        tpPedidoMobile _tp = ((tpPedidoMobile)_adpPedidoMobile.getItem(itemIndex));
+        tpPedidoMobile _tp = ((tpPedidoMobile) _adpPedidoMobile.getItem(itemIndex));
         // endregion
 
         // region Verificano se o mesmo já está sincronizado
@@ -1618,7 +1534,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
 
             return;
-
         }
         // endregion
 
@@ -1662,7 +1577,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 for (tpPedidoMobileItem _item : _lstItens) {
                     _dbPedidoMobileItem.delete(_item);
                 }
-
             }
             // endregion
 
@@ -1711,12 +1625,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _sqh.close();
             }
             // endregion
-
         }
         // endregion
-
         // endregion
-
     }
     // endregion
 
@@ -1757,10 +1668,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             _ped_txtRegistro.setText("REGISTROS: " + String.valueOf(_lstPedidoMobile.size()));
             _ped_txtTotal.setText("TOTAL " + MSVUtil.doubleToText("R$:", _total));
             // endregion
-
         }
         // endregion
-
     }
     // endregion
 
@@ -1769,11 +1678,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     public void loadFinanceiro() {
 
         SQLiteHelper _sqh = null;
-
         long _p1 = 0;
         long _p2 = 0;
         String _p3 = null;
-
 
         try {
 
@@ -1823,10 +1730,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if (_sqh.isOpen()) {
                 _sqh.close();
             }
-
         }
         // endregion
-
     }
     // endregion
 
@@ -1838,7 +1743,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _fin_txtTotalDevidoVencido.setText("R$ 0,00");
         _fin_txtRegistro.setText("REGISTROS: 0");
 
-
         if ((_lstFinanceiro != null) && (_lstFinanceiro.size() > 0)) {
 
             ClienteFinanceiroParcelaAdapter _adp = new ClienteFinanceiroParcelaAdapter(
@@ -1847,21 +1751,17 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
 
             _fin_livParcelaLista.setAdapter(_adp);
-
             _fin_txtTotalDevidoGeral.setText(MSVUtil.doubleToText("R$", _parcelasTotal));
             _fin_txtTotalDevidoVencido.setText(MSVUtil.doubleToText("R$", _parcelasTotalVencido));
             _fin_txtRegistro.setText("REGISTROS: " + String.valueOf(_lstFinanceiro.size()));
 
-
-            if(_parcelasTotalVencido > 0) {
+            if (_parcelasTotalVencido > 0) {
 
                 MSVMsgBox.showMsgBoxInfo(
                         ClienteDetalheActivity.this,
                         "SITUAÇÃO FINANCEIRA",
                         "Existem " + _parcelasQuantidadeVencida + " parcelas já vencidas que somam o total de R$" + MSVUtil.doubleToText("R$", _parcelasTotalVencido));
-
             }
-
         }
     }
     // endregion
@@ -1937,7 +1837,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _lstItemOptions.add(_tpExcluir);
         _i += 1;
         // endregion
-
     }
     // endregion
 
@@ -1947,7 +1846,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
         SQLiteHelper _sqh = null;
         dbSincronizacao _dbSincronizacao = null;
-
 
         try {
 
@@ -1971,9 +1869,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
-
         }
-
     }
     // endregion
 
@@ -2042,12 +1938,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 // region Invocando a activity
                 startActivityForResult(intent, _CONTACT_ADD_REQUEST_CODE);
                 // endregion
-
             }
-
         }
         // endregion
-
     }
     // endregion
 
@@ -2067,17 +1960,13 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                         "Erro ao realizar a sincronização de pedido",
                         Toast.LENGTH_SHORT
                 ).show();
-
             }
             // endregion
-
 
             // region Acoes que serão executadas quando o status for refresh
             if (status == eTaskCompleteStatus.REFRESH) {
-
             }
             // endregion
-
 
             // region Acoes que serão executadas quando o status for sucesso
             if (status == eTaskCompleteStatus.SUCCESS) {
@@ -2091,7 +1980,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                             "Pedido sincronizado com sucesso mas não confirmado no dispositivo !!!",
                             Toast.LENGTH_SHORT
                     ).show();
-
                 }
 
                 if (out == 2) {
@@ -2105,7 +1993,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     loadCliente();
                     loadPedido();
                     showPedido();
-
                 }
 
                 if (out == 3) {
@@ -2118,13 +2005,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
                     loadPedido();
                     showPedido();
-
                 }
-
-
             }
             // endregion
-
         }
     };
     // endregion
@@ -2134,8 +2017,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     private void sendMail(String to, String subject, String content) {
 
         Intent _i = new Intent(Intent.ACTION_VIEW);
-
-        Uri dadosEmail = Uri.parse("mailto:"+ to + "?subject=" + subject + "&body=" + content);
+        Uri dadosEmail = Uri.parse("mailto:" + to + "?subject=" + subject + "&body=" + content);
 
         _i.setData(dadosEmail);
 
@@ -2148,7 +2030,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     Toast.LENGTH_LONG
             ).show();
         }
-
     }
     // endregion
 
@@ -2191,7 +2072,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     _fca_txtAgenda.setText("ADICIONAR CONTATO NA AGENDA");
                 }
                 // endregion
-
             }
         } catch (Exception e) {
             MSVMsgBox.showMsgBoxError(
@@ -2201,8 +2081,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             );
         }
         // endregion
-
     }
     // endregion
-
 }
