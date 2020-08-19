@@ -756,7 +756,7 @@ public class MSVUtil {
             // region Validando o digito 1
             _digito1 = _digito1 % 11;
 
-            if (_digito1 < 1) {
+            if (_digito1 < 2) {
                 _digito1 = 0;
             } else {
                 _digito1 = 11 - _digito1;
