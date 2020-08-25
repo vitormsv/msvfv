@@ -504,7 +504,8 @@ public class SQLiteHelper extends SQLiteOpenHelper implements DBHelperInterface 
                     + "  ContatoNome                TEXT        NULL COLLATE NOCASE, "
                     + "  IdRegiao                   INTEGER NOT NULL, "
                     + "  IdTabelaPreco              INTEGER     NULL,"
-                    + "  IdCondicaoPagamentoPadrao  INTEGER     NULL"
+                    + "  IdCondicaoPagamentoPadrao  INTEGER     NULL,"
+                    + "  DescontoPadrao             REAL        NULL"
                     + ") ";
 
             _db.execSQL(sql);

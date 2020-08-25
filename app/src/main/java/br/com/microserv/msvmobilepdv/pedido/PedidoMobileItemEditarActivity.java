@@ -68,6 +68,7 @@ public class PedidoMobileItemEditarActivity
     static final String _KEY_LST_PRODUTO_INCLUIDO = "lstProdutoIncluido";
     static final String _KEY_ID_CLIENTE = "IdCliente";
     static final String _KEY_LST_PEDIDO_MOBILE_ITEM = "lstPedidoMobileItem";
+    static final String _KEY_DESCONTO_PADRAO = "DescontoPadrao";
 
     // Value
     static final int _INSERT_VALUE = 0;
@@ -164,6 +165,9 @@ public class PedidoMobileItemEditarActivity
     // Long
     long _idProduto = 0;
     long _idCliente = 0;
+
+    // Double
+    double _descontoPadrao = 0;
 
     enum SearchProductField {
         ID,
@@ -269,7 +273,6 @@ public class PedidoMobileItemEditarActivity
             // endregion
 
             // region _KEY_LST_PRODUTO_INCLUIDO
-
             if (_metodoEdicao == _INSERT_VALUE) {
 
                 if (_extras.containsKey(_KEY_LST_PRODUTO_INCLUIDO)) {
@@ -284,6 +287,25 @@ public class PedidoMobileItemEditarActivity
 
             }
 
+            // endregion
+
+
+            // region _KEY_DESCONTO_PADRAO
+            if(_metodoEdicao == _INSERT_VALUE) {
+
+                if (_extras.containsKey(_KEY_DESCONTO_PADRAO)) {
+
+                    _descontoPadrao = _extras.getDouble(_KEY_DESCONTO_PADRAO);
+
+                } else {
+                    Toast.makeText(
+                            PedidoMobileItemEditarActivity.this,
+                            "O parâmetro _KEY_DESCONTO_PADRAO não foi informado",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+
+            }
             // endregion
 
             // region _KEY_ITEM_INDEX
@@ -689,6 +711,7 @@ public class PedidoMobileItemEditarActivity
                 _extras.putSerializable(_KEY_TP_EMPRESA, _tpEmpresa);
                 _extras.putSerializable(_KEY_TP_TABELA_PRECO, _tpTabelaPreco);
                 _extras.putSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM, (Serializable) _itens);
+                _extras.putSerializable(_KEY_DESCONTO_PADRAO, _descontoPadrao);
                 // endregion
 
                 // region Abrindo a tela de pesquisa de produto
@@ -1391,6 +1414,21 @@ public class PedidoMobileItemEditarActivity
 
                 }
                 // endregion
+
+                if(_metodoEdicao == _INSERT_VALUE)
+                {
+
+                    _tpPedidoMobileItem.UnidadeDescontoPercentual = _descontoPadrao;
+
+                    if(this.validarDescontoPercentual()) {
+
+                        this.afterDescontoPercentual();
+
+                        this.refreshFormData();
+
+                    }
+
+                }
 
             } else {
 

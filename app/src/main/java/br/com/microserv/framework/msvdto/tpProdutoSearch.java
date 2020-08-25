@@ -17,5 +17,6 @@ public class tpProdutoSearch extends tpBase {
     public String Linha;
     public String Grupo;
     public double Preco;
+    public double DescontoPercentual;
     public int color = 0;
 }

@@ -86,6 +86,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     static final String _KEY_LST_PRODUTO_INCLUIDO = "lstProdutoIncluido";
     static final String _AUTOMATICO = "AUTOMÁTICO";
     static final String _KEY_LST_PEDIDO_MOBILE_ITEM = "lstPedidoMobileItem";
+    static final String _KEY_DESCONTO_PADRAO = "DescontoPadrao";
 
     // Value
     static final int _INSERT_VALUE = 0;
@@ -1013,6 +1014,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _extras.putSerializable(_KEY_TP_TABELA_PRECO, _lstTabelaPreco.get(_iTabelaPreco));
                 _extras.putSerializable(_KEY_TP_PEDIDO_MOBILE_ITEM, _tpPedidoMobileItem);
                 _extras.putSerializable(_KEY_LST_PEDIDO_MOBILE_ITEM, (Serializable) _tpPedidoMobile.Itens);
+                _extras.putDouble(_KEY_DESCONTO_PADRAO, _tpCliente.DescontoPadrao);
 
                 // enviamos esta lista para verificar na tela de inclusão do item
                 // se o produto já está vinculado no pedido
@@ -2246,7 +2248,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     dbCondicaoPagamento _dbCondicaoPagamento = new dbCondicaoPagamento(_sqh);
                     _tpCliente.CondicaoPagamentoPadrao = (tpCondicaoPagamento) _dbCondicaoPagamento.getById(_tpCliente.IdCondicaoPagamentoPadrao);
                 }
+
             }
+
+
             // endregion
 
         } catch (Exception e) {
