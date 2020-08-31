@@ -226,6 +226,7 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             }
             // endregion
 
+
         }
         // endregion
 
@@ -891,6 +892,16 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             _tpCliente = (tpCliente) _dbCliente.getBySourceId(_idCliente);
             // endregion
 
+            if(_tpCliente.DescontoPadrao > 0)
+            {
+                Toast.makeText(
+                        ClienteMixActivity.this,
+                        "Os itens desse mix possuirão desconto padrão de " + _tpCliente.DescontoPadrao + "%",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+
+
         } catch (Exception e) {
 
             MSVMsgBox.showMsgBoxError(
@@ -1212,12 +1223,23 @@ public class ClienteMixActivity extends AppCompatActivity implements ActivityInt
             }
             // endregion
 
+            // region calculando se possui descontopadrao
+            double dPreco = _tp.TabelaPrecoProduto.Preco;
+
+            if(_tp.DescontoPadrao > 0)
+            {
+                dPreco = _tp.TabelaPrecoProduto.Preco - (_tp.TabelaPrecoProduto.Preco * (_tp.DescontoPadrao / 100));
+            }
+
+
+            //endregion
+
             // region Imprimindo na tela os valores do item selecionado
             _e_txtProdutoCodigo.setText(_tp.Produto.Codigo);
             _e_txtProdutoEan13.setText(_tp.Produto.Ean13);
             _e_txtProdutoDescricao.setText(_tp.Produto.Descricao);
             _e_txtProdutoUnidadeMedida.setText(_tp.Produto.UnidadeMedida + " - " + String.valueOf(_tp.Produto.PackQuantidade));
-            _e_txtProdutoPreco.setText(MSVUtil.doubleToText("R$", _tp.TabelaPrecoProduto.Preco));
+            _e_txtProdutoPreco.setText(MSVUtil.doubleToText("R$", dPreco));
             _e_txtUltimaCompraData.setText(MSVUtil.ymdhmsTOdmy(_tp.UltimaCompraData));
             _e_txtUltimaCompraValor.setText(MSVUtil.doubleToText("R$", _tp.UltimaCompraValor));
             _e_txtUltimaCompraQuantidade.setText(String.valueOf(_tp.UltimaCompraQuantidade));

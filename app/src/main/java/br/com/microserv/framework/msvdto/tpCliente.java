@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import br.com.microserv.framework.msvannotation.AClass;
+import br.com.microserv.framework.msvannotation.ADoubleField;
 import br.com.microserv.framework.msvannotation.AIntegerField;
 import br.com.microserv.framework.msvannotation.AListIdentifierField;
 import br.com.microserv.framework.msvannotation.ALongField;
@@ -356,6 +357,23 @@ public class tpCliente extends tpBase implements tpInterface {
     @AWebapiField
     public long IdCondicaoPagamentoPadrao;
     // endregion
+
+
+    // region DescontoPadrao
+    @ADoubleField(
+            initialValue = 0,
+            minValue = 0,
+            maxValue = 0
+    )
+    @APostAction(
+            insert = true,
+            update = true,
+            delete = false
+    )
+    @AWebapiField
+    public double DescontoPadrao;
+    // endregion
+
 
     // --------------------------------------------------- //
 

@@ -182,6 +182,22 @@ public class tpClienteMix extends tpBase implements tpInterface {
     public int PedidoQuantidade;
     // endregion
 
+    // region DescontoPercentual
+    @ADoubleField(
+            initialValue = 0,
+            places = 2,
+            minValue = 0,
+            maxValue = 0
+    )
+    @APostAction(
+            insert = true,
+            update = true,
+            delete = false
+    )
+    @AWebapiField
+    public double DescontoPadrao;
+    // endregion
+
     // region EhItemConfirmado
     @AIntegerField(
             initialValue = 0,
