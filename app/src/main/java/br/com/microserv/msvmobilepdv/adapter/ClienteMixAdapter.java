@@ -147,9 +147,20 @@ public class ClienteMixAdapter extends BaseAdapter {
             _txtProdutoUnidadeMedida.setText(_item.Produto.UnidadeMedida + " - " + String.valueOf(_item.Produto.PackQuantidade));
             // endregion
 
-            // region Unidade de Medida do Produto
+            // region Unidade de ProdutoPreco
+            String sProdutoPreco;
+            double ProdutoPreco =  _item.TabelaPrecoProduto.Preco - ( _item.TabelaPrecoProduto.Preco * ( _item.DescontoPadrao / 100 ));
+
+            sProdutoPreco = MSVUtil.doubleToText("R$", ProdutoPreco);
+
+            //Desconto Padrão do Cliente
+            if(_item.DescontoPadrao > 0)
+            {
+                sProdutoPreco = "(-" + MSVUtil.doubleToText(_item.DescontoPadrao) + "%)" + sProdutoPreco;
+            }
+
             _txtProdutoPreco = (TextView) _view.findViewById(R.id.txtProdutoPreco);
-            _txtProdutoPreco.setText(MSVUtil.doubleToText("R$", _item.TabelaPrecoProduto.Preco));
+            _txtProdutoPreco.setText(sProdutoPreco);
             // endregion
 
             // region Painel de informações do item confirmado
@@ -170,7 +181,7 @@ public class ClienteMixAdapter extends BaseAdapter {
 
                 _txtEstoqueQuantidade.setText(String.valueOf(_item.EstoqueQuantidade));
                 _txtPedidoQuantidade.setText(String.valueOf(_item.PedidoQuantidade));
-                _txtItemValorTotal.setText(MSVUtil.doubleToText(_item.PedidoQuantidade * _item.TabelaPrecoProduto.Preco));
+                _txtItemValorTotal.setText(MSVUtil.doubleToText(_item.PedidoQuantidade * ProdutoPreco));
 
             } else {
 

@@ -88,6 +88,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     static final String _KEY_SOURCE_ACTIVITY = "SourceActivity";
     static final String _KEY_ID_CLIENTE = "IdCliente";
     static final String _KEY_TP_EMPRESA = "tpEmpresa";
+    static final String _KEY_TP_CLIENTE = "tpCliente";
     static final String _KEY_ID_PEDIDO_MOBILE = "IdPedidoMobile";
     static final String _KEY_CLIENTE_id = "_id";
 

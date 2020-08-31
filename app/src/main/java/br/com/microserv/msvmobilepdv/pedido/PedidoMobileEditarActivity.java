@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.common.detector.MathUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -3042,11 +3044,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         _tpItem.IdProduto = _tp.IdProduto;
                         _tpItem.PackQuantidade = _tpProduto.PackQuantidade;
                         _tpItem.UnidadeValor = _tpTabelaPrecoProduto.Preco;
-                        _tpItem.UnidadeDescontoPercentual = 0;
-                        _tpItem.UnidadeDescontoValor = 0;
-                        _tpItem.UnidadeValorLiquido = _tpTabelaPrecoProduto.Preco;
+                        _tpItem.UnidadeDescontoPercentual = _tp.DescontoPadrao;
+                        _tpItem.UnidadeDescontoValor = _tpTabelaPrecoProduto.Preco * (_tp.DescontoPadrao / 100);
+                        _tpItem.UnidadeValorLiquido = _tpItem.UnidadeValor - _tpItem.UnidadeDescontoValor;
                         _tpItem.UnidadeVendaQuantidade = _tp.PedidoQuantidade;
-                        _tpItem.UnidadeValorTotal = _tpItem.UnidadeValor * _tpItem.UnidadeVendaQuantidade;
+                        _tpItem.UnidadeValorTotal = _tpItem.UnidadeValorLiquido * _tpItem.UnidadeVendaQuantidade;
                         _tpItem.Observacao = null;
                         _tpItem.DataAlteracao = MSVUtil.sqliteHojeHora();
                         _tpItem.UsuarioAlteracao = _tpVendedor.Codigo;

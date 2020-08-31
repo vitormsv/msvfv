@@ -565,6 +565,7 @@ public class SQLiteHelper extends SQLiteOpenHelper implements DBHelperInterface 
                     + "  UltimaCompraValor      REAL    NOT NULL, "
                     + "  EstoqueQuantidade      INTEGER NOT NULL, "
                     + "  PedidoQuantidade       INTEGER NOT NULL, "
+                    + "  DescontoPadrao         REAL    NOT NULL, "
                     + "  EhItemConfirmado       INTEGER NOT NULL  "
                     + ")";
 
