@@ -1368,7 +1368,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     if (_aux_MetodoEdicao == _UPDATE_VALUE) {
 
                         _tpPedidoMobile.Itens.set(_aux_ItemIndex, _aux_tpPedidoMobileItem);
-
+                        _adpItens.notifyDataSetChanged();
+                        atualizaValorTotalItens();
+                        break;
                     }
                     // endregion
 
@@ -2566,7 +2568,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         }
         // endregion
 
-
         // region Verificando se existe número no pedido
         if ("".equalsIgnoreCase(_tpPedidoMobile.Numero)) {
 
@@ -2593,7 +2594,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         }
         // endregion
 
-
         // region Verificando se foi informado o cliente
         if (_tpPedidoMobile.IdCliente == 0) {
 
@@ -2607,7 +2607,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         }
         // endregion
-
 
         // region Verificando se foi informado o tipo de pedido
         if (_tpPedidoMobile.IdTipoPedido == 0) {
@@ -2623,7 +2622,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         }
         // endregion
 
-
         // region Verificando se foi informado o tabela de preço
         if (_tpPedidoMobile.IdTabelaPreco == 0) {
 
@@ -2637,7 +2635,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         }
         // endregion
-
 
         // region Verificando se foi informado o condição de pagamento
         if (_tpPedidoMobile.IdCondicaoPagamento == 0) {
@@ -2653,7 +2650,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         }
         // endregion
 
-
         // region Verificando se foi informado o transportadora
         if (_tpPedidoMobile.IdTransportadora == 0) {
 
@@ -2667,7 +2663,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         }
         // endregion
-
 
         // region Verificando se existem itens no pedido
         if ((_tpPedidoMobile.Itens != null) && (_tpPedidoMobile.Itens.size() == 0)) {
@@ -2684,9 +2679,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         }
         // endregion
 
-
         return true;
-
     }
     // endregion
 
