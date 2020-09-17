@@ -394,11 +394,6 @@ public class tpCliente extends tpBase implements tpInterface {
     public tpTabelaPreco TabelaPrecoEmpresa;
     // endregion
 
-    // region Tabelas de Preço
-    public ArrayList<tpTabelaPreco> Tabelas;
-    // endregion
-
-
     // --------------------------------------------------- //
 
 

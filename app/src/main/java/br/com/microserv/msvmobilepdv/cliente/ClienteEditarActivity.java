@@ -25,13 +25,13 @@ import br.com.microserv.framework.msvapi.ReceitaWSApi;
 import br.com.microserv.framework.msvbase.tpBase;
 import br.com.microserv.framework.msvdal.dbCidade;
 import br.com.microserv.framework.msvdal.dbCliente;
-import br.com.microserv.framework.msvdal.dbClienteTabelaPreco;
+import br.com.microserv.framework.msvdal.dbCondicaoPagamento;
 import br.com.microserv.framework.msvdal.dbEmpresa;
 import br.com.microserv.framework.msvdal.dbRegiao;
 import br.com.microserv.framework.msvdal.dbTabelaPreco;
 import br.com.microserv.framework.msvdto.tpCidade;
 import br.com.microserv.framework.msvdto.tpCliente;
-import br.com.microserv.framework.msvdto.tpClienteTabelaPreco;
+import br.com.microserv.framework.msvdto.tpCondicaoPagamento;
 import br.com.microserv.framework.msvdto.tpEmpresa;
 import br.com.microserv.framework.msvdto.tpReceitaWs;
 import br.com.microserv.framework.msvdto.tpRegiao;
@@ -49,6 +49,7 @@ import br.com.microserv.framework.msvutil.eSQLSortType;
 import br.com.microserv.framework.msvutil.eTaskCompleteStatus;
 import br.com.microserv.msvmobilepdv.R;
 import br.com.microserv.msvmobilepdv.adapter.CidadeDialogSearchAdapter;
+import br.com.microserv.msvmobilepdv.adapter.CondicaoPagamentoDialogSearchAdapter;
 import br.com.microserv.msvmobilepdv.adapter.RegiaoDialogSearchAdapter;
 import br.com.microserv.msvmobilepdv.adapter.TabelaPrecoDialogSearchAdapter;
 
@@ -65,13 +66,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     // Value
     static final int _INSERT_VALUE = 0;
     static final int _UPDATE_VALUE = 1;
-    static final int _LOOKUP_VALUE = 3;
-    static final String _CLIENTE_EDITAR_VALUE = "ClienteEditarActivity";
-
     // endregion
 
-
-    ArrayList<tpCliente> _lstCliente = null;
 
     // region Declarando objetos da interface
 
@@ -94,8 +90,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     LinearLayout _pnlArea = null;
     LinearLayout _pnlTelefoneFixo = null;
     LinearLayout _pnlTelefoneCelular = null;
-    LinearLayout _pnlTabelaPrecoInclude = null;
-    LinearLayout _inc_pnlTabelaPreco = null;
+    LinearLayout _pnlCondicaoPagamento = null;
+    LinearLayout _pnlTabelaPreco = null;
 
     // TextView
     TextView _txtCodigo = null;
@@ -116,7 +112,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     TextView _txtArea = null;
     TextView _txtTelefoneFixo = null;
     TextView _txtTelefoneCelular = null;
-    TextView _inc_txtTabelaPreco = null;
+    TextView _txtCondicaoPagamento = null;
+    TextView _txtTabelaPreco = null;
 
     // ImageView
     ImageView _imgCnpjCpfFindWs = null;
@@ -124,7 +121,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     // Button
     Button _btnCancelar = null;
     Button _btnOk = null;
-
     // endregion
 
 
@@ -133,6 +129,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     // Objetos
     Bundle _extras = null;
     RegiaoDialogSearchAdapter _adpRegiao = null;
+    CondicaoPagamentoDialogSearchAdapter _adpCondicaoPagamento = null;
+    TabelaPrecoDialogSearchAdapter _adpTabelaPreco = null;
     tpEmpresa _tpEmpresa = null;
     tpCliente _tpCliente = null;
     tpReceitaWs _tpReceitaWs = null;
@@ -144,8 +142,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     ArrayList<tpRegiao> _lstRegiao = null;
     ArrayList<tpCidade> _lstCidade = null;
     ArrayList<tpEmpresa> _lstEmpresa = null;
+    ArrayList<tpCondicaoPagamento> _lstCondicaoPagamento = null;
     ArrayList<tpTabelaPreco> _lstTabelaPreco = null;
-    ArrayList<View> _lstTabelas = null;
 
     // String
     String _sourceActivity = "";
@@ -154,12 +152,12 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     int _metodoEdicao = 0;
     int _iCidade = 0;
     int _iRegiao = 0;
+    int _iCondicaoPagamento = 0;
     int _iTabelaPreco = 0;
     int _iAux = 0;
 
     // long
     long _IdCliente = 0;
-
     // endregion
 
 
@@ -172,13 +170,11 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         setContentView(R.layout.activity_cliente_editar);
         // endregion
 
-
         // region Adicionando suporte a ActionBar
         ActionBar _ab = getSupportActionBar();
         _ab.setDisplayHomeAsUpEnabled(true);
         _ab.setElevation(0);
         // endregion
-
 
         // region Selecionando os parametros enviados através do Bundle
         Bundle _extras = getIntent().getExtras();
@@ -189,11 +185,7 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             if (_extras.containsKey(_KEY_METODO_EDICAO)) {
                 _metodoEdicao = _extras.getInt(_KEY_METODO_EDICAO);
             } else {
-                Toast.makeText(
-                        ClienteEditarActivity.this,
-                        "O parâmetro _KEY_METODO_EDICAO não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(ClienteEditarActivity.this, "O parâmetro _KEY_METODO_EDICAO não foi informado", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -232,19 +224,14 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 ).show();
             }
             // endregion
-
         }
         // endregion
-
 
         // region Invocando os metodos que tratam dos elementos da tela
         bindElements();
         bindEvents();
-
         initialize();
         // endregion
-
-
     }
     // endregion
 
@@ -252,10 +239,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     // region onCreateOptionsMenu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_cliente_editar, menu);
         return true;
-
     }
     // endregion
 
@@ -278,15 +263,12 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             case R.id.mnSalvar:
                 this.salvar();
                 break;
-
         }
         // endregion
-
 
         // region Invocando o método construtor
         return super.onOptionsItemSelected(item);
         // endregion
-
     }
     // endregion
 
@@ -306,11 +288,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                         if (isOk) {
                             ClienteEditarActivity.super.onBackPressed();
                         }
-
                     }
                 }
         );
-
     }
     // endregion
 
@@ -338,7 +318,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         _pnlArea = (LinearLayout) findViewById(R.id.pnlArea);
         _pnlTelefoneFixo = (LinearLayout) findViewById(R.id.pnlTelefoneFixo);
         _pnlTelefoneCelular = (LinearLayout) findViewById(R.id.pnlTelefoneCelular);
-        _pnlTabelaPrecoInclude = (LinearLayout) findViewById(R.id.pnlTabelaPrecoInclude);
+        _pnlCondicaoPagamento = (LinearLayout) findViewById(R.id.pnlCondicaoPagamento);
+        _pnlTabelaPreco = (LinearLayout) findViewById(R.id.pnlTabelaPreco);
 
         // TextView
         _txtCodigo = (TextView) findViewById(R.id.txtCodigo);
@@ -359,6 +340,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         _txtArea = (TextView) findViewById(R.id.txtArea);
         _txtTelefoneFixo = (TextView) findViewById(R.id.txtTelefoneFixo);
         _txtTelefoneCelular = (TextView) findViewById(R.id.txtTelefoneCelular);
+        _txtCondicaoPagamento = (TextView) findViewById(R.id.txtCondicaoPagamentoDescricao);
+        _txtTabelaPreco = (TextView) findViewById(R.id.txtTabelaPrecoDescricao);
 
         // ImageView
         _imgCnpjCpfFindWs = (ImageView) findViewById(R.id.imgCnpjCpfFindWs);
@@ -366,7 +349,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         // Button
         _btnCancelar = (Button) findViewById(R.id.btnCancelar);
         _btnOk = (Button) findViewById(R.id.btnOk);
-
     }
     // endregion
 
@@ -380,24 +362,17 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             @Override
             public void onClick(View v) {
 
-                MSVMsgBox.getStringValue(
-                        ClienteEditarActivity.this,
-                        "RAZÃO SOCIAL",
-                        "Informe a razão social do cliente",
-                        _txtRazaoSocial.getText().toString(),
+                MSVMsgBox.getStringValue(ClienteEditarActivity.this, "RAZÃO SOCIAL", "Informe a razão social do cliente", _txtRazaoSocial.getText().toString(),
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
-
                                 if (isOk) {
                                     _tpCliente.RazaoSocial = value.trim().toUpperCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -407,24 +382,17 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             @Override
             public void onClick(View v) {
 
-                MSVMsgBox.getStringValue(
-                        ClienteEditarActivity.this,
-                        "NOME FANTASIA",
-                        "Informe o nome fantasia do cliente",
-                        _txtNomeFantasia.getText().toString(),
+                MSVMsgBox.getStringValue(ClienteEditarActivity.this, "NOME FANTASIA", "Informe o nome fantasia do cliente", _txtNomeFantasia.getText().toString(),
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
-
                                 if (isOk) {
                                     _tpCliente.NomeFantasia = value.trim().toUpperCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -434,47 +402,32 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             @Override
             public void onClick(View v) {
 
-                MSVMsgBox.getStringNumberValue(
-                        ClienteEditarActivity.this,
-                        "CNPJ ou CPF",
-                        "Informe CNPJ ou o CPF do cliente",
-                        _txtCnpjCpf.getText().toString(),
+                MSVMsgBox.getStringNumberValue(ClienteEditarActivity.this, "CNPJ ou CPF", "Informe CNPJ ou o CPF do cliente", _txtCnpjCpf.getText().toString(),
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
-
                                 if (isOk) {
                                     _tpCliente.CnpjCpf = MSVUtil.onlyNumber(value.trim().toUpperCase());
 
                                     if (_tpCliente.CnpjCpf.length() == 11) {
                                         if (MSVUtil.isCpfValid(_tpCliente.CnpjCpf) == false) {
-                                            MSVMsgBox.showMsgBoxWarning(
-                                                    ClienteEditarActivity.this,
-                                                    "CPF inválido",
-                                                    "O número do CPF é inválido"
-                                            );
+                                            MSVMsgBox.showMsgBoxWarning(ClienteEditarActivity.this, "CPF inválido", "O número do CPF é inválido");
                                             _tpCliente.CnpjCpf = "";
                                         }
                                     }
 
                                     if (_tpCliente.CnpjCpf.length() == 14) {
                                         if (MSVUtil.isCnpjValid(_tpCliente.CnpjCpf) == false) {
-                                            MSVMsgBox.showMsgBoxWarning(
-                                                    ClienteEditarActivity.this,
-                                                    "CNPJ inválido",
-                                                    "O número do CNPJ é inválido"
-                                            );
+                                            MSVMsgBox.showMsgBoxWarning(ClienteEditarActivity.this, "CNPJ inválido", "O número do CNPJ é inválido");
                                             _tpCliente.CnpjCpf = "";
                                         }
                                     }
 
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -484,24 +437,17 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             @Override
             public void onClick(View v) {
 
-                MSVMsgBox.getStringValue(
-                        ClienteEditarActivity.this,
-                        "IE ou RG",
-                        "Informe a inscrição estadual ou o RG do cliente",
-                        _txtIeRg.getText().toString(),
+                MSVMsgBox.getStringValue(ClienteEditarActivity.this, "IE ou RG", "Informe a inscrição estadual ou o RG do cliente", _txtIeRg.getText().toString(),
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
-
                                 if (isOk) {
                                     _tpCliente.IeRg = MSVUtil.onlyNumber(value.trim().toUpperCase());
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -511,37 +457,26 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             @Override
             public void onClick(View v) {
 
-                MSVMsgBox.getPhoneValue(
-                        ClienteEditarActivity.this,
-                        "TELEFONE FIXO",
-                        "Informe o telefone fixo do cliente (informar somente os números com o DDD)",
+                MSVMsgBox.getPhoneValue(ClienteEditarActivity.this, "TELEFONE FIXO", "Informe o telefone fixo do cliente (informar somente os números com o DDD)",
                         _txtTelefoneFixo.getText().toString(),
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
-
                                 if (isOk) {
                                     _tpCliente.TelefoneFixo = MSVUtil.onlyNumber(value.trim().toLowerCase());
 
                                     if (_tpCliente.TelefoneFixo.length() != 10) {
-
                                         _tpCliente.TelefoneFixo = "";
 
-                                        Toast.makeText(
-                                                ClienteEditarActivity.this,
-                                                "O telefone fixo informado não contém os 10 caracteres numéricos necessários",
-                                                Toast.LENGTH_SHORT
-                                        ).show();
-
+                                        Toast.makeText(ClienteEditarActivity.this, "O telefone fixo informado não contém os 10 caracteres numéricos necessários",
+                                                Toast.LENGTH_SHORT).show();
                                     }
 
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -551,10 +486,7 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             @Override
             public void onClick(View v) {
 
-                MSVMsgBox.getPhoneValue(
-                        ClienteEditarActivity.this,
-                        "TELEFONE CELULAR",
-                        "Informe o telefone celular do cliente (informar somente os números com o DDD)",
+                MSVMsgBox.getPhoneValue(ClienteEditarActivity.this, "TELEFONE CELULAR", "Informe o telefone celular do cliente (informar somente os números com o DDD)",
                         _txtTelefoneCelular.getText().toString(),
                         new OnCloseDialog() {
                             @Override
@@ -572,16 +504,13 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                                 "O telefone celular informado não contém os 11 caracteres numéricos necessários",
                                                 Toast.LENGTH_SHORT
                                         ).show();
-
                                     }
 
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -604,11 +533,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                     _tpCliente.Email = value.trim().toLowerCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -631,11 +558,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                     _tpCliente.ContatoNome = value.trim().toUpperCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -658,11 +583,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                     _tpCliente.LogradouroTipo = value.trim().toUpperCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -685,11 +608,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                     _tpCliente.LogradouroNome = value.trim().toUpperCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -712,11 +633,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                     _tpCliente.LogradouroNumero = value.trim().toUpperCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -739,11 +658,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                     _tpCliente.BairroNome = value.trim().toUpperCase();
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -752,7 +669,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         _pnlCidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 _iAux = 0;
 
@@ -763,7 +679,7 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 // region Inflando o layout customizado para o AlertDialog
                 // inflando o layout
                 LayoutInflater _inflater = (LayoutInflater) getBaseContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
-                View _v = (View) _inflater.inflate(R.layout.dialog_personalizado_lista, null);
+                View _v = _inflater.inflate(R.layout.dialog_personalizado_lista, null);
 
                 // bucando o elemento do título
                 final TextView _txtDialogTitle = (TextView) _v.findViewById(R.id.txtDialogTitle);
@@ -792,12 +708,10 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                     public void onClick(DialogInterface dialog, int which) {
                         // aqui vamos realizar o refresh do grupo e do produto
                         _iCidade = _iAux;
-
                         _tpCliente.IdCidade = _lstCidade.get(_iCidade).IdCidade;
                         _tpCliente.Cidade = _lstCidade.get(_iCidade);
 
                         refreshCliente();
-
                     }
                 });
                 _builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -810,7 +724,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 AlertDialog _dialog = _builder.create();
                 _dialog.show();
                 // endregion
-
             }
         });
         // endregion
@@ -841,16 +754,13 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                         );
 
                                         _tpCliente.Cep = "";
-
                                     }
 
                                     refreshCliente();
                                 }
-
                             }
                         }
                 );
-
             }
         });
         // endregion
@@ -895,7 +805,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
@@ -912,7 +821,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                             "Dispositivo sem conexão com internet",
                             "Para consultar os dados do cliente através do servidor da Receita Federal, é necessário que o dispositivo esteja conectado na internet via WI-FI ou conexão 3|4G"
                     );
-
                 } else {
 
                     // region Mostrando a caixa de dialogo de espera
@@ -930,13 +838,83 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                             _tpCliente.CnpjCpf,
                             onTaskCompleteListner
                     ).execute();
-
                 }
-
             }
         });
         // endregion
 
+        // region Condicao Pagamento (lookup)
+        _pnlCondicaoPagamento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                _iAux = 0;
+
+                // region Montando o adaptador se necessário
+                if (_adpCondicaoPagamento == null) {
+                    _adpCondicaoPagamento = new CondicaoPagamentoDialogSearchAdapter(ClienteEditarActivity.this, _lstCondicaoPagamento);
+                }
+                // endregion
+
+                // region Abrindo a janela para escolha da condicao de pagamento
+                MSVMsgBox.getValueFromList(ClienteEditarActivity.this, _lstCondicaoPagamento.get(_iCondicaoPagamento).Descricao, _adpCondicaoPagamento,
+                        new OnSelectedItem() {
+                            @Override
+                            public void onSelectedItem(int position, tpBase tp) {
+                                _iAux = position;
+                            }
+                        },
+                        new OnCloseDialog() {
+                            @Override
+                            public void onCloseDialog(boolean isOk, String value) {
+                                _iCondicaoPagamento = _iAux;
+                                _tpCliente.IdCondicaoPagamentoPadrao = _lstCondicaoPagamento.get(_iCondicaoPagamento).IdCondicaoPagamento;
+                                _tpCliente.CondicaoPagamentoPadrao = _lstCondicaoPagamento.get(_iCondicaoPagamento);
+
+                                refreshCliente();
+                            }
+                        }
+                );
+                // endregion
+            }
+        });
+        // endregion
+
+        // region Tabela Preco (lookup)
+        _pnlTabelaPreco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                _iAux = 0;
+
+                // region Montando o adaptador se necessário
+                if (_adpTabelaPreco == null) {
+                    _adpTabelaPreco = new TabelaPrecoDialogSearchAdapter(ClienteEditarActivity.this, _lstTabelaPreco);
+                }
+                // endregion
+
+                // region Abrindo a janela para escolha da condicao de pagamento
+                MSVMsgBox.getValueFromList(ClienteEditarActivity.this, _lstTabelaPreco.get(_iTabelaPreco).Descricao, _adpTabelaPreco,
+                        new OnSelectedItem() {
+                            @Override
+                            public void onSelectedItem(int position, tpBase tp) {
+                                _iAux = position;
+                            }
+                        },
+                        new OnCloseDialog() {
+                            @Override
+                            public void onCloseDialog(boolean isOk, String value) {
+                                _iTabelaPreco = _iAux;
+                                _tpCliente.IdTabelaPreco = _lstTabelaPreco.get(_iTabelaPreco).IdTabelaPreco;
+                                _tpCliente.TabelaPrecoEmpresa = _lstTabelaPreco.get(_iTabelaPreco);
+                                refreshCliente();
+                            }
+                        }
+                );
+                // endregion
+            }
+        });
+        // endregion
     }
     // endregion
 
@@ -945,31 +923,23 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     public void initialize() {
 
         // region Cuidando do estado inicial da activity
-
         _imgCnpjCpfFindWs.setVisibility(View.GONE);
 
         this.clearComponents();
-
         // endregion
 
-
         // region Realizando a leitura dos dados necessários
-
         this.loadEmpresa();
         this.loadCliente();
         this.loadCidade();
         this.loadRegiao();
-
+        this.loadCondicaoPagamento();
+        this.loadTabelaPreco();
         // endregion
-
 
         // region Atualizando o layout da activity
-
-        this.generateComponents();
         this.refreshCliente();
-
         // endregion
-
     }
     // endregion
 
@@ -994,46 +964,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         _txtCep.setText("");
         _txtRegiao.setText("");
         _txtArea.setText("");
-
-    }
-    // endregion
-
-
-    // region generateComponents
-    private void generateComponents() {
-
-        if ((_lstEmpresa != null) && (_lstEmpresa.size() > 0)) {
-
-            if (_lstTabelas == null) {
-                _lstTabelas = new ArrayList<View>();
-            }
-
-            for (tpEmpresa _tp : _lstEmpresa) {
-
-                Object _o = (long) _tp.IdEmpresa;
-                View _view = null;
-
-                LayoutInflater _li = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                _view = (View) _li.inflate(R.layout.include_tabela_preco_lookup, null);
-
-                TextView _txtTabelaPrecoTitle = (TextView) _view.findViewById(R.id.txtTabelaPrecoTitle);
-                _txtTabelaPrecoTitle.setText(_tp.Sigla);
-
-                LinearLayout _pnlTabelaPreco = (LinearLayout) _view.findViewById(R.id.pnlTabelaPreco);
-                _pnlTabelaPreco.setTag(_o);
-                _pnlTabelaPreco.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        lookupTabelaPreco(v);
-                    }
-                });
-
-                _lstTabelas.add(_view);
-                _pnlTabelaPrecoInclude.addView(_view);
-            }
-
-        }
-
+        _txtCondicaoPagamento.setText("");
+        _txtTabelaPreco.setText("");
     }
     // endregion
 
@@ -1048,14 +980,11 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             SQLClauseHelper _sch = new SQLClauseHelper();
             _sch.addOrderBy("Sigla", eSQLSortType.ASC);
 
-
             _sqh = new SQLiteHelper(ClienteEditarActivity.this);
             _sqh.open(false);
 
-
             dbEmpresa _dbEmpresa = new dbEmpresa(_sqh);
             _lstEmpresa = (ArrayList<tpEmpresa>) _dbEmpresa.getList(tpEmpresa.class, _sch);
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1064,35 +993,60 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _sqh.close();
             }
         }
+    }
+    // endregion
 
+
+    // region loadCondicaoPagamento
+    private void loadCondicaoPagamento() {
+
+        _iCondicaoPagamento = -1;
+
+        SQLiteHelper _sqh = new SQLiteHelper(getBaseContext());
+        _sqh.open(false);
+
+        try {
+
+            SQLClauseHelper _sch = new SQLClauseHelper();
+            _sch.addOrderBy("Descricao", eSQLSortType.ASC);
+
+            dbCondicaoPagamento _dbCondicaoPagamento = new dbCondicaoPagamento(_sqh);
+            _lstCondicaoPagamento = (ArrayList<tpCondicaoPagamento>) _dbCondicaoPagamento.getList(tpCondicaoPagamento.class, _sch);
+
+            if ((_lstCondicaoPagamento != null) && _lstCondicaoPagamento.size() > 0) {
+                _iCondicaoPagamento = 0;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (_sqh.isOpen()) {
+                _sqh.close();
+            }
+        }
     }
     // endregion
 
 
     // region loadTabelaPreco
-    private void loadTabelaPreco(long idEmpresa) {
+    private void loadTabelaPreco() {
 
-        SQLiteHelper _sqh = null;
+        _iTabelaPreco = -1;
+
+        SQLiteHelper _sqh = new SQLiteHelper(getBaseContext());
+        _sqh.open(false);
 
         try {
 
             SQLClauseHelper _sch = new SQLClauseHelper();
-            _sch.addEqualInteger("IdEmpresa", idEmpresa);
             _sch.addOrderBy("Descricao", eSQLSortType.ASC);
-
-
-            _sqh = new SQLiteHelper(ClienteEditarActivity.this);
-            _sqh.open(false);
-
 
             dbTabelaPreco _dbTabelaPreco = new dbTabelaPreco(_sqh);
             _lstTabelaPreco = (ArrayList<tpTabelaPreco>) _dbTabelaPreco.getList(tpTabelaPreco.class, _sch);
 
-
-            if ((_lstTabelaPreco != null) && (_lstTabelaPreco.size() > 0)) {
+            if ((_lstTabelaPreco != null) && _lstTabelaPreco.size() > 0) {
                 _iTabelaPreco = 0;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -1100,7 +1054,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _sqh.close();
             }
         }
-
     }
     // endregion
 
@@ -1110,13 +1063,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
         // region OPERACAO == INSERT
         if (_metodoEdicao == _INSERT_VALUE) {
-
             _tpCliente = new tpCliente();
-            _tpCliente.Tabelas = new ArrayList<tpTabelaPreco>();
-
         }
         // endregion
-
 
         // region OPERACAO == UPDATE
         if (_metodoEdicao == _UPDATE_VALUE) {
@@ -1132,11 +1081,7 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _tpCliente = (tpCliente) _dbCliente.getBySourceId(_IdCliente);
 
                 if (_tpCliente == null) {
-                    Toast.makeText(
-                            ClienteEditarActivity.this,
-                            "Não foi possível localizar o cliente",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    Toast.makeText(ClienteEditarActivity.this, "Não foi possível localizar o cliente", Toast.LENGTH_SHORT).show();
                 }
                 // endregion
 
@@ -1150,31 +1095,14 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _tpCliente.Regiao = (tpRegiao) _dbRegiao.getBySourceId(_tpCliente.IdRegiao);
                 // endregion
 
-                // region Recuperando o vinculo de tabelas de preço
-                ArrayList<tpClienteTabelaPreco> _al = null;
-
-                SQLClauseHelper _sch = new SQLClauseHelper();
-                _sch.addEqualInteger("IdCliente", _IdCliente);
-
-                dbClienteTabelaPreco _dbClienteTabelaPreco = new dbClienteTabelaPreco(_sqh);
-                _al = (ArrayList<tpClienteTabelaPreco>) _dbClienteTabelaPreco.getList(tpClienteTabelaPreco.class, _sch);
+                // region Recuperando o objeto tabela preco vinculado
+                dbTabelaPreco _dbTabelaPreco = new dbTabelaPreco(_sqh);
+                _tpCliente.TabelaPrecoEmpresa = (tpTabelaPreco) _dbTabelaPreco.getBySourceId(_tpCliente.IdTabelaPreco);
                 // endregion
 
-                // region Recuperando as tabelas de preço
-                dbTabelaPreco _dbTabelaPreco = null;
-
-                for (tpClienteTabelaPreco _tp : _al) {
-
-                    if (_dbTabelaPreco == null) {
-                        _dbTabelaPreco = new dbTabelaPreco(_sqh);
-                    }
-
-                    if (_tpCliente.Tabelas == null) {
-                        _tpCliente.Tabelas = new ArrayList<tpTabelaPreco>();
-                    }
-
-                    _tpCliente.Tabelas.add((tpTabelaPreco) _dbTabelaPreco.getBySourceId(_tp.IdTabelaPreco));
-                }
+                // region Recuperando o objeto Codicao de Pagamento vinculado
+                dbCondicaoPagamento _dbCondicaoPagamento = new dbCondicaoPagamento(_sqh);
+                _tpCliente.CondicaoPagamentoPadrao = (tpCondicaoPagamento) _dbCondicaoPagamento.getBySourceId(_tpCliente.IdCondicaoPagamentoPadrao);
                 // endregion
 
             } catch (Exception e) {
@@ -1184,12 +1112,9 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                     _sqh.close();
                 }
             }
-
         }
         // endregion
-
     }
-
     // endregion
 
 
@@ -1211,7 +1136,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             _txtRazaoSocial.setText(_tpCliente.RazaoSocial);
             _txtNomeFantasia.setText(_tpCliente.NomeFantasia);
 
-
             // apresentnado o Cnpj ou Cpf
             switch (_tpCliente.CnpjCpf.length()) {
 
@@ -1227,9 +1151,7 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 default:
                     _txtCnpjCpf.setText("");
                     break;
-
             }
-
 
             _txtIeRg.setText(_tpCliente.IeRg);
             _txtEmail.setText(_tpCliente.Email);
@@ -1263,41 +1185,22 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             }
             // endregion
 
-            // region Atualizando as informações de tabelas de preço
-            if ((_tpCliente.Tabelas != null) && (_tpCliente.Tabelas.size() > 0)) {
+            // region Atualizando as informações da tabela preco
+            _txtTabelaPreco.setText("");
 
-                for (tpTabelaPreco _tp : _tpCliente.Tabelas) {
-
-                    for (View _view : _lstTabelas) {
-
-                        _inc_pnlTabelaPreco = (LinearLayout) _view.findViewById(R.id.pnlTabelaPreco);
-
-                        if (_inc_pnlTabelaPreco != null) {
-
-                            // recuperando o IdEmpresa
-                            long _l = Long.parseLong(_inc_pnlTabelaPreco.getTag().toString());
-
-                            if (_l == _tp.IdEmpresa) {
-                                _inc_txtTabelaPreco = (TextView) _view.findViewById(R.id.txtTabelaPreco);
-
-                                if (_inc_txtTabelaPreco != null) {
-                                    _inc_txtTabelaPreco.setText(_tp.Descricao);
-                                }
-                            }
-
-                            break;
-
-                        }
-
-                    }
-
-                }
-
+            if (_tpCliente.TabelaPrecoEmpresa != null) {
+                _txtTabelaPreco.setText(_tpCliente.TabelaPrecoEmpresa.Descricao);
             }
             // endregion
 
-        }
+            // region Atualizando as informações de condicao pagamento
+            _txtCondicaoPagamento.setText("");
 
+            if (_tpCliente.CondicaoPagamentoPadrao != null) {
+                _txtCondicaoPagamento.setText(_tpCliente.CondicaoPagamentoPadrao.Descricao);
+            }
+            // endregion
+        }
     }
     // endregion
 
@@ -1322,7 +1225,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _iCidade = 0;
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -1330,7 +1232,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _sqh.close();
             }
         }
-
     }
     // endregion
 
@@ -1351,7 +1252,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         }
 
         _txtCidade.setText(_sCidade);
-
     }
     // endregion
 
@@ -1376,7 +1276,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _iRegiao = 0;
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -1384,130 +1283,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                 _sqh.close();
             }
         }
-
-    }
-    // endregion
-
-
-    // region refreshRegiao
-    private void refreshRegiao() {
-
-        _txtRegiao.setText("");
-        _txtArea.setText("");
-
-        if (_iRegiao > -1) {
-            _txtRegiao.setText(_lstRegiao.get(_iRegiao).Descricao);
-            _txtArea.setText(_lstRegiao.get(_iRegiao).AreaDescricao);
-        }
-
-    }
-    // endregion
-
-
-    // region lookupTabelaPreco
-    private void lookupTabelaPreco(final View v) {
-
-        // region Selecionando o IdEmpresa
-        final long _idEmpresa = Long.parseLong(v.getTag().toString());
-        // endregion
-
-
-        // region Primeiro passo é carregar a lista de tabelas de preço de acordo com a empresa
-        this.loadTabelaPreco(_idEmpresa);
-        // endregion
-
-
-        // region Se a operação for de update então precisamos posicionar o item na lista
-        if (_metodoEdicao == _UPDATE_VALUE) {
-
-        }
-        // endregion
-
-
-        // region Gerando a lista de escolha da tabela
-
-        // region Criando o adaptador para a lista de cidades
-        final TabelaPrecoDialogSearchAdapter _adp = new TabelaPrecoDialogSearchAdapter(ClienteEditarActivity.this, _lstTabelaPreco);
-        // endregion
-
-        // region Inflando o layout customizado para o AlertDialog
-        // inflando o layout
-        LayoutInflater _inflater = (LayoutInflater) getBaseContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
-        View _v = (View) _inflater.inflate(R.layout.dialog_personalizado_lista, null);
-
-        // bucando o elemento do título
-        final TextView _txtDialogTitle = (TextView) _v.findViewById(R.id.txtDialogTitle);
-        _txtDialogTitle.setText(_lstTabelaPreco.get(_iTabelaPreco).Descricao);
-
-        // buscando o elemento ListView
-        ListView _lv = (ListView) _v.findViewById(R.id.livDialogData);
-
-        _lv.setAdapter(_adp);
-
-        _lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                _iAux = position;
-                _txtDialogTitle.setText(_lstTabelaPreco.get(_iAux).Descricao);
-            }
-        });
-        // endregion
-
-        // region Criando a janela modal AlertDialog
-        final AlertDialog.Builder _builder = new AlertDialog.Builder(ClienteEditarActivity.this);
-
-        _builder.setView(_v);
-        _builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                // region Recupando a posição (index) do registro selecionado
-                _iTabelaPreco = _iAux;
-                // endregion
-
-                // region Removendo a tabela vinculada ao cliente de acordo com a empresa
-                for (tpTabelaPreco _tp : _tpCliente.Tabelas) {
-                    if (_tp.IdEmpresa == _idEmpresa) {
-                        _tpCliente.Tabelas.remove(_tp);
-                    }
-                }
-                // endregion
-
-                // region Informando a nova tabela para o cliente de acordo com a empresa
-                try {
-
-                    // cloando a tabela de preço selecionada pelo usuário
-                    tpTabelaPreco _tpTabelaPrecoClone = (tpTabelaPreco) _lstTabelaPreco.get(_iTabelaPreco).clone();
-
-                    // adicionando a tabela selecionada na lista do cliente
-                    _tpCliente.Tabelas.add(_tpTabelaPrecoClone);
-
-                    // atualizando a tela do dispositivo
-                    _inc_txtTabelaPreco = (TextView) v.findViewById(R.id.txtTabelaPreco);
-
-                    if (_inc_txtTabelaPreco != null) {
-                        _inc_txtTabelaPreco.setText(_lstTabelaPreco.get(_iTabelaPreco).Descricao);
-                    }
-
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
-                // endregion
-            }
-        });
-        _builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // não faz nada
-            }
-        });
-
-        AlertDialog _dialog = _builder.create();
-        _dialog.show();
-        // endregion
-
-        // endregion
-
     }
     // endregion
 
@@ -1515,21 +1290,16 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
     // region cancelar
     private void cancelar() {
 
-        MSVMsgBox.showMsgBoxQuestion(
-                ClienteEditarActivity.this,
-                "Deseja realmente cancelar a operação em andamento ?",
+        MSVMsgBox.showMsgBoxQuestion(ClienteEditarActivity.this, "Deseja realmente cancelar a operação em andamento ?",
                 new OnCloseDialog() {
                     @Override
                     public void onCloseDialog(boolean isOk, String value) {
-
                         if (isOk) {
                             finish();
                         }
-
                     }
                 }
         );
-
     }
     // endregion
 
@@ -1550,7 +1320,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         }
         // endregion
 
-
         // region Validando o campo Nome Fantasia
         if (MSVUtil.isNullOrEmpty(_tpCliente.NomeFantasia)) {
 
@@ -1561,19 +1330,13 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             );
 
             return;
-
         }
         // endregion
-
 
         // region Validando o campo CnpjCpf
         if (MSVUtil.isNullOrEmpty(_tpCliente.CnpjCpf)) {
 
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "CNPJ/CPF",
-                    "O campo de documento (CNPJ/CPF) deve ser preenchido"
-            );
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "CNPJ/CPF", "O campo de documento (CNPJ/CPF) deve ser preenchido");
 
             return;
 
@@ -1583,197 +1346,96 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
             // aqui deverá ser validado o número do CPF
             if (_documento.length() == 11) {
-                /*
-                if (MSVUtil.isCpfValid(_documento) == false) {
-
-                    MSVMsgBox.showMsgBoxWarning(
-                            ClienteEditarActivity.this,
-                            "CPF",
-                            "O valor do CPF informado não é válido"
+              /*  if (MSVUtil.isCpfValid(_documento) == false) {
+                    MSVMsgBox.showMsgBoxWarning(ClienteEditarActivity.this, "CPF", "O valor do CPF informado não é válido"
                     );
-
                     return;
-
-                }
-                */
+                }    */
             }
-
 
             // aqui deverá ser validado o número do CNPJ
             if (_documento.length() == 14) {
-                /*
-                if (MSVUtil.isCnpjValid(_documento) == false) {
-
-                    MSVMsgBox.showMsgBoxWarning(
-                            ClienteEditarActivity.this,
-                            "CNPJ",
-                            "O valor do CNPJ informado não é válido"
-                    );
-
+                /*if (MSVUtil.isCnpjValid(_documento) == false) {
+                    MSVMsgBox.showMsgBoxWarning(ClienteEditarActivity.this, "CNPJ", "O valor do CNPJ informado não é válido");
                     return;
-
-                }
-                */
+                }*/
             }
-
         }
         // endregion
-
 
         // region Validando o campo IeRg
         if (MSVUtil.isNullOrEmpty(_tpCliente.IeRg)) {
 
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "IE/RG",
-                    "O campo IE/RG deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "IE/RG", "O campo IE/RG deve ser preenchido");
             return;
-
         }
         // endregion
-
 
         // region Verificando se já existe cliente com o mesmo Cnpj ou Cpf
-        if(this.ValidarCnpjCpfJaCadastrado(_tpCliente))
-        {
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "CNPJ/CPF",
-                    "Já existe um cliente com o mesmo CNPJ/CPF"
-            );
-
+        if (this.ValidarCnpjCpfJaCadastrado(_tpCliente)) {
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "CNPJ/CPF", "Já existe um cliente com o mesmo CNPJ/CPF");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo de Telefone
         if (MSVUtil.isNullOrEmpty(_tpCliente.TelefoneFixo) && MSVUtil.isNullOrEmpty(_tpCliente.TelefoneCelular)) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "Telefone Fixo/Celular",
-                    "Ao menos um telefone deve ser preenchido (fixo/celular)"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "Telefone Fixo/Celular", "Ao menos um telefone deve ser preenchido (fixo/celular)");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo Logradouro Tipo
         if (MSVUtil.isNullOrEmpty(_tpCliente.LogradouroTipo)) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "Tipo de Logradouro",
-                    "O campo tipo de logradouro deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "Tipo de Logradouro", "O campo tipo de logradouro deve ser preenchido");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo Logradouro Nome
         if (MSVUtil.isNullOrEmpty(_tpCliente.LogradouroNome)) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "Nome do Logradouro",
-                    "O campo nome do logradouro deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "Nome do Logradouro", "O campo nome do logradouro deve ser preenchido");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo Logradouro Numero
         if (MSVUtil.isNullOrEmpty(_tpCliente.LogradouroNumero)) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "Número do Logradouro",
-                    "O campo número do logradouro deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "Número do Logradouro", "O campo número do logradouro deve ser preenchido");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo Bairro
         if (MSVUtil.isNullOrEmpty(_tpCliente.BairroNome)) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "Bairro",
-                    "O campo bairro deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "Bairro", "O campo bairro deve ser preenchido");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo Cidade
         if (_tpCliente.IdCidade == 0) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "Cidade",
-                    "O campo cidade deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "Cidade", "O campo cidade deve ser preenchido");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo CEP
         if (MSVUtil.isNullOrEmpty(_tpCliente.Cep)) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "CEP",
-                    "O campo CEP deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "CEP", "O campo CEP deve ser preenchido");
             return;
-
         }
         // endregion
-
 
         // region Validando o campo Regiao
         if (_tpCliente.IdRegiao == 0) {
-
-            MSVMsgBox.showMsgBoxInfo(
-                    ClienteEditarActivity.this,
-                    "Região",
-                    "O campo região deve ser preenchido"
-            );
-
+            MSVMsgBox.showMsgBoxInfo(ClienteEditarActivity.this, "Região", "O campo região deve ser preenchido");
             return;
-
         }
         // endregion
 
-
         // region Verificando se o usuário quer realmente efetivar a operação em andamento
-        MSVMsgBox.showMsgBoxQuestion(
-                ClienteEditarActivity.this,
-                "Deseja realmente salvar os dados da operação em andamento ?",
+        MSVMsgBox.showMsgBoxQuestion(ClienteEditarActivity.this, "Deseja realmente salvar os dados da operação em andamento ?",
                 new OnCloseDialog() {
                     @Override
                     public void onCloseDialog(boolean isOk, String value) {
@@ -1782,7 +1444,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
                             SQLiteHelper _sqh = null;
                             dbCliente _dbCliente = null;
-                            dbClienteTabelaPreco _dbClienteTabelaPreco = null;
 
                             try {
 
@@ -1810,7 +1471,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
                                     _dbCliente.insert(_tpCliente);
                                     // endregion
-
                                 }
                                 // endregion
 
@@ -1824,39 +1484,8 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
                                     _dbCliente.update(_tpCliente);
                                     // endregion
-
                                 }
                                 // endregion
-
-                                // region Inserindo as tabelas de preço vinculadas
-                                // instânciando objeto db se necessário
-                                if (_dbClienteTabelaPreco == null) {
-                                    _dbClienteTabelaPreco = new dbClienteTabelaPreco(_sqh);
-                                }
-
-                                // criando WHERE para o campo IDCLIENTE
-                                SQLClauseHelper _schDelete = new SQLClauseHelper();
-                                _schDelete.addEqualInteger("IdCliente", _IdCliente);
-
-                                // removendo todas as tabelas do cliente
-                                _dbClienteTabelaPreco.delete(_schDelete);
-
-                                // agora vamos INSERIR as novas tabelas do cliente
-                                if (_tpCliente.Tabelas != null) {
-                                    for (tpTabelaPreco _tp : _tpCliente.Tabelas) {
-
-                                        tpClienteTabelaPreco _tpClienteTabelaPreco = new tpClienteTabelaPreco();
-
-                                        _tpClienteTabelaPreco.IdEmpresa = _tp.IdEmpresa;
-                                        _tpClienteTabelaPreco.IdCliente = _tpCliente.IdCliente;
-                                        _tpClienteTabelaPreco.IdTabelaPreco = _tp.IdTabelaPreco;
-
-                                        _dbClienteTabelaPreco.insert(_tpClienteTabelaPreco);
-
-                                    }
-                                }
-                                // endregion
-
 
                                 // region Realizando o commit da transação
                                 _sqh.commitTransaction();
@@ -1873,19 +1502,15 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
                                 }
                             }
 
-
                             // region fechando a activity
                             setResult(Activity.RESULT_OK);
                             finish();
                             // endregion
-
                         }
-
                     }
                 }
         );
-        // endregion
-
+        // endregions
     }
     // endregion
 
@@ -1925,24 +1550,19 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
                     if (_tpCliente.Cep.length() != 8) {
                         _tpCliente.Cep = "";
-
                     }
                     // endregion
 
                     refreshCliente();
-
                 }
-
             }
-
         }
     };
     // endregion
 
 
     // region ValidarCnpjCpfJaCadastrado
-    private boolean ValidarCnpjCpfJaCadastrado(tpCliente _tpCliente)
-    {
+    private boolean ValidarCnpjCpfJaCadastrado(tpCliente _tpCliente) {
 
         // region Declarando variável de retorno
         boolean _Out = false;
@@ -1957,7 +1577,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
         // region Bloco protegido de exceção
         try {
-
             // region Trabalhando a condição WHERE de consulta
             _schCnpjCpf = new SQLClauseHelper();
             _schCnpjCpf.addEqualInteger("CnpjCpf", _tpCliente.CnpjCpf);
@@ -1973,18 +1592,14 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
             // endregion
 
             // region Realizando as verificações necessárias
-            if(_tpClienteFound != null && _metodoEdicao == _INSERT_VALUE)
-            {
-                if(_tpClienteFound.IdCliente > 0)
-                {
+            if (_tpClienteFound != null && _metodoEdicao == _INSERT_VALUE) {
+                if (_tpClienteFound.IdCliente > 0) {
                     _Out = true;
                 }
             }
 
-            if(_tpClienteFound != null && _metodoEdicao == _UPDATE_VALUE)
-            {
-                if(_tpClienteFound.IdCliente != _tpCliente.IdCliente)
-                {
+            if (_tpClienteFound != null && _metodoEdicao == _UPDATE_VALUE) {
+                if (_tpClienteFound.IdCliente != _tpCliente.IdCliente) {
                     _Out = true;
                 }
             }
@@ -1992,12 +1607,7 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
 
         } catch (Exception e) {
 
-            MSVMsgBox.showMsgBoxError(
-                    ClienteEditarActivity.this,
-                    "Erro ao tentar validar se o cliente já está cadastrado",
-                    e.getMessage()
-            );
-
+            MSVMsgBox.showMsgBoxError(ClienteEditarActivity.this, "Erro ao tentar validar se o cliente já está cadastrado", e.getMessage());
             finish();
 
         } finally {
@@ -2010,8 +1620,6 @@ public class ClienteEditarActivity extends AppCompatActivity implements Activity
         // region Retornando o valor processado
         return _Out;
         // endregion
-
     }
     // endregion
-
 }

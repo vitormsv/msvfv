@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_cliente_editar"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="br.com.microserv.msvmobilepdv.cliente.ClienteEditarActivity">
 
     <!-- Titulo (Filtro) -->
     <LinearLayout
-        style="@style/panelTitle"
-        android:id="@+id/llyTitulo">
+        android:id="@+id/llyTitulo"
+        style="@style/panelTitle">
 
         <TextView
-            style="@style/textTitleAll"
             android:id="@+id/txtTitulo"
+            style="@style/textTitleAll"
             android:text="INSERINDO CLIENTE" />
 
     </LinearLayout>
@@ -23,20 +22,19 @@
 
     <!-- Campos do formulário -->
     <ScrollView
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
             <!-- Subtitle PRINCIPAL -->
-            <LinearLayout
-                style="@style/panelSubtitle">
+            <LinearLayout style="@style/panelSubtitle">
 
                 <ImageView
                     style="@style/imageSubtitle"
@@ -79,44 +77,44 @@
 
             <!-- Container dos campos da parte principal -->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
                 <!-- Código -->
                 <LinearLayout
                     android:id="@+id/pnlCodigoContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Código"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Código" />
 
                     <LinearLayout
                         android:id="@+id/pnlCodigo"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <TextView
                             android:id="@+id/txtCodigo"
-                            android:text="000000"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="000000"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
@@ -126,53 +124,52 @@
                 <!-- Razão Social -->
                 <LinearLayout
                     android:id="@+id/pnlRazaoSocialContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Razão Social"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Razão Social" />
 
                     <LinearLayout
                         android:id="@+id/pnlRazaoSocial"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgRazaoSocial"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtRazaoSocial"
-                            android:text="RAZAO SOCIAL DO CLIENTE"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="RAZAO SOCIAL DO CLIENTE"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlRazaoSocialObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -180,53 +177,52 @@
                 <!-- Nome Fantasia -->
                 <LinearLayout
                     android:id="@+id/pnlNomeFantasiaContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Nome Fantasia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Nome Fantasia" />
 
                     <LinearLayout
                         android:id="@+id/pnlNomeFantasia"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginLeft="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgNomeFantasia"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtNomeFantasia"
-                            android:text="NOME FANTASIA DO CLIENTE"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="NOME FANTASIA DO CLIENTE"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlNomeFantasiaObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -234,63 +230,62 @@
                 <!-- Cnpj ou Cpf -->
                 <LinearLayout
                     android:id="@+id/pnlCnpjCpfContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
                         android:id="@+id/lblCnpjCpf"
-                        android:text="CNPJ / CPF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="CNPJ / CPF" />
 
                     <LinearLayout
                         android:id="@+id/pnlCnpjCpf"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgCnpjCpf"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtCnpjCpf"
-                            android:text="05.754.099/0001-30"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:gravity="center_vertical"
+                            android:text="05.754.099/0001-30"
+                            android:textColor="@color/colorPrimary" />
 
                         <ImageView
                             android:id="@+id/imgCnpjCpfFindWs"
-                            android:src="@drawable/msv_small_website_pink"
-                            android:layout_gravity="center_vertical"
                             android:layout_width="22dp"
-                            android:layout_height="22dp" />
+                            android:layout_height="22dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/msv_small_website_pink" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlCnpjCpfObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -298,83 +293,80 @@
                 <!-- Inscrição Estadual ou RG -->
                 <LinearLayout
                     android:id="@+id/pnlIeRgContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="7dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingBottom="7dp">
 
                     <TextView
                         android:id="@+id/lblIeRg"
-                        android:text="IE / RG"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="IE / RG" />
 
                     <LinearLayout
                         android:id="@+id/pnlIeRg"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgIeRg"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtIeRg"
-                            android:text="123.887.987.143"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="123.887.987.143"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlIeRgObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
 
-
-
                 <!-- Painel de título de informações de contato -->
                 <LinearLayout
-                    android:background="@color/grey_300"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/grey_300">
 
                     <ImageView
-                        android:src="@drawable/msv_small_address_book_black"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="7dp"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp" />
+                        android:src="@drawable/msv_small_address_book_black" />
 
                     <TextView
-                        android:text="CONTATO"
-                        android:paddingTop="7dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="7dp"
-                        android:textColor="@color/black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="CONTATO"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -382,43 +374,43 @@
                 <!-- ContatoNome -->
                 <LinearLayout
                     android:id="@+id/pnlContatoNomeContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Contato"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Contato" />
 
                     <LinearLayout
                         android:id="@+id/pnlContatoNome"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgContatoNome"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtContatoNome"
-                            android:text="RICARDO LUIS BERETTA E FELIPIN"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="RICARDO LUIS BERETTA E FELIPIN"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
@@ -428,43 +420,43 @@
                 <!-- Email -->
                 <LinearLayout
                     android:id="@+id/pnlEmailContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="E-mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="E-mail" />
 
                     <LinearLayout
                         android:id="@+id/pnlEmail"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginLeft="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgEmail"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtEmail"
-                            android:text="rlbfelipin@gmail.com"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="rlbfelipin@gmail.com"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
@@ -474,44 +466,44 @@
                 <!-- TelefoneFixo -->
                 <LinearLayout
                     android:id="@+id/pnlTelefoneFixoContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="7dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingBottom="7dp">
 
                     <TextView
-                        android:text="Telefone Fixo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Telefone Fixo" />
 
                     <LinearLayout
                         android:id="@+id/pnlTelefoneFixo"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgTelefoneFixo"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtTelefoneFixo"
-                            android:text="17.605-090"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="17.605-090"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
@@ -521,44 +513,44 @@
                 <!-- TelefoneCelular -->
                 <LinearLayout
                     android:id="@+id/pnlTelefoneCelularContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="7dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingBottom="7dp">
 
                     <TextView
-                        android:text="Telefone Celular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Telefone Celular" />
 
                     <LinearLayout
                         android:id="@+id/pnlTelefoneCelular"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgTelefoneCelular"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtTelefoneCelular"
-                            android:text="17.605-090"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="17.605-090"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
@@ -615,87 +607,86 @@
 
             <!-- Painel de título de informações de localizacao -->
             <LinearLayout
-                android:background="@color/grey_300"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/grey_300">
 
                 <ImageView
-                    android:src="@drawable/msv_small_map_maker_black"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="7dp"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp" />
+                    android:src="@drawable/msv_small_map_maker_black" />
 
                 <TextView
-                    android:text="LOCALIZAÇÃO"
-                    android:paddingTop="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="7dp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:text="LOCALIZAÇÃO"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
 
             <!-- Container dos campos da parte de localização -->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
 
                 <!-- Logradouro Tipo -->
                 <LinearLayout
                     android:id="@+id/pnlLogradouroTipoContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Logradouro (tipo)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Logradouro (tipo)" />
 
                     <LinearLayout
                         android:id="@+id/pnlLogradouroTipo"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgLogradouroTipo"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtLogradouroTipo"
-                            android:text="AVENIDA"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="AVENIDA"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlLogradouroTipoObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -703,53 +694,52 @@
                 <!-- Logradouro Nome -->
                 <LinearLayout
                     android:id="@+id/pnlLogradouroNomeContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Logradouro (nome)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Logradouro (nome)" />
 
                     <LinearLayout
                         android:id="@+id/pnlLogradouroNome"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgLogradouroNome"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtLogradouroNome"
-                            android:text="ESTADOS UNIDOS"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="ESTADOS UNIDOS"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlLogradouroNomeObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -757,53 +747,52 @@
                 <!-- Logradouro Numero -->
                 <LinearLayout
                     android:id="@+id/pnlLogradouroNumeroContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Logradouro (número)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Logradouro (número)" />
 
                     <LinearLayout
                         android:id="@+id/pnlLogradouroNumero"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgLogradouroNumero"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtLogradouroNumero"
-                            android:text="676"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="676"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlLogradouroNumeroObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -811,53 +800,52 @@
                 <!-- Bairro -->
                 <LinearLayout
                     android:id="@+id/pnlBairroContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Bairro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Bairro" />
 
                     <LinearLayout
                         android:id="@+id/pnlBairro"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgBairro"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtBairro"
-                            android:text="JARDIM AMERICA"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="JARDIM AMERICA"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlBairroObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -865,53 +853,52 @@
                 <!-- Cidade -->
                 <LinearLayout
                     android:id="@+id/pnlCidadeContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Cidade"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Cidade" />
 
                     <LinearLayout
                         android:id="@+id/pnlCidade"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgCidade"
-                            android:src="@drawable/search_icon"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/search_icon" />
 
                         <TextView
                             android:id="@+id/txtCidade"
-                            android:text="033735 SANTO ANTONIO DA PLATINA"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="033735 SANTO ANTONIO DA PLATINA"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlCidadeObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -919,47 +906,46 @@
                 <!-- Estado -->
                 <LinearLayout
                     android:id="@+id/pnlEstadoContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Estado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Estado" />
 
                     <LinearLayout
                         android:id="@+id/pnlEstado"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <TextView
                             android:id="@+id/txtEstado"
-                            android:text="35 SAO PAULO"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="35 SAO PAULO"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlEstadoObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -967,53 +953,52 @@
                 <!-- Cep -->
                 <LinearLayout
                     android:id="@+id/pnlCepContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="CEP"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="CEP" />
 
                     <LinearLayout
                         android:id="@+id/pnlCep"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgCep"
-                            android:src="@drawable/img_pencil"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/img_pencil" />
 
                         <TextView
                             android:id="@+id/txtCep"
-                            android:text="17.605-090"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="17.605-090"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlCepObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -1021,53 +1006,52 @@
                 <!-- Regiao -->
                 <LinearLayout
                     android:id="@+id/pnlRegiaoContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
-                    android:paddingRight="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingRight="10dp">
 
                     <TextView
-                        android:text="Região"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Região" />
 
                     <LinearLayout
                         android:id="@+id/pnlRegiao"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <ImageView
                             android:id="@+id/imgRegiao"
-                            android:src="@drawable/search_icon"
                             android:layout_width="18dp"
-                            android:layout_height="18dp" />
+                            android:layout_height="18dp"
+                            android:src="@drawable/search_icon" />
 
                         <TextView
                             android:id="@+id/txtRegiao"
-                            android:text="17.605-090"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center_vertical"
+                            android:text="17.605-090"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/pnlRegiaoObr"
-                        android:orientation="horizontal"
-                        android:background="@color/orange_500"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp">
-                    </LinearLayout>
+                        android:layout_height="1dp"
+                        android:background="@color/orange_500"
+                        android:orientation="horizontal"></LinearLayout>
 
                 </LinearLayout>
 
@@ -1075,37 +1059,37 @@
                 <!-- Area -->
                 <LinearLayout
                     android:id="@+id/pnlAreaContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="7dp"
                     android:paddingRight="10dp"
-                    android:paddingBottom="7dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:paddingBottom="7dp">
 
                     <TextView
-                        android:text="Área"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:text="Área" />
 
                     <LinearLayout
                         android:id="@+id/pnlArea"
-                        android:orientation="horizontal"
-                        android:background="#FFFFFF"
-                        android:padding="7dp"
-                        android:layout_marginTop="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="#FFFFFF"
+                        android:orientation="horizontal"
+                        android:padding="7dp">
 
                         <TextView
                             android:id="@+id/txtArea"
-                            android:text="17.605-090"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="17.605-090"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 
@@ -1113,47 +1097,143 @@
 
             </LinearLayout>
 
-
-            <!-- Painel de título de tabelas de preço -->
+            <!--INICIO Painel de título de tabelas de preço -->
             <LinearLayout
-                android:background="@color/grey_300"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/grey_300">
 
                 <ImageView
-                    android:src="@drawable/msv_small_price_black"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="7dp"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp" />
+                    android:src="@drawable/msv_small_price_black" />
 
                 <TextView
-                    android:text="TABELAS DE PREÇO"
-                    android:paddingTop="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
                     android:paddingRight="10dp"
                     android:paddingBottom="7dp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:text="TABELA DE PREÇO"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
-
-            <!-- Container dos campos da parte de tabelas de preço -->
             <LinearLayout
-                android:orientation="vertical"
-                android:id="@+id/pnlTabelaPrecoInclude"
-                android:paddingBottom="7dp"
+                android:id="@+id/pnlTabelaPreco"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Tabela de Preço" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/search_icon" />
+
+                    <TextView
+                        android:id="@+id/txtTabelaPrecoDescricao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="A VISTA"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!-- FIM Painel de título de tabelas de preço -->
+
+            <!-- INICIO Painel de título de condicao pagamento -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grey_300">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="7dp"
+                    android:src="@drawable/msv_small_last_buy_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="7dp"
+                    android:text="CONDIÇÃO DE PAGAMENTO"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/pnlCondicaoPagamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingTop="7dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Condição de Pagamento" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="#FFFFFF"
+                    android:orientation="horizontal"
+                    android:padding="7dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/search_icon" />
+
+                    <TextView
+                        android:id="@+id/txtCondicaoPagamentoDescricao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="A VISTA"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--FIM Painel de título de condicao pagamento -->
 
         </LinearLayout>
-
 
     </ScrollView>
 

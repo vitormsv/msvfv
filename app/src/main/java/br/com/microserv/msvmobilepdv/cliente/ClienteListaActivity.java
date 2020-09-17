@@ -623,12 +623,20 @@ public class ClienteListaActivity extends AppCompatActivity implements ActivityI
 
 
         // region Criando a opção de EDITAR
-        tpKeyValueRow _tpEditar = new tpKeyValueRow();
+        /*
+        *
+        * FOI REMOVIDA A PARTE DE EDIÇÃO PARA O VENDEDOR NÃO PODER EDITAR
+        * DIA 16/09/2020
+        * WILLIAN BUENO
+        *
+        */
+
+        /*tpKeyValueRow _tpEditar = new tpKeyValueRow();
         _tpEditar.Key = 0;
         _tpEditar.Value = "EDITAR";
         _tpEditar.ImageResource = R.drawable.msv_small_edit_black;
 
-        _lstItemOptions.add(_tpEditar);
+        _lstItemOptions.add(_tpEditar);*/
         // endregion
 
 

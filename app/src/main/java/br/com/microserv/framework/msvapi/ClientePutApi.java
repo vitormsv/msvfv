@@ -2,7 +2,6 @@ package br.com.microserv.framework.msvapi;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +12,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.com.microserv.framework.msvdal.dbCliente;
 import br.com.microserv.framework.msvdto.tpCliente;
 import br.com.microserv.framework.msvhelper.SQLiteHelper;
 import br.com.microserv.framework.msvinterface.OnTaskCompleteListner;
@@ -57,8 +55,7 @@ public class ClientePutApi extends AsyncTask<Void, Void, AsyncTaskResult<Object>
 
     // region doInBackground
     @Override
-
-    protected AsyncTaskResult<Object> doInBackground(Void... params){
+    protected AsyncTaskResult<Object> doInBackground(Void... params) {
 
         boolean isOpenedHere = false;
 
@@ -71,7 +68,6 @@ public class ClientePutApi extends AsyncTask<Void, Void, AsyncTaskResult<Object>
                 _sqh.open(true);
                 isOpenedHere = true;
                 // endregion
-
             }
 
             // region 01 - Gerando os dados dos itens do pedido
@@ -94,6 +90,8 @@ public class ClientePutApi extends AsyncTask<Void, Void, AsyncTaskResult<Object>
             _jsCliente.put("TelefoneCelular", _tpCliente.TelefoneCelular);
             _jsCliente.put("Email", _tpCliente.Email);
             _jsCliente.put("ContatoNome", _tpCliente.ContatoNome);
+            _jsCliente.put("IdTabelaPreco", _tpCliente.IdTabelaPreco);
+            _jsCliente.put("IdCondicaoPagamentoPadrao", _tpCliente.IdCondicaoPagamentoPadrao);
             // endregion
 
             // region 05 - Realizando o envido dos dados do pedido para o webservice
@@ -126,14 +124,12 @@ public class ClientePutApi extends AsyncTask<Void, Void, AsyncTaskResult<Object>
             if (connection.getResponseCode() == HttpURLConnection.HTTP_INTERNAL_ERROR) {
 
                 String _msg = new BufferedReader(new InputStreamReader((connection.getErrorStream()))).readLine();
-
                 throw new Exception(_msg);
-
             }
             // endregion
 
             // endregion
-            _Result = new AsyncTaskResult<>((Object)"ok");
+            _Result = new AsyncTaskResult<>((Object) "ok");
 
         } catch (JSONException j) {
 

@@ -16,23 +16,19 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
-import br.com.microserv.framework.msvdal.dbCidade;
 import br.com.microserv.framework.msvdal.dbCliente;
 import br.com.microserv.framework.msvdal.dbPedidoMobile;
 import br.com.microserv.framework.msvdal.dbPedidoMobileItem;
-import br.com.microserv.framework.msvdal.dbRegiao;
 import br.com.microserv.framework.msvdto.tpCliente;
 import br.com.microserv.framework.msvdto.tpPedidoMobile;
 import br.com.microserv.framework.msvdto.tpPedidoMobileItem;
-import br.com.microserv.framework.msvdto.tpRegiao;
 import br.com.microserv.framework.msvhelper.SQLiteHelper;
 import br.com.microserv.framework.msvinterface.OnTaskCompleteListner;
 import br.com.microserv.framework.msvutil.MSVUtil;
 import br.com.microserv.framework.msvutil.SQLClauseHelper;
-import br.com.microserv.framework.msvutil.eSQLSortType;
 import br.com.microserv.framework.msvutil.eTaskCompleteStatus;
+
 
 /**
  * Created by notemsv01 on 18/01/2017.
@@ -192,6 +188,8 @@ public class PedidoApi extends AsyncTask<Void, Void, Void> {
                 _joCliente.put("TelefoneCelular", _tp.Cliente.TelefoneCelular);
                 _joCliente.put("Email", _tp.Cliente.Email);
                 _joCliente.put("ContatoNome", _tp.Cliente.ContatoNome);
+                _joCliente.put("IdCondicaoPagamentoPadrao", _tp.Cliente.IdCondicaoPagamentoPadrao);
+                _joCliente.put("IdTabelaPreco", _tp.Cliente.IdTabelaPreco);
                 // endregion
 
                 // endregion
