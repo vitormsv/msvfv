@@ -169,6 +169,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     TextView _fca_txtCnpjCpf = null;
     TextView _fca_txtIeRg = null;
     TextView _fca_txtTabelaPrecoPadrao = null;
+    TextView _fca_txtCondicaoPagamentoPadrao = null;
     TextView _fca_txtTelefoneFixo = null;
     TextView _fca_txtTelefoneCelular = null;
     TextView _fca_txtEmail = null;
@@ -546,6 +547,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _fca_txtCnpjCpf = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtCnpjCpf);
         _fca_txtIeRg = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtIeRg);
         _fca_txtTabelaPrecoPadrao = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtTabelaPreco);
+        _fca_txtCondicaoPagamentoPadrao = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtCondicaoPagamento);
         _fca_txtTelefoneFixo = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtTelefoneFixo);
         _fca_txtTelefoneCelular = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtTelefoneCelular);
         _fca_txtEmail = (TextView) _inClienteDetalheFicha.findViewById(R.id.txtEmail);
@@ -775,7 +777,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // endregion
 
         // region Clique em EDITAR
-        _fca_txtEditar.setOnClickListener(new View.OnClickListener() {
+        /*_fca_txtEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -793,7 +795,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 startActivityForResult(_i, _CLIENTE_EDITAR_REQUEST_CODE);
                 // endregion
             }
-        });
+        });*/
         // endregion
 
         // region Clique em EMAIL (SEND)
@@ -863,9 +865,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // region Desabilitando componentes da tela de acordo os parametro do APP
         _fca_txtEditar.setVisibility(View.GONE);
 
-        if (_tpPermiteEditarCliente.ValorInteiro == 1) {
+        /*if (_tpPermiteEditarCliente.ValorInteiro == 1) {
             _fca_txtEditar.setVisibility(View.VISIBLE);
-        }
+        }*/
         // endregion
 
         // region Cuidando para mostrar os dados do cliente selecionado
@@ -967,6 +969,11 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 dbTabelaPreco _dbTabelaPreco = new dbTabelaPreco(_sqh);
                 _tpCliente.TabelaPrecoEmpresa = (tpTabelaPreco) _dbTabelaPreco.getBySourceId(_tpCliente.IdTabelaPreco);
                 // endregion
+
+                // region 04 - Carregando Condicao Pagamento
+                dbCondicaoPagamento _dbCondicaoPagamento= new dbCondicaoPagamento(_sqh);
+                _tpCliente.CondicaoPagamentoPadrao = (tpCondicaoPagamento) _dbCondicaoPagamento.getBySourceId(_tpCliente.IdCondicaoPagamentoPadrao);
+                // endregion
             }
             // endregion
 
@@ -1024,6 +1031,10 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
             if (_tpCliente.TabelaPrecoEmpresa != null) {
                 _fca_txtTabelaPrecoPadrao.setText(_tpCliente.TabelaPrecoEmpresa.Descricao);
+            }
+
+            if (_tpCliente.CondicaoPagamentoPadrao != null) {
+                _fca_txtCondicaoPagamentoPadrao.setText(_tpCliente.CondicaoPagamentoPadrao.Descricao);
             }
 
             // verificando a necessidade de mostrar a imagem de email
