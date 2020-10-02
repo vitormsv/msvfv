@@ -14,8 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.zxing.common.detector.MathUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,22 +63,19 @@ import br.com.microserv.msvmobilepdv.adapter.TransportadoraDialogSearchAdapter;
 
 public class PedidoMobileEditarActivity extends AppCompatActivity implements ActivityInterface {
 
-    // region Variavel para pegar valor pesquisa produto
-    public static String _PESQUISA_VALUE = "";
-    // endregion
-
-
     // region Declarando constantes
 
     // RequestCode
     static final int _ITEM_REQUEST_CODE = 100;
+
+    // Variavel para pegar valor pesquisa produto
+    public static String _PESQUISA_VALUE = "";
 
     // Key
     static final String _KEY_METODO_EDICAO = "MetodoEdicao";
     static final String _KEY_ITEM_INDEX = "ItemIndex";
     static final String _KEY_TP_EMPRESA = "tpEmpresa";
     static final String _KEY_TP_TABELA_PRECO = "tpTabelaPreco";
-    static final String _KEY_TP_PEDIDO_MOBILE = "TpPedidoMobile";
     static final String _KEY_TP_PEDIDO_MOBILE_ITEM = "TpPedidoMobileItem";
     static final String _KEY_SOURCE_ACTIVITY = "SourceActivity";
     static final String _KEY_ID_CLIENTE = "IdCliente";
@@ -239,7 +234,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     KeyValueDialogSearchAdapter _adpOption = null;
 
     // lst
-    ArrayList<tpEmpresa> _lstEmpresa = null;
     ArrayList<tpTipoPedido> _lstTipoPedido = null;
     ArrayList<tpTabelaPreco> _lstTabelaPreco = null;
     ArrayList<tpCondicaoPagamento> _lstCondicaoPagamento = null;
@@ -260,7 +254,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
     // int
     int _iAux = -1;
-    int _iEmpresa = -1;
     int _iTipoPedido = -1;
     int _iTabelaPreco = -1;
     int _iCondicaoPagamento = -1;
@@ -300,51 +293,32 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             if (_extras.containsKey(_KEY_METODO_EDICAO)) {
                 _metodoEdicao = _extras.getInt(_KEY_METODO_EDICAO);
             } else {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "O parâmetro _KEY_METODO_EDICAO não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "O parâmetro _KEY_METODO_EDICAO não foi informado", Toast.LENGTH_SHORT).show();
             }
 
             if (_extras.containsKey(_KEY_SOURCE_ACTIVITY)) {
                 _sourceActivity = _extras.getString(_KEY_SOURCE_ACTIVITY);
             } else {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "O parâmetro _KEY_SOURCE_ACTIVITY não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "O parâmetro _KEY_SOURCE_ACTIVITY não foi informado", Toast.LENGTH_SHORT).show();
             }
 
             if (_extras.containsKey(_KEY_TP_EMPRESA)) {
                 _tpEmpresa = (tpEmpresa) _extras.getSerializable(_KEY_TP_EMPRESA);
             } else {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "O parâmetro _KEY_ID_CLIENTE não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "O parâmetro _KEY_ID_CLIENTE não foi informado", Toast.LENGTH_SHORT).show();
             }
 
             if (_extras.containsKey(_KEY_ID_CLIENTE)) {
                 _IdCliente = _extras.getLong(_KEY_ID_CLIENTE);
             } else {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "O parâmetro _KEY_ID_CLIENTE não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "O parâmetro _KEY_ID_CLIENTE não foi informado", Toast.LENGTH_SHORT).show();
             }
 
             if (_extras.containsKey(_KEY_ID_PEDIDO_MOBILE)) {
                 _IdPedidoMobile = _extras.getLong(_KEY_ID_PEDIDO_MOBILE);
             } else {
                 Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "O parâmetro _KEY_ID_PEDIDO_MOBILE não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        PedidoMobileEditarActivity.this, "O parâmetro _KEY_ID_PEDIDO_MOBILE não foi informado", Toast.LENGTH_SHORT).show();
             }
         }
         // endregion
@@ -370,8 +344,8 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         // region Declarando variáveis do método
         SQLiteHelper _sqh = null;
-        dbParametro _db = null;
-        tpParametro _tp = null;
+        dbParametro _db;
+        tpParametro _tp;
         // endregion
 
         // region Bloco protegido por exceção
@@ -400,11 +374,8 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         } catch (Exception e) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "Erro ao selecionar o valor do parâmetro que indica se é permitido informar desconto final no pedido",
-                    e.getMessage()
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this,
+                    "Erro ao selecionar o valor do parâmetro que indica se é permitido informar desconto final no pedido", e.getMessage());
 
             finish();
 
@@ -413,10 +384,8 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
-
         }
         // endregion
-
     }
     // endregion
 
@@ -424,7 +393,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     // region onCreateOptionsMenu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_pedido, menu);
         return true;
     }
@@ -490,9 +458,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     @Override
     public void onBackPressed() {
 
-        MSVMsgBox.showMsgBoxQuestion(
-                PedidoMobileEditarActivity.this,
-                "Deseja realmente encerrar esta tela ?",
+        MSVMsgBox.showMsgBoxQuestion(PedidoMobileEditarActivity.this, "Deseja realmente encerrar esta tela ?",
                 "Se clicar em OK os dados incluidos ou alterados nesta tela serão perdidos",
                 new OnCloseDialog() {
                     @Override
@@ -501,7 +467,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         if (isOk) {
                             PedidoMobileEditarActivity.super.onBackPressed();
                         }
-
                     }
                 }
         );
@@ -564,7 +529,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _ped_txtTransportadoraDescricao = (TextView) _inPrincipal.findViewById(R.id.txtTransportadoraDescricao);
         _ped_txtNumeroCliente = (TextView) _inPrincipal.findViewById(R.id.txtNumeroCliente);
         _ped_txtObservacao = (TextView) _inPrincipal.findViewById(R.id.txtObservacao);
-
         // endregion
 
         // region ITENS
@@ -576,7 +540,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _ite_txtNovoItem = (TextView) _inItens.findViewById(R.id.txtNovoItem);
         _ite_txtRegistro = (TextView) _inItens.findViewById(R.id.txtRegistro);
         _ite_txtValorTotal = (TextView) _inItens.findViewById(R.id.txtValorTotal);
-
         // endregion
 
         // region RESUMO
@@ -628,7 +591,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _res_txtDescontoValor = (TextView) _inResumo.findViewById(R.id.txtDescontoValor);
         _res_txtItensValorTotalLiquido = (TextView) _inResumo.findViewById(R.id.txtItensValorTotalLiquido);
         _res_txtPedidoConfirmado = (TextView) _inResumo.findViewById(R.id.txtPedidoConfirmado);
-
         // endregion
     }
     // endregion
@@ -652,7 +614,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _pnlPrincipalMnt.setBackgroundResource(R.color.indigo_300);
                 _pnlItensMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlResumoMnt.setBackgroundResource(R.color.indigo_500);
-
             }
         });
         // endregion
@@ -671,7 +632,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _pnlPrincipalMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlItensMnt.setBackgroundResource(R.color.indigo_300);
                 _pnlResumoMnt.setBackgroundResource(R.color.indigo_500);
-
             }
         });
         // endregion
@@ -690,7 +650,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _pnlPrincipalMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlItensMnt.setBackgroundResource(R.color.indigo_500);
                 _pnlResumoMnt.setBackgroundResource(R.color.indigo_300);
-
             }
         });
         // endregion
@@ -706,10 +665,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Montando o adaptador se necessário
                 if (_adpTipoPedido == null) {
-                    _adpTipoPedido = new TipoPedidoDialogSearchAdapter(
-                            PedidoMobileEditarActivity.this,
-                            _lstTipoPedido
-                    );
+                    _adpTipoPedido = new TipoPedidoDialogSearchAdapter(PedidoMobileEditarActivity.this, _lstTipoPedido);
                 }
                 // endregion
 
@@ -718,10 +674,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 // endregion
 
                 // region Abrindo a janela para escolha do tipo de pedido
-                MSVMsgBox.getValueFromList(
-                        PedidoMobileEditarActivity.this,
-                        _lstTipoPedido.get(_iTipoPedido).Descricao,
-                        _adpTipoPedido,
+                MSVMsgBox.getValueFromList(PedidoMobileEditarActivity.this, _lstTipoPedido.get(_iTipoPedido).Descricao, _adpTipoPedido,
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
@@ -738,11 +691,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
-
 
         // region Click em TABELA de PRECO
         _ped_pnlTabelaPreco.setOnClickListener(new View.OnClickListener() {
@@ -760,22 +711,13 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Verificando se já existe item cadastrado
                 /*
-
                 # Este trecho de código foi bloqueado a pedido da empresa MINARE bebidas
                 # onde vamos permitir que o vendedor altere a tabela de preço e então o
                 # App irá reprocessar o preço de cada produto
-
                 if ((_tpPedidoMobile.Itens != null) && (_tpPedidoMobile.Itens.size() > 0)) {
-
-                    Toast.makeText(
-                            PedidoMobileEditarActivity.this,
-                            "Para alterar a tabela de preço do pedido é necessário remover todos os itens",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
+                    Toast.makeText(PedidoMobileEditarActivity.this,"Para alterar a tabela de preço do pedido é necessário remover todos os itens",Toast.LENGTH_SHORT).show();
                     return;
-
-                }
+                 }
                 */
                 // endregion
 
@@ -783,22 +725,17 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Montando o adaptardor se necessário
                 if (_adpTabelaPreco == null) {
-                    _adpTabelaPreco = new TabelaPrecoDialogSearchAdapter(
-                            PedidoMobileEditarActivity.this,
-                            _lstTabelaPreco
-                    );
+                    _adpTabelaPreco = new TabelaPrecoDialogSearchAdapter(PedidoMobileEditarActivity.this, _lstTabelaPreco);
                 }
                 // endregion
 
                 // region Atualizando a variável auxiliar
+                _iTabelaPreco = _iTabelaPreco == -1 ? 0 : _iTabelaPreco;
                 _iAux = _iTabelaPreco;
                 // endregion
 
                 // region Abrindo a janela para escolha da tabela de preço
-                MSVMsgBox.getValueFromList(
-                        PedidoMobileEditarActivity.this,
-                        _lstTabelaPreco.get(_iTabelaPreco).Descricao,
-                        _adpTabelaPreco,
+                MSVMsgBox.getValueFromList(PedidoMobileEditarActivity.this, _lstTabelaPreco.get(_iTabelaPreco).Descricao, _adpTabelaPreco,
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
@@ -816,11 +753,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
-
 
         // region Click em CONDICAO de PAGAMENTO
         _ped_pnlCondicaoPagamento.setOnClickListener(new View.OnClickListener() {
@@ -836,22 +771,17 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Montando o adaptador se necessário
                 if (_adpCondicaoPagamento == null) {
-                    _adpCondicaoPagamento = new CondicaoPagamentoDialogSearchAdapter(
-                            PedidoMobileEditarActivity.this,
-                            _lstCondicaoPagamento
-                    );
+                    _adpCondicaoPagamento = new CondicaoPagamentoDialogSearchAdapter(PedidoMobileEditarActivity.this, _lstCondicaoPagamento);
                 }
                 // endregion
 
                 // region Atualizando variável auxiliar
+                _iCondicaoPagamento = _iCondicaoPagamento == -1 ? 0 : _iCondicaoPagamento;
                 _iAux = _iCondicaoPagamento;
                 // endregion
 
                 // region Abrindo a janela de escolha da CONDICAO de PAGAMENTO
-                MSVMsgBox.getValueFromList(
-                        PedidoMobileEditarActivity.this,
-                        _lstCondicaoPagamento.get(_iCondicaoPagamento).Descricao,
-                        _adpCondicaoPagamento,
+                MSVMsgBox.getValueFromList(PedidoMobileEditarActivity.this, _lstCondicaoPagamento.get(_iCondicaoPagamento).Descricao, _adpCondicaoPagamento,
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
@@ -868,11 +798,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
-
 
         // region Click em TRANSPORTADORA
         _ped_pnlTransportadora.setOnClickListener(new View.OnClickListener() {
@@ -888,10 +816,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Montnado o adaptardor se necessário
                 if (_adpTransportadora == null) {
-                    _adpTransportadora = new TransportadoraDialogSearchAdapter(
-                            PedidoMobileEditarActivity.this,
-                            _lstTransportadora
-                    );
+                    _adpTransportadora = new TransportadoraDialogSearchAdapter(PedidoMobileEditarActivity.this, _lstTransportadora);
                 }
                 // endregion
 
@@ -900,10 +825,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 // endregion
 
                 // region Abrindo a janela para escolha da transportadora
-                MSVMsgBox.getValueFromList(
-                        PedidoMobileEditarActivity.this,
-                        _lstTransportadora.get(_iTransportadora).Descricao,
-                        _adpTransportadora,
+                MSVMsgBox.getValueFromList(PedidoMobileEditarActivity.this, _lstTransportadora.get(_iTransportadora).Descricao, _adpTransportadora,
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
@@ -920,11 +842,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
-
 
         // region Click em NUMERO PEDIDO do CLIENTE
         _ped_pnlNumeroCliente.setOnClickListener(new View.OnClickListener() {
@@ -932,11 +852,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             public void onClick(View v) {
 
                 // region Abrindo a janela para informar o número do pedido do cliente
-                MSVMsgBox.getStringValue(
-                        PedidoMobileEditarActivity.this,
-                        "NUMERO PEDIDO CLIENTE",
-                        "Informar o número do pedido do cliente",
-                        _tpPedidoMobile.NumeroCliente,
+                MSVMsgBox.getStringValue(PedidoMobileEditarActivity.this, "NUMERO PEDIDO CLIENTE", "Informar o número do pedido do cliente", _tpPedidoMobile.NumeroCliente,
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
@@ -948,11 +864,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
-
 
         // region click em OBSERVACAO
         _ped_pnlObservacao.setOnClickListener(new View.OnClickListener() {
@@ -960,11 +874,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             public void onClick(View v) {
 
                 // region Abrindo a janela para informar a observação referente ao pedido
-                MSVMsgBox.getStringValue(
-                        PedidoMobileEditarActivity.this,
-                        "OBSERVACAO",
-                        "Informar aqui observações referente ao pedido em geral",
-                        _tpPedidoMobile.Observacao,
+                MSVMsgBox.getStringValue(PedidoMobileEditarActivity.this, "OBSERVACAO", "Informar aqui observações referente ao pedido em geral", _tpPedidoMobile.Observacao,
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
@@ -976,7 +886,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
@@ -990,6 +899,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             @Override
             public void onClick(View v) {
 
+                if (!isAddTabelaPrecoCondicaoPagamento()){
+                    return;
+                }
+
                 // region Vibrando o aparelho para indicar ao usuário o toque
                 MSVUtil.vibrate(PedidoMobileEditarActivity.this);
                 // endregion
@@ -999,7 +912,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 // endregion
 
                 // region Montando uma lista com os códigos de produtos já inclusos no pedido
-                ArrayList<String> _lstProdutoIncluido = new ArrayList<String>();
+                ArrayList<String> _lstProdutoIncluido = new ArrayList<>();
 
                 for (tpPedidoMobileItem _item : _tpPedidoMobile.Itens) {
                     _lstProdutoIncluido.add(_item.Produto.Codigo);
@@ -1023,7 +936,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 if (_lstProdutoIncluido != null) {
                     _extras.putSerializable(_KEY_LST_PRODUTO_INCLUIDO, _lstProdutoIncluido);
                 }
-
                 // endregion
 
                 // region Invocando a nova activity
@@ -1031,19 +943,20 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _i.putExtras(_extras);
                 startActivityForResult(_i, _ITEM_REQUEST_CODE);
                 // endregion
-
             }
         });
         // endregion
-
 
         // region Click Longo em NOVO ITEM
         _ite_txtNovoItem.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
-                MSVMsgBox.showMsgBoxQuestion(
-                        PedidoMobileEditarActivity.this,
+                if (!isAddTabelaPrecoCondicaoPagamento()){
+                    return false;
+                }
+
+                MSVMsgBox.showMsgBoxQuestion(PedidoMobileEditarActivity.this,
                         "Deseja realmente importar os itens confirmados do mix de produto do cliente durante a contagem de estoque",
                         "Atenção, ao clicar em OK os itens que já existem no pedido serão excluidos para dar lugar a composição do MIX do cliente",
                         new OnCloseDialog() {
@@ -1061,7 +974,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         });
         // endregion
 
-
         // region Click longo no ITEM do PEDIDO (excluir)
         _ite_livItens.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -1074,10 +986,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Verificando a necessidade de criar o adapter de opções
                 if (_adpOption == null) {
-                    _adpOption = new KeyValueDialogSearchAdapter(
-                            PedidoMobileEditarActivity.this,
-                            _lstOption
-                    );
+                    _adpOption = new KeyValueDialogSearchAdapter(PedidoMobileEditarActivity.this, _lstOption);
                 }
                 // endregion
 
@@ -1085,9 +994,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _iAux = -1;
 
                 MSVMsgBox.getValueFromList(
-                        PedidoMobileEditarActivity.this,
-                        "OPÇÕES",
-                        _adpOption,
+                        PedidoMobileEditarActivity.this, "OPÇÕES", _adpOption,
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
@@ -1105,11 +1012,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                                     if (_iAux == -1) {
 
-                                        Toast.makeText(
-                                                PedidoMobileEditarActivity.this,
-                                                "Nenhuma opção foi selecionada pelo usuário",
-                                                Toast.LENGTH_SHORT
-                                        ).show();
+                                        Toast.makeText(PedidoMobileEditarActivity.this, "Nenhuma opção foi selecionada pelo usuário", Toast.LENGTH_SHORT).show();
 
                                         return;
                                     }
@@ -1119,14 +1022,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                                     } else if (_tpSelectedOptoin.Key == 1) {
                                         delete(_itemIndex);
-
                                     }
-
                                 }
-
                             }
                         }
-
                 );
                 // endregion
 
@@ -1149,22 +1048,14 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 // Se não foi escolhido o produto então não vamos
                 // deixar abrir a janela de digitação
                 if (_tpPedidoMobile.Itens.size() == 0) {
-                    Toast.makeText(
-                            PedidoMobileEditarActivity.this,
-                            "Não existem itens para conceder desconto",
-                            Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(PedidoMobileEditarActivity.this, "Não existem itens para conceder desconto", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 // endregion
 
                 // region Abrindo a janela para digitação do desconto final em %
-                MSVMsgBox.getDoubleValue(
-                        PedidoMobileEditarActivity.this,
-                        "DESCONTO (%) FINAL",
-                        "Informe o percentual final de desconto concedido para este pedido",
-                        _tpPedidoMobile.DescontoPercentual1,
+                MSVMsgBox.getDoubleValue(PedidoMobileEditarActivity.this, "DESCONTO (%) FINAL",
+                        "Informe o percentual final de desconto concedido para este pedido", _tpPedidoMobile.DescontoPercentual1,
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
@@ -1178,11 +1069,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
-
 
         // region Click em DESCONTO VALOR FINAL
         _res_pnlDescontoValor.setOnClickListener(new View.OnClickListener() {
@@ -1194,22 +1083,14 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 // Se não foi escolhido o produto então não vamos
                 // deixar abrir a janela de digitação
                 if (_tpPedidoMobile.Itens.size() == 0) {
-                    Toast.makeText(
-                            PedidoMobileEditarActivity.this,
-                            "Não existem itens para conceder desconto",
-                            Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(PedidoMobileEditarActivity.this, "Não existem itens para conceder desconto", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 // endregion
 
                 // region Abrindo a janela para a digitação do desconto final em R$
-                MSVMsgBox.getDoubleValue(
-                        PedidoMobileEditarActivity.this,
-                        "DESCONTO (R$) FINAL",
-                        "Informe o valor final de desconto concedido para este pedido",
-                        _tpPedidoMobile.DescontoValor1,
+                MSVMsgBox.getDoubleValue(PedidoMobileEditarActivity.this, "DESCONTO (R$) FINAL",
+                        "Informe o valor final de desconto concedido para este pedido", _tpPedidoMobile.DescontoValor1,
                         new OnCloseDialog() {
                             @Override
                             public void onCloseDialog(boolean isOk, String value) {
@@ -1223,11 +1104,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         }
                 );
                 // endregion
-
             }
         });
         // endregion
-
 
         // region Click em CONFIRMACAO do PEDIDO
         _res_pnlPedidoConfirmado.setOnClickListener(new View.OnClickListener() {
@@ -1236,10 +1115,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Montando o adaptador se necessário
                 if (_adpSimNao == null) {
-                    _adpSimNao = new KeyValueDialogSearchAdapter(
-                            PedidoMobileEditarActivity.this,
-                            _lstSimNao
-                    );
+                    _adpSimNao = new KeyValueDialogSearchAdapter(PedidoMobileEditarActivity.this, _lstSimNao);
                 }
                 // endregion
 
@@ -1248,10 +1124,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 // endregion
 
                 // region Abrindo a janela para escolha da opção SIM ou NAO
-                MSVMsgBox.getValueFromList(
-                        PedidoMobileEditarActivity.this,
-                        _lstSimNao.get(_iEhConfirmado).Value,
-                        _adpSimNao,
+                MSVMsgBox.getValueFromList(PedidoMobileEditarActivity.this, _lstSimNao.get(_iEhConfirmado).Value, _adpSimNao,
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
@@ -1263,21 +1136,35 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                             public void onCloseDialog(boolean isOk, String value) {
                                 _iEhConfirmado = _iAux;
                                 _tpPedidoMobile.EhConfirmado = _iEhConfirmado;
-
                                 refreshResumo();
                             }
                         }
                 );
                 // endregion
-
             }
         });
         //
 
         // endregion
 
-
         // endregion
+    }
+    // endregion
+
+
+    // region isAddTabelaPrecoCondicaoPagamento
+    private boolean isAddTabelaPrecoCondicaoPagamento() {
+        if (_iTabelaPreco == -1) {
+            Toast.makeText(PedidoMobileEditarActivity.this, "Selecione uma tabela de preço", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (_iCondicaoPagamento == -1) {
+            Toast.makeText(PedidoMobileEditarActivity.this, "Selecione uma condição de pagamento", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
     // endregion
 
@@ -1290,7 +1177,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         super.onActivityResult(requestCode, resultCode, data);
         // endregion
 
-
         // region Declarando variaveis locais
 
         // Object type
@@ -1299,9 +1185,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         // int
         int _aux_MetodoEdicao = 0;
         int _aux_ItemIndex = 0;
-
         // endregion
-
 
         // region De acordo com o código de retorno fazer...
         switch (requestCode) {
@@ -1314,11 +1198,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                     // region _KEY_TP_PEDIDO_MOBILE_ITEM
                     if (!data.hasExtra(_KEY_TP_PEDIDO_MOBILE_ITEM)) {
-                        Toast.makeText(
-                                PedidoMobileEditarActivity.this,
-                                "O parâmetro KEY_TP_PEDIDO_MOBILE_ITEM não foi informado",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        Toast.makeText(PedidoMobileEditarActivity.this, "O parâmetro KEY_TP_PEDIDO_MOBILE_ITEM não foi informado", Toast.LENGTH_SHORT).show();
                     } else {
                         _aux_tpPedidoMobileItem = (tpPedidoMobileItem) data.getSerializableExtra(_KEY_TP_PEDIDO_MOBILE_ITEM);
                     }
@@ -1326,11 +1206,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                     // region _KEY_METODO_EDICAO
                     if (!data.hasExtra(_KEY_METODO_EDICAO)) {
-                        Toast.makeText(
-                                PedidoMobileEditarActivity.this,
-                                "O parâmetro KEY_METODO_EDICAO não foi informado",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        Toast.makeText(PedidoMobileEditarActivity.this, "O parâmetro KEY_METODO_EDICAO não foi informado", Toast.LENGTH_SHORT).show();
                     } else {
                         _aux_MetodoEdicao = data.getIntExtra(_KEY_METODO_EDICAO, -1);
                     }
@@ -1338,11 +1214,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                     // region _KEY_ITEM_INDEX
                     if (!data.hasExtra(_KEY_ITEM_INDEX)) {
-                        Toast.makeText(
-                                PedidoMobileEditarActivity.this,
-                                "O parâmetro KEY_ITEM_INDEX não foi informado",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        Toast.makeText(PedidoMobileEditarActivity.this, "O parâmetro KEY_ITEM_INDEX não foi informado", Toast.LENGTH_SHORT).show();
                     } else {
                         _aux_ItemIndex = data.getIntExtra(_KEY_ITEM_INDEX, -1);
                     }
@@ -1360,7 +1232,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                         // adicionando o item a lista
                         _tpPedidoMobile.Itens.add(_aux_tpPedidoMobileItem);
-
                     }
                     // endregion
 
@@ -1377,14 +1248,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     // region Atualizando a lista de itens do pedido
                     refreshItens();
                     // endregion
-
                 }
 
                 break;
-
         }
         // endregion
-
     }
     //endregion
 
@@ -1437,16 +1305,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         } catch (Exception e) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "[PedidoMobileEditarActivity|initialize()] - Erro ao inicializar um novo pedido",
-                    e.getMessage()
-            );
-
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this,
+                    "[PedidoMobileEditarActivity|initialize()] - Erro ao inicializar um novo pedido", e.getMessage());
             finish();
-
         }
-
     }
     // endregion
 
@@ -1470,7 +1332,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _ite_txtRegistro.setText("REGISTROS: 0");
         _ite_txtValorTotal.setText("R$ 0,00");
         // endregion
-
     }
     // endregion
 
@@ -1484,14 +1345,12 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         switch (_tpCliente.CnpjCpf.length()) {
             case 11:
-                _txtClienteDocumento.setText(
-                        MSVUtil.formatCpf(_tpCliente.CnpjCpf)
+                _txtClienteDocumento.setText(MSVUtil.formatCpf(_tpCliente.CnpjCpf)
                 );
                 break;
 
             case 14:
-                _txtClienteDocumento.setText(
-                        MSVUtil.formatCnpj(_tpCliente.CnpjCpf)
+                _txtClienteDocumento.setText(MSVUtil.formatCnpj(_tpCliente.CnpjCpf)
                 );
                 break;
 
@@ -1501,7 +1360,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         _txtClienteCodigo.setText(_tpCliente.Codigo);
         // endregion
-
     }
     // endregion
 
@@ -1566,16 +1424,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         } catch (Exception e) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "[PedidoMobileEditarActivity|refreshPrincipal()] - Erro ao atualiza os valores da guia principal",
-                    e.getMessage()
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "[PedidoMobileEditarActivity|refreshPrincipal()] - Erro ao atualiza os valores da guia principal",
+                    e.getMessage());
 
             finish();
-
         }
-
     }
     // endregion
 
@@ -1594,9 +1447,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _sqh = new SQLiteHelper(PedidoMobileEditarActivity.this);
                 _sqh.open(false);
 
-
                 _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
-
 
                 for (tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
 
@@ -1606,11 +1457,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     _sch.addEqualInteger("IdProduto", _tp.IdProduto);
                     // endregion
 
-
                     // region Buscando a informação no banco de dados
                     _tpTabelaPrecoProduto = (tpTabelaPrecoProduto) _dbTabelaPrecoProduto.getOne(_sch);
                     // endregion
-
 
                     // region Se o preço foi encontrado então vamos reprocessar os valores
                     if (_tpTabelaPrecoProduto != null) {
@@ -1619,9 +1468,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         _tp.UnidadeValorTotal = _tp.UnidadeValorLiquido * _tp.UnidadeVendaQuantidade;
                     }
                     // endregion
-
                 }
-
                 // avisando o usuário que os preços dos produtos já inclusos no pedido
                 // foram recalculados de acordo com a tabela de preço escolhida
                 Toast.makeText(PedidoMobileEditarActivity.this, "Os preços dos produtos foram recalculados, verifique", Toast.LENGTH_SHORT);
@@ -1634,7 +1481,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _sqh.close();
             }
         }
-
     }
     // endregion
 
@@ -1644,10 +1490,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         // region Formando o adaptador do itens
         if (_adpItens == null) {
-            _adpItens = new PedidoMobileProdutoAdapter(
-                    PedidoMobileEditarActivity.this,
-                    (ArrayList<tpPedidoMobileItem>) _tpPedidoMobile.Itens
-            );
+            _adpItens = new PedidoMobileProdutoAdapter(PedidoMobileEditarActivity.this, (ArrayList<tpPedidoMobileItem>) _tpPedidoMobile.Itens);
         } else {
             _adpItens.notifyDataSetChanged();
         }
@@ -1684,9 +1527,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         if (existeItemMix) {
 
             // region Abrindo a janela para escolha
-            MSVMsgBox.showMsgBoxQuestionWithButtonAdditional(
-                    PedidoMobileEditarActivity.this,
-                    "AVISO",
+            MSVMsgBox.showMsgBoxQuestionWithButtonAdditional(PedidoMobileEditarActivity.this, "AVISO",
                     "Alguns itens do mix que está sendo importado já foram adicionados previamente no pedido. Deseja manter os itens do mix, pedido ou somar?",
                     new OnCloseDialog() {
                         @Override
@@ -1739,6 +1580,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
     // region ApplySum
     public void ApplySum() {
+
         int _index = 0;
         boolean _existe = false;
 
@@ -1757,6 +1599,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             } else {
                 _tpPedidoMobile.Itens.add(_tpMix);
             }
+
             _existe = false;
         }
     }
@@ -1797,12 +1640,14 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     _existe = true;
                 }
             }
-            if(_existe){
+
+            if (_existe) {
                 _tpPedidoMobile.Itens.remove(_index);
                 _tpPedidoMobile.Itens.add(_tpMix);
-            }else {
+            } else {
                 _tpPedidoMobile.Itens.add(_tpMix);
             }
+
             _existe = false;
         }
     }
@@ -1930,16 +1775,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         } catch (Exception e) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "[PedidoMobileEditarActivity|refreshResumo()] - Erro ao atualiza os valores da guia resumo",
-                    e.getMessage()
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "[PedidoMobileEditarActivity|refreshResumo()] - Erro ao atualiza os valores da guia resumo",
+                    e.getMessage());
 
             finish();
-
         }
-
     }
     // endregion
 
@@ -1958,7 +1798,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _lstSimNao = new ArrayList<tpKeyValueRow>();
         _lstSimNao.add(_tpNao);
         _lstSimNao.add(_tpSim);
-
     }
     // endregion
 
@@ -1979,7 +1818,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         _lstOption = new ArrayList<tpKeyValueRow>();
         _lstOption.add(_tpEdit);
         _lstOption.add(_tpDelete);
-
     }
     // endregion
 
@@ -1998,7 +1836,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             dbVendedor _dbVendedor = new dbVendedor(_sqh);
             _tpVendedor = (tpVendedor) _dbVendedor.getById(1);
 
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -2006,7 +1843,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _sqh.close();
             }
         }
-
     }
     // endregion
 
@@ -2039,11 +1875,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
             // region Emitindo mensagem ao usuário se não existir registro
             if (_lstTipoPedido == null) {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "A lista de tipos de pedido não foi carregada corretamente",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "A lista de tipos de pedido não foi carregada corretamente", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -2055,7 +1887,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             }
         }
         // endregion
-
     }
     // endregion
 
@@ -2086,33 +1917,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             _lstTabelaPreco = (ArrayList<tpTabelaPreco>) _dbTabelaPreco.getList(tpTabelaPreco.class, _sch);
             // endregion
 
-            _iTabelaPreco = 0;
-
-            // Definindo a Tabela de Preço padrão
-            if (Long.valueOf(_tpCliente.IdTabelaPreco) != 0) {
-
-                for (tpTabelaPreco _tpTabelaPreco : _lstTabelaPreco) {
-
-                    if (_tpTabelaPreco.IdTabelaPreco == _tpCliente.IdTabelaPreco) {
-
-                        _tpTabelaPreco.Descricao += " ( Padrão )";
-
-                        _iTabelaPreco = _lstTabelaPreco.indexOf(_tpTabelaPreco);
-
-                    }
-
-                }
-
-            }
-            //end region
-
             // region Emitindo mensagem ao usuário se não existir registro
             if (_lstTabelaPreco == null) {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "A lista de tabela de preço não foi carregada corretamente",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "A lista de tabela de preço não foi carregada corretamente", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -2124,7 +1931,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             }
         }
         // endregion
-
     }
     // endregion
 
@@ -2155,14 +1961,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             _lstCondicaoPagamento = (ArrayList<tpCondicaoPagamento>) _dbCondicaoPagamento.getList(tpCondicaoPagamento.class, _sch);
             // endregion
 
-
             // region Emitindo mensagem ao usuário se não existir registro
             if (_lstCondicaoPagamento == null) {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "A lista de condições de pagamento não foi carregada corretamente",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "A lista de condições de pagamento não foi carregada corretamente", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -2174,7 +1975,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             }
         }
         // endregion
-
     }
     // endregion
 
@@ -2201,11 +2001,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
             // region Emitindo mensagem ao usuário se não existir registro
             if (_lstTransportadora == null) {
-                Toast.makeText(
-                        PedidoMobileEditarActivity.this,
-                        "A lista de transportadoras não foi carregada corretamente",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(PedidoMobileEditarActivity.this, "A lista de transportadoras não foi carregada corretamente", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -2217,7 +2013,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             }
         }
         // endregion
-
     }
     // endregion
 
@@ -2252,10 +2047,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     dbCondicaoPagamento _dbCondicaoPagamento = new dbCondicaoPagamento(_sqh);
                     _tpCliente.CondicaoPagamentoPadrao = (tpCondicaoPagamento) _dbCondicaoPagamento.getById(_tpCliente.IdCondicaoPagamentoPadrao);
                 }
-
             }
-
-
             // endregion
 
         } catch (Exception e) {
@@ -2266,7 +2058,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             }
         }
         // endregion
-
     }
     // endregion
 
@@ -2306,10 +2097,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                 // region Lendo as informações dos itens do pedido
                 dbPedidoMobileItem _dbPedidoMobileItem = new dbPedidoMobileItem(_sqh);
-                _tpPedidoMobile.Itens = (ArrayList<tpPedidoMobileItem>) _dbPedidoMobileItem.getList(
-                        tpPedidoMobileItem.class,
-                        _schIdPedidoMobile
-                );
+                _tpPedidoMobile.Itens = (ArrayList<tpPedidoMobileItem>) _dbPedidoMobileItem.getList(tpPedidoMobileItem.class, _schIdPedidoMobile);
                 // endregion
 
                 // region Carregando as informações do produto
@@ -2318,7 +2106,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     dbProduto _dbProduto = new dbProduto(_sqh);
                     dbTabelaPrecoProduto _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
                     SQLClauseHelper _where = new SQLClauseHelper();
-
 
                     for (tpPedidoMobileItem _tp : _tpPedidoMobile.Itens) {
                         _tp.Produto = (tpProduto) _dbProduto.getBySourceId(_tp.IdProduto);
@@ -2342,10 +2129,8 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
-
         }
         // endregion
-
     }
     // endregion
 
@@ -2365,7 +2150,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
             // region Condicao de Pagamento
             if ((_lstCondicaoPagamento != null) && (_lstCondicaoPagamento.size() > 0)) {
-                _iCondicaoPagamento = 0;
+                _iCondicaoPagamento = -1;
                 if (_tpCliente != null && _tpCliente.IdCondicaoPagamentoPadrao != 0) {
                     _tpPedidoMobile.IdCondicaoPagamento = _tpCliente.IdCondicaoPagamentoPadrao;
 
@@ -2376,16 +2161,26 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                             break;
                         }
                     }
-
-                } else {
-                    _tpPedidoMobile.IdCondicaoPagamento = _lstCondicaoPagamento.get(_iCondicaoPagamento).IdCondicaoPagamento;
                 }
             }
             // endregion
 
+            // region TabelaPreco
             if ((_lstTabelaPreco != null) && (_lstTabelaPreco.size() > 0)) {
-                _tpPedidoMobile.IdTabelaPreco = _lstTabelaPreco.get(_iTabelaPreco).IdTabelaPreco;
+                _iTabelaPreco = -1;
+                if (_tpCliente != null && _tpCliente.IdTabelaPreco != 0) {
+                    _tpPedidoMobile.IdTabelaPreco = _tpCliente.IdTabelaPreco;
+
+                    for (int i = 0; i < _lstTabelaPreco.size(); i++) {
+                        if (_tpCliente.IdTabelaPreco == _lstTabelaPreco.get(i).IdTabelaPreco) {
+                            _lstTabelaPreco.get(i).Descricao += " ( Padrão )";
+                            _iTabelaPreco = i;
+                            break;
+                        }
+                    }
+                }
             }
+            // endregion
 
             // region Transportadora
             if ((_lstTransportadora != null) && (_lstTransportadora.size() > 0)) {
@@ -2400,10 +2195,8 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _tpPedidoMobile.EhConfirmado = (int) _lstSimNao.get(_iEhConfirmado).Key;
             }
             // endregion
-
         }
         // endregion
-
 
         // region Metodo UPDATE
         if (_metodoEdicao == _UPDATE_VALUE) {
@@ -2420,9 +2213,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         _iTipoPedido = i;
                         break;
                     }
-
                 }
-
             }
             // endregion
 
@@ -2437,9 +2228,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     if (_a == _b) {
                         _iTabelaPreco = i;
                     }
-
                 }
-
             }
             // endregion
 
@@ -2454,9 +2243,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     if (_a == _b) {
                         _iCondicaoPagamento = i;
                     }
-
                 }
-
             }
             // endregion
 
@@ -2471,9 +2258,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     if (_a == _b) {
                         _iTransportadora = i;
                     }
-
                 }
-
             }
             // endregion
 
@@ -2488,15 +2273,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                     if (_a == _b) {
                         _iEhConfirmado = i;
                     }
-
                 }
-
             }
             // endregion
-
         }
         // endregion
-
     }
     // endregion
 
@@ -2521,7 +2302,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             _tpPedidoMobile.TotalValorLiquido = (_tpPedidoMobile.TotalValor - _tpPedidoMobile.DescontoValor1);
 
         }
-
     }
     // endregion
 
@@ -2544,9 +2324,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
             // calculando o valor unitário líquido
             _tpPedidoMobile.TotalValorLiquido = (_tpPedidoMobile.TotalValor - _tpPedidoMobile.DescontoValor1);
-
         }
-
     }
     // endregion
 
@@ -2557,125 +2335,88 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         // region Verificando se foi informado a empresa
         if (_tpPedidoMobile.IdEmpresa == 0) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "EMPRESA",
-                    "Não foi possível localizar internamente o identificador da empresa para este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "EMPRESA",
+                    "Não foi possível localizar internamente o identificador da empresa para este pedido");
 
             return false;
-
         }
         // endregion
 
         // region Verificando se existe número no pedido
         if ("".equalsIgnoreCase(_tpPedidoMobile.Numero)) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "NUMERO",
-                    "É necessário informar um número antes de tentar salvar este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "NUMERO",
+                    "É necessário informar um número antes de tentar salvar este pedido");
 
             return false;
-
         }
 
         if (_AUTOMATICO.equalsIgnoreCase(_tpPedidoMobile.Numero)) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "NUMERO",
-                    "É necessário informar um número antes de tentar salvar este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "NUMERO",
+                    "É necessário informar um número antes de tentar salvar este pedido");
 
             return false;
-
         }
         // endregion
 
         // region Verificando se foi informado o cliente
         if (_tpPedidoMobile.IdCliente == 0) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "CLIENTE",
-                    "Não foi possível localizar internamente o identificador do cliente para este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "CLIENTE",
+                    "Não foi possível localizar internamente o identificador do cliente para este pedido");
 
             return false;
-
         }
         // endregion
 
         // region Verificando se foi informado o tipo de pedido
         if (_tpPedidoMobile.IdTipoPedido == 0) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "TIPO DE PEDIDO",
-                    "É necessário selecionar um tipo de pedido antes de tentar salvar este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "TIPO DE PEDIDO",
+                    "É necessário selecionar um tipo de pedido antes de tentar salvar este pedido");
 
             return false;
-
         }
         // endregion
 
         // region Verificando se foi informado o tabela de preço
         if (_tpPedidoMobile.IdTabelaPreco == 0) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "TABELA DE PREÇO",
-                    "É necessário selecionar uma tabela de preço antes de salvar este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "TABELA DE PREÇO",
+                    "É necessário selecionar uma tabela de preço antes de salvar este pedido");
 
             return false;
-
         }
         // endregion
 
         // region Verificando se foi informado o condição de pagamento
         if (_tpPedidoMobile.IdCondicaoPagamento == 0) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "CONDIÇÃO DE PAGAMENTO",
-                    "É necessário selecionar uma condição de pagamento antes de salvar este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "CONDIÇÃO DE PAGAMENTO",
+                    "É necessário selecionar uma condição de pagamento antes de salvar este pedido");
 
             return false;
-
         }
         // endregion
 
         // region Verificando se foi informado o transportadora
         if (_tpPedidoMobile.IdTransportadora == 0) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "TRANSPORTADORA",
-                    "É necessário selecionar uma transportadora antes de salvar este pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "TRANSPORTADORA",
+                    "É necessário selecionar uma transportadora antes de salvar este pedido");
 
             return false;
-
         }
         // endregion
 
         // region Verificando se existem itens no pedido
         if ((_tpPedidoMobile.Itens != null) && (_tpPedidoMobile.Itens.size() == 0)) {
 
-            MSVMsgBox.showMsgBoxError(
-                    PedidoMobileEditarActivity.this,
-                    "ITENS",
-                    "É necessário registrar um ou mais itens antes de salvar o pedido"
-            );
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this, "ITENS",
+                    "É necessário registrar um ou mais itens antes de salvar o pedido");
 
             return false;
-
-
         }
         // endregion
 
@@ -2688,9 +2429,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     private void save() {
 
         // region Verificando se o usuário quer realmente salvar
-        MSVMsgBox.showMsgBoxQuestion(
-                PedidoMobileEditarActivity.this,
-                "Deseja realmente salvar as informações do pedido",
+        MSVMsgBox.showMsgBoxQuestion(PedidoMobileEditarActivity.this, "Deseja realmente salvar as informações do pedido",
                 "Ao confirmar esta opção os dados do pedido serão salvos no banco de dados",
                 new OnCloseDialog() {
                     @Override
@@ -2714,7 +2453,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                                 _dbPedidoMobileItem = new dbPedidoMobileItem(_sqh);
                                 // endregion
 
-
                                 // region Informações adicionais para o método INSERT
                                 if (_metodoEdicao == _INSERT_VALUE) {
 
@@ -2725,7 +2463,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                                     _tpPedidoMobile.EmissaoDataHora = MSVUtil.sqliteHojeHora();
                                     _tpPedidoMobile.EhSincronizado = 0;
                                     _tpPedidoMobile.IdVendedor = _tpVendedor.IdVendedor;
-
                                 }
                                 // endregion
 
@@ -2733,7 +2470,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                                 _tpPedidoMobile.DataAlteracao = MSVUtil.sqliteHojeHora();
                                 _tpPedidoMobile.UsuarioAlteracao = _tpVendedor.Codigo;
                                 // endregion
-
 
                                 // region Se o objeto TP for validado então...
                                 if (isValid()) {
@@ -2759,11 +2495,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                                         // endregion
 
                                         // region Recuperando a lista de itens
-                                        ArrayList<tpPedidoMobileItem> _lstItens =
-                                                (ArrayList<tpPedidoMobileItem>) _dbPedidoMobileItem.getList(
-                                                        tpPedidoMobileItem.class,
-                                                        _sch
-                                                );
+                                        ArrayList<tpPedidoMobileItem> _lstItens = (ArrayList<tpPedidoMobileItem>) _dbPedidoMobileItem.getList(tpPedidoMobileItem.class, _sch);
                                         // endregion
 
                                         // region Removendo os itens do banco de dados
@@ -2771,7 +2503,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                                             _dbPedidoMobileItem.delete(_item);
                                         }
                                         // endregion
-
                                     }
                                     // endregion
 
@@ -2786,7 +2517,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                                         // invocando o método de gravação do item
                                         _dbPedidoMobileItem.insert(_tpPedidoMobileItem);
-
                                     }
                                     // endregion
 
@@ -2798,7 +2528,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                                     setResult(Activity.RESULT_OK);
                                     finish();
                                     // endregion
-
                                 }
                                 // endregion
 
@@ -2811,11 +2540,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                                 // endregion
 
                                 // region Mostrar o erro ao usuário
-                                Toast.makeText(
-                                        PedidoMobileEditarActivity.this,
-                                        "ERRO: " + e.getMessage(),
-                                        Toast.LENGTH_LONG
-                                ).show();
+                                Toast.makeText(PedidoMobileEditarActivity.this, "ERRO: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 // endregion
 
                             } finally {
@@ -2828,13 +2553,11 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                             }
                             // endregion
-
                         }
                     }
                 }
         );
         // endregion
-
     }
     // endregion
 
@@ -2844,9 +2567,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
         String _op = _metodoEdicao == _INSERT_VALUE ? "INCLUSÃO" : "ALTERAÇÃO";
 
-        MSVMsgBox.showMsgBoxQuestion(
-                PedidoMobileEditarActivity.this,
-                "Deseja realmente cancelar a operação ?",
+        MSVMsgBox.showMsgBoxQuestion(PedidoMobileEditarActivity.this, "Deseja realmente cancelar a operação ?",
                 "Ao clicar em Ok você irá cancelar a operação de " + _op + " em andamento",
                 new OnCloseDialog() {
                     @Override
@@ -2857,12 +2578,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                             setResult(Activity.RESULT_CANCELED);
                             finish();
                             // endregion
-
                         }
                     }
                 }
         );
-
     }
     // endregion
 
@@ -2888,7 +2607,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         Intent _i = new Intent(PedidoMobileEditarActivity.this, PedidoMobileItemEditarActivity.class);
         _i.putExtras(_extras);
         startActivityForResult(_i, _ITEM_REQUEST_CODE);
-
     }
     // endregion
 
@@ -2896,10 +2614,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     // region delete
     private void delete(final int itemIndex) {
 
-        MSVMsgBox.showMsgBoxQuestion(
-                PedidoMobileEditarActivity.this,
-                "EXCLUIR ITEM",
-                "Deseja realmente excluir este item do pedido ?",
+        MSVMsgBox.showMsgBoxQuestion(PedidoMobileEditarActivity.this, "EXCLUIR ITEM", "Deseja realmente excluir este item do pedido ?",
                 new OnCloseDialog() {
                     @Override
                     public void onCloseDialog(boolean isOk, String value) {
@@ -2910,17 +2625,15 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
                             atualizaValorTotalItens();
                         }
-
                     }
                 }
         );
-
     }
     // endregion
 
 
-    // region
-    private void atualizaValorTotalItens(){
+    // region atualizaValorTotalItens
+    private void atualizaValorTotalItens() {
 
         // region Atualizando campos calculados do pedido de acordo com os itens
         _tpPedidoMobile.ItensQuantidade = 0;
@@ -2969,12 +2682,10 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _whereClienteMix.addEqualInteger("EhItemConfirmado", 1);
                 // endregion
 
-
                 // region Abrindo a conexão com o banco de dados
                 _sqh = new SQLiteHelper(PedidoMobileEditarActivity.this);
                 _sqh.open(false);
                 // endregion
-
 
                 // region Recuperando o mix de produtos do cliente
                 _dbClienteMix = new dbClienteMix(_sqh);
@@ -2985,7 +2696,6 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 _dbTabelaPrecoProduto = new dbTabelaPrecoProduto(_sqh);
                 SQLClauseHelper _whereTabelaPrecoProduto = new SQLClauseHelper();
                 // endregion
-
 
                 // region Recuperando informações acessorias para cada item do mix
                 if ((_lstClienteMix != null) && (_lstClienteMix.size() > 0)) {
@@ -3064,18 +2774,14 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                 }
                 // endregion
 
-
                 // region Atualizando a lista de produtos do pedido
                 this.refreshItens();
                 // endregion
 
             } catch (Exception e) {
 
-                MSVMsgBox.showMsgBoxError(
-                        PedidoMobileEditarActivity.this,
-                        "Erro ao importar os itens confirmados do mix de produto do cliente",
-                        e.getMessage()
-                );
+                MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this,
+                        "Erro ao importar os itens confirmados do mix de produto do cliente", e.getMessage());
 
             } finally {
 

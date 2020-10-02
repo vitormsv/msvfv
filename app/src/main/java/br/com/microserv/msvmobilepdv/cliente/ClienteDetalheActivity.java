@@ -88,7 +88,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     static final String _KEY_SOURCE_ACTIVITY = "SourceActivity";
     static final String _KEY_ID_CLIENTE = "IdCliente";
     static final String _KEY_TP_EMPRESA = "tpEmpresa";
-    static final String _KEY_TP_CLIENTE = "tpCliente";
     static final String _KEY_ID_PEDIDO_MOBILE = "IdPedidoMobile";
     static final String _KEY_CLIENTE_id = "_id";
 
@@ -199,7 +198,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
     // region Declarando variaveis locais
 
     // Objetos
-    Bundle _extras = null;
     ArrayList<tpPedidoMobile> _lstPedidoMobile = null;
     ArrayList<tpClienteProdutoMixRow> _lstMix = null;
     ArrayList<tpFinanceiro> _lstFinanceiro = null;
@@ -266,11 +264,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if (_extras.containsKey(_KEY_METODO_EDICAO)) {
                 _metodoEdicao = _extras.getInt(_KEY_METODO_EDICAO);
             } else {
-                Toast.makeText(
-                        ClienteDetalheActivity.this,
-                        "O parâmetro _KEY_METODO_EDICAO não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(ClienteDetalheActivity.this, "O parâmetro _KEY_METODO_EDICAO não foi informado", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -278,11 +272,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if (_extras.containsKey(_KEY_SOURCE_ACTIVITY)) {
                 _sourceActivity = _extras.getString(_KEY_SOURCE_ACTIVITY);
             } else {
-                Toast.makeText(
-                        ClienteDetalheActivity.this,
-                        "O parâmetro _KEY_SOURCE_ACTIVITY não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(ClienteDetalheActivity.this, "O parâmetro _KEY_SOURCE_ACTIVITY não foi informado", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -290,11 +280,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if (_extras.containsKey(_KEY_ID_CLIENTE)) {
                 _IdCliente = _extras.getLong(_KEY_ID_CLIENTE);
             } else {
-                Toast.makeText(
-                        ClienteDetalheActivity.this,
-                        "O parâmetro _KEY_ITEM_INDEX não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(ClienteDetalheActivity.this, "O parâmetro _KEY_ITEM_INDEX não foi informado", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -302,11 +288,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if (_extras.containsKey(_KEY_TP_EMPRESA)) {
                 _tpEmpresa = (tpEmpresa) _extras.getSerializable(_KEY_TP_EMPRESA);
             } else {
-                Toast.makeText(
-                        ClienteDetalheActivity.this,
-                        "O parâmetro _KEY_TP_EMPRESA não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(ClienteDetalheActivity.this, "O parâmetro _KEY_TP_EMPRESA não foi informado", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
@@ -314,11 +296,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if (_extras.containsKey(_KEY_CLIENTE_id)) {
                 _id = _extras.getLong(_KEY_CLIENTE_id);
             } else {
-                Toast.makeText(
-                        ClienteDetalheActivity.this,
-                        "O parâmetro _KEY_CLIENTE_id não foi informado",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(ClienteDetalheActivity.this, "O parâmetro _KEY_CLIENTE_id não foi informado", Toast.LENGTH_SHORT).show();
             }
             // endregion
         }
@@ -349,10 +327,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         /*
         if ((_tpUtilizaMixProduto != null) && (_tpUtilizaMixProduto.ValorInteiro == 0)) {
             MenuItem _mnMix = menu.findItem(R.id.mnMix);
-
-            if (_mnMix != null) {
-                _mnMix.setVisible(false);
-            }
+            if (_mnMix != null) { _mnMix.setVisible(false); }
         }*/
         return true;
     }
@@ -387,6 +362,13 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 break;
 
             case R.id.mnMix:
+
+                if (_tpCliente != null && _tpCliente.IdTabelaPreco <= 0) {
+                    Toast.makeText(ClienteDetalheActivity.this,
+                            "Tabela de preço não cadastrada para esse cliente, por isso foi selecionada a primeira tabela na lista.",
+                            Toast.LENGTH_LONG).show();
+                }
+
                 Bundle _params = new Bundle();
                 _params.putInt(_KEY_METODO_EDICAO, _LOOKUP_VALUE);
                 _params.putString(_KEY_SOURCE_ACTIVITY, "ClienteDetalheActivity");
@@ -635,11 +617,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             public void onClick(View v) {
 
                 if (_isSyncToday == false) {
-                    MSVMsgBox.showMsgBoxWarning(
-                            ClienteDetalheActivity.this,
-                            "Atenção, antes de realizar a venda é necessário sincronizar este dispositivo",
-                            "Verifique se seu dispositivo está conectado na internet e então entre na opção de Sincronização no menu principal."
-                    );
+                    MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "Atenção, antes de realizar a venda é necessário sincronizar este dispositivo",
+                            "Verifique se seu dispositivo está conectado na internet e então entre na opção de Sincronização no menu principal.");
                 } else {
 
                     MSVUtil.vibrate(ClienteDetalheActivity.this);
@@ -672,10 +651,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
                 // region Verificando a necessidade de instânciar o adapter
                 if (_adpKeyValue == null) {
-                    _adpKeyValue = new KeyValueDialogSearchAdapter(
-                            ClienteDetalheActivity.this,
-                            _lstItemOptions
-                    );
+                    _adpKeyValue = new KeyValueDialogSearchAdapter(ClienteDetalheActivity.this, _lstItemOptions);
                 }
                 // endregion
 
@@ -683,10 +659,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _iAux = -1;
                 _tpOption = null;
 
-                MSVMsgBox.getValueFromList(
-                        ClienteDetalheActivity.this,
-                        "OPÇÕES",
-                        _adpKeyValue,
+                MSVMsgBox.getValueFromList(ClienteDetalheActivity.this, "OPÇÕES", _adpKeyValue,
                         new OnSelectedItem() {
                             @Override
                             public void onSelectedItem(int position, tpBase tp) {
@@ -703,12 +676,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                                     // region Quando o usuário não seleciona nada e clica em Ok
                                     if (_iAux == -1) {
 
-                                        Toast.makeText(
-                                                ClienteDetalheActivity.this,
-                                                "Nenhuma opção foi selecionada pelo usuário",
-                                                Toast.LENGTH_SHORT
-                                        ).show();
-
+                                        Toast.makeText(ClienteDetalheActivity.this, "Nenhuma opção foi selecionada pelo usuário", Toast.LENGTH_SHORT).show();
                                         return;
                                     }
                                     // endregion
@@ -748,9 +716,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                                     // region 5 - EXCLUIR
                                     if (_tpOption.Key == 5) {
 
-                                        MSVMsgBox.showMsgBoxQuestion(
-                                                ClienteDetalheActivity.this,
-                                                "Deseja realmente excluir este pedido ?",
+                                        MSVMsgBox.showMsgBoxQuestion(ClienteDetalheActivity.this, "Deseja realmente excluir este pedido ?",
                                                 "Se clicar em OK este pedido será removido do dispositivo",
                                                 new OnCloseDialog() {
                                                     @Override
@@ -837,7 +803,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         _fca_imgAgendaAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 addContact();
             }
         });
@@ -881,10 +846,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             this.showFinanceiro();
 
         } else {
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "Não foi possível recuperar os dados do cliente selecionado"
-            );
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "Não foi possível recuperar os dados do cliente selecionado");
         }
         // endregion
 
@@ -920,11 +882,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             _tpPermiteEditarCliente = _dbParametro.getPermiteAlterarCliente();
 
         } catch (Exception e) {
-
             e.printStackTrace();
-
         } finally {
-
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
@@ -971,7 +930,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 // endregion
 
                 // region 04 - Carregando Condicao Pagamento
-                dbCondicaoPagamento _dbCondicaoPagamento= new dbCondicaoPagamento(_sqh);
+                dbCondicaoPagamento _dbCondicaoPagamento = new dbCondicaoPagamento(_sqh);
                 _tpCliente.CondicaoPagamentoPadrao = (tpCondicaoPagamento) _dbCondicaoPagamento.getBySourceId(_tpCliente.IdCondicaoPagamentoPadrao);
                 // endregion
             }
@@ -1040,21 +999,21 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             // verificando a necessidade de mostrar a imagem de email
             _fca_imgEmail.setVisibility(View.GONE);
 
-            if (MSVUtil.isNullOrEmpty(_tpCliente.Email) == false) {
+            if (!MSVUtil.isNullOrEmpty(_tpCliente.Email)) {
                 _fca_imgEmail.setVisibility(View.VISIBLE);
             }
 
             // verificando a necessidade de mostrar a imagem de telefone fixo
             _fca_imgTelefoneFixo.setVisibility(View.GONE);
 
-            if (MSVUtil.isNullOrEmpty(_tpCliente.TelefoneFixo) == false) {
+            if (!MSVUtil.isNullOrEmpty(_tpCliente.TelefoneFixo)) {
                 _fca_imgTelefoneFixo.setVisibility(View.VISIBLE);
             }
 
             // verificando a necessidade de mostrar a imagem de telefone celular
             _fca_imgTelefoneCelular.setVisibility(View.GONE);
 
-            if (MSVUtil.isNullOrEmpty(_tpCliente.TelefoneCelular) == false) {
+            if (!MSVUtil.isNullOrEmpty(_tpCliente.TelefoneCelular)) {
                 _fca_imgTelefoneCelular.setVisibility(View.VISIBLE);
             }
             // endregion
@@ -1106,19 +1065,10 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                     _tp.CondicaoPagamento = (tpCondicaoPagamento) _dbCondicaoPagamento.getBySourceId(_tp.IdCondicaoPagamento);
                 }
             }
-
         } catch (Exception e) {
-
             Log.e("SQLite", "PedidoMobileListaActivity -> loadPedido -> " + e.getMessage());
-
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "Erro ao buscar os pedidos vinculados ao cliente",
-                    e.getMessage()
-            );
-
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "Erro ao buscar os pedidos vinculados ao cliente", e.getMessage());
         } finally {
-
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
@@ -1137,23 +1087,16 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // region Verificano se o mesmo já está sincronizado
         if (_tp.EhSincronizado == 1) {
 
-            MSVMsgBox.showMsgBoxWarning(
-                    ClienteDetalheActivity.this,
-                    "ATENÇÃO",
-                    "Não é permitido alterar dados de um pedido que já foi sincronizado com a base de pedidos da empresa"
-            );
-
+            MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "ATENÇÃO",
+                    "Não é permitido alterar dados de um pedido que já foi sincronizado com a base de pedidos da empresa");
             return;
         }
         // endregion
 
         if (_isSyncToday == false) {
 
-            MSVMsgBox.showMsgBoxWarning(
-                    ClienteDetalheActivity.this,
-                    "Atenção, antes de realizar a venda é necessário sincronizar este dispositivo",
-                    "Verifique se seu dispositivo está conectado na internet e então entre na opção de Sincronização no menu principal."
-            );
+            MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "Atenção, antes de realizar a venda é necessário sincronizar este dispositivo",
+                    "Verifique se seu dispositivo está conectado na internet e então entre na opção de Sincronização no menu principal.");
 
         } else {
 
@@ -1186,13 +1129,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
         // region Verificano se o mesmo já está confirmado
         if (_tp.EhConfirmado == 1) {
-
-            MSVMsgBox.showMsgBoxWarning(
-                    ClienteDetalheActivity.this,
-                    "ATENÇÃO",
-                    "Este pedido já está confirmado"
-            );
-
+            MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "ATENÇÃO", "Este pedido já está confirmado");
             return;
         }
         // endregion
@@ -1214,15 +1151,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             _adpPedidoMobile.notifyDataSetChanged();
 
         } catch (Exception e) {
-
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "ERRO",
-                    e.getMessage()
-            );
-
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "ERRO", e.getMessage());
         } finally {
-
             // region Finalizando a conexão com o banco
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
@@ -1243,39 +1173,24 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
         // region Verificano se o mesmo já está sincronizado
         if (_tp.EhSincronizado == 1) {
-
-            MSVMsgBox.showMsgBoxWarning(
-                    ClienteDetalheActivity.this,
-                    "ATENÇÃO",
-                    "Este pedido já está sincronizado com a base de pedidos da empresa.\nSincronização negada"
-            );
-
+            MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "ATENÇÃO",
+                    "Este pedido já está sincronizado com a base de pedidos da empresa.\nSincronização negada");
             return;
         }
         // endregion
 
         // region Verificano se o mesmo já está confirmado
         if (_tp.EhConfirmado == 0) {
-
-            MSVMsgBox.showMsgBoxWarning(
-                    ClienteDetalheActivity.this,
-                    "ATENÇÃO",
-                    "Não é permitido sincronizar um pedido que não está confirmado.\nPor favor edite o pedido e confirme o mesmo"
-            );
-
+            MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "ATENÇÃO",
+                    "Não é permitido sincronizar um pedido que não está confirmado.\nPor favor edite o pedido e confirme o mesmo");
             return;
         }
         // endregion
 
         // region verificando se existe conexão no aparelho
         if (MSVUtil.isConnected(ClienteDetalheActivity.this) == false) {
-
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "WI-FI | 3G",
-                    "O seu dispostivo não está conectado a nenhuma rede wi-fi ou rede 3G"
-            );
-
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "WI-FI | 3G",
+                    "O seu dispostivo não está conectado a nenhuma rede wi-fi ou rede 3G");
             return;
         }
         // endregion
@@ -1286,9 +1201,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         // endregion
 
         // region Sincronizando os pedidos selecionados
-        MSVMsgBox.showMsgBoxQuestion(
-                ClienteDetalheActivity.this,
-                "SINCRONIZAR PEDIDO",
+        MSVMsgBox.showMsgBoxQuestion(ClienteDetalheActivity.this, "SINCRONIZAR PEDIDO",
                 "Deseja realmente enviar este pedido para faturamento ?",
                 new OnCloseDialog() {
                     @Override
@@ -1301,14 +1214,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                             // endregion
 
                             // region Invocando o método da API para envio dos pedidos
-                            new PedidoApi(
-                                    ClienteDetalheActivity.this,
-                                    _tpServidorRestIp.ValorTexto,
-                                    _tpVendedorCodigo.ValorTexto,
-                                    _lstPedidoMobileSync,
-                                    0,
-                                    onTaskCompleteListner
-                            ).execute();
+                            new PedidoApi(ClienteDetalheActivity.this, _tpServidorRestIp.ValorTexto, _tpVendedorCodigo.ValorTexto, _lstPedidoMobileSync, 0,
+                                    onTaskCompleteListner).execute();
                             // endregion
                         }
                     }
@@ -1475,12 +1382,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             // endregion
 
         } catch (Exception e) {
-
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "Erro ao gerar o conteúdo do pedido para envio ao cliente",
-                    e.getMessage()
-            );
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "Erro ao gerar o conteúdo do pedido para envio ao cliente", e.getMessage());
         }
         // endregion
 
@@ -1500,29 +1402,19 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 try {
                     startActivity(_i);
                 } catch (Exception e) {
-                    Toast.makeText(
-                            ClienteDetalheActivity.this,
-                            e.getMessage(),
-                            Toast.LENGTH_LONG
-                    ).show();
+                    Toast.makeText(ClienteDetalheActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             } else {
 
-                MSVMsgBox.showMsgBoxError(
-                        ClienteDetalheActivity.this,
-                        "WIFI | 3G",
-                        "O seu dispositivo está off-line no momento, e por isso não será possível enviar o pedido via whatsapp"
-                );
+                MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "WIFI | 3G",
+                        "O seu dispositivo está off-line no momento, e por isso não será possível enviar o pedido via whatsapp");
             }
 
         } else {
 
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "Aplicativo Whatsapp não instalado neste dispositivo",
-                    "Acesso sua loja de aplicativos e baixe o aplicativo Whatsapp para compartilhar o pedido com o seu cliente"
-            );
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "Aplicativo Whatsapp não instalado neste dispositivo",
+                    "Acesso sua loja de aplicativos e baixe o aplicativo Whatsapp para compartilhar o pedido com o seu cliente");
         }
         // endregion
     }
@@ -1538,13 +1430,8 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
         // region Verificano se o mesmo já está sincronizado
         if (_tp.EhSincronizado == 1) {
-
-            MSVMsgBox.showMsgBoxWarning(
-                    ClienteDetalheActivity.this,
-                    "ATENÇÃO",
-                    "Não é permitido exculir um pedido que já foi sincronizado com a base de pedidos da empresa"
-            );
-
+            MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "ATENÇÃO",
+                    "Não é permitido exculir um pedido que já foi sincronizado com a base de pedidos da empresa");
             return;
         }
         // endregion
@@ -1585,7 +1472,6 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
             // region Excluindo os itens do pedido
             if (_lstItens != null && _lstItens.size() > 0) {
-
                 for (tpPedidoMobileItem _item : _lstItens) {
                     _dbPedidoMobileItem.delete(_item);
                 }
@@ -1607,11 +1493,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             // endregion
 
             // region Emitindo mensagem ao usuário
-            Toast.makeText(
-                    ClienteDetalheActivity.this,
-                    "Exclusão realizada com sucesso !!!",
-                    Toast.LENGTH_SHORT
-            ).show();
+            Toast.makeText(ClienteDetalheActivity.this, "Exclusão realizada com sucesso !!!", Toast.LENGTH_SHORT).show();
             // endregion
 
         } catch (Exception e) {
@@ -1623,15 +1505,10 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             // endregion
 
             // region Emitindo mensagem de erro ao usuário
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "ERRO",
-                    e.getMessage()
-            );
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "ERRO", e.getMessage());
             // endregion
 
         } finally {
-
             // region Encerrando a conexão com o banco de dados
             if (_sqh != null && _sqh.isOpen()) {
                 _sqh.close();
@@ -1660,11 +1537,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         if ((_lstPedidoMobile != null) && (_lstPedidoMobile.size() > 0)) {
 
             // region Vinculando a lista ao adaptador de informações
-            _adpPedidoMobile = new PedidoMobileListaAdapter(
-                    ClienteDetalheActivity.this,
-                    _lstPedidoMobile
-            );
-
+            _adpPedidoMobile = new PedidoMobileListaAdapter(ClienteDetalheActivity.this, _lstPedidoMobile);
             _ped_livPedidoLista.setAdapter(_adpPedidoMobile);
             // endregion
 
@@ -1725,20 +1598,13 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _parcelasTotal = _dbCliente.parcelasTotal(_p1, _p2);
                 _parcelasTotalVencido = _dbCliente.parcelasTotalVencido(_p1, _p2, _p3);
                 _parcelasQuantidadeVencida = _dbCliente.parcelasQuantidadeVencida(_p1, _p2, _p3);
-
             }
             // endregion
 
         } catch (Exception e) {
-
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "[ClienteDetalheActivity|loadFinanceiro] - Erro ao selecionar os dados financeiros do cliente",
-                    e.getMessage()
-            );
-
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this,
+                    "[ClienteDetalheActivity|loadFinanceiro] - Erro ao selecionar os dados financeiros do cliente", e.getMessage());
         } finally {
-
             if (_sqh.isOpen()) {
                 _sqh.close();
             }
@@ -1757,10 +1623,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
         if ((_lstFinanceiro != null) && (_lstFinanceiro.size() > 0)) {
 
-            ClienteFinanceiroParcelaAdapter _adp = new ClienteFinanceiroParcelaAdapter(
-                    ClienteDetalheActivity.this,
-                    _lstFinanceiro
-            );
+            ClienteFinanceiroParcelaAdapter _adp = new ClienteFinanceiroParcelaAdapter(ClienteDetalheActivity.this, _lstFinanceiro);
 
             _fin_livParcelaLista.setAdapter(_adp);
             _fin_txtTotalDevidoGeral.setText(MSVUtil.doubleToText("R$", _parcelasTotal));
@@ -1768,11 +1631,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             _fin_txtRegistro.setText("REGISTROS: " + String.valueOf(_lstFinanceiro.size()));
 
             if (_parcelasTotalVencido > 0) {
-
-                MSVMsgBox.showMsgBoxInfo(
-                        ClienteDetalheActivity.this,
-                        "SITUAÇÃO FINANCEIRA",
-                        "Existem " + _parcelasQuantidadeVencida + " parcelas já vencidas que somam o total de R$" + MSVUtil.doubleToText("R$", _parcelasTotalVencido));
+                MSVMsgBox.showMsgBoxInfo(ClienteDetalheActivity.this, "SITUAÇÃO FINANCEIRA",
+                        "Existem " + _parcelasQuantidadeVencida + " parcelas já vencidas que somam o total de R$"
+                                + MSVUtil.doubleToText("R$", _parcelasTotalVencido));
             }
         }
     }
@@ -1868,16 +1729,9 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             _isSyncToday = _dbSincronizacao.isSyncToday();
 
         } catch (Exception e) {
-
-            MSVMsgBox.showMsgBoxError(
-                    ClienteDetalheActivity.this,
-                    "Erro ao realizar a leitura da última sincronização"
-            );
-
+            MSVMsgBox.showMsgBoxError(ClienteDetalheActivity.this, "Erro ao realizar a leitura da última sincronização");
             finish();
-
         } finally {
-
             if ((_sqh != null) && (_sqh.isOpen())) {
                 _sqh.close();
             }
@@ -1894,26 +1748,22 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
             int _Count = 0;
 
-            if (MSVUtil.isNullOrEmpty(_tpCliente.ContatoNome) == false) {
+            if (!MSVUtil.isNullOrEmpty(_tpCliente.ContatoNome)) {
                 _Count += 5;
             }
 
-            if (MSVUtil.isNullOrEmpty(_tpCliente.TelefoneFixo) == false) {
+            if (!MSVUtil.isNullOrEmpty(_tpCliente.TelefoneFixo)) {
                 _Count += 1;
             }
 
-            if (MSVUtil.isNullOrEmpty(_tpCliente.TelefoneCelular) == false) {
+            if (!MSVUtil.isNullOrEmpty(_tpCliente.TelefoneCelular)) {
                 _Count += 1;
             }
 
             if (_Count < 6) {
 
-                MSVMsgBox.showMsgBoxWarning(
-                        ClienteDetalheActivity.this,
-                        "Nome do contato não informado",
-                        "Para adicionar este cliente como contato na agenda do dispositivo é necessário editar o mesmo e informar o nome de contato e um número de telefone"
-                );
-
+                MSVMsgBox.showMsgBoxWarning(ClienteDetalheActivity.this, "Nome do contato não informado",
+                        "Para adicionar este cliente como contato na agenda do dispositivo é necessário editar o mesmo e informar o nome de contato e um número de telefone");
                 return;
 
             } else {
@@ -1964,20 +1814,13 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
 
             // region Acoes que serão executadas quando o status for Error
             if (status == eTaskCompleteStatus.ERROR) {
-
                 _wait.dismiss();
-
-                Toast.makeText(
-                        ClienteDetalheActivity.this,
-                        "Erro ao realizar a sincronização de pedido",
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(ClienteDetalheActivity.this, "Erro ao realizar a sincronização de pedido", Toast.LENGTH_SHORT).show();
             }
             // endregion
 
             // region Acoes que serão executadas quando o status for refresh
-            if (status == eTaskCompleteStatus.REFRESH) {
-            }
+            //if (status == eTaskCompleteStatus.REFRESH) {}
             // endregion
 
             // region Acoes que serão executadas quando o status for sucesso
@@ -1986,21 +1829,12 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 _wait.dismiss();
 
                 if (out == 1) {
-
-                    Toast.makeText(
-                            ClienteDetalheActivity.this,
-                            "Pedido sincronizado com sucesso mas não confirmado no dispositivo !!!",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    Toast.makeText(ClienteDetalheActivity.this, "Pedido sincronizado com sucesso mas não confirmado no dispositivo !!!",
+                            Toast.LENGTH_SHORT).show();
                 }
 
                 if (out == 2) {
-
-                    Toast.makeText(
-                            ClienteDetalheActivity.this,
-                            "Pedido sincronizado com sucesso !!!",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    Toast.makeText(ClienteDetalheActivity.this, "Pedido sincronizado com sucesso !!!", Toast.LENGTH_SHORT).show();
 
                     loadCliente();
                     loadPedido();
@@ -2008,12 +1842,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
                 }
 
                 if (out == 3) {
-
-                    Toast.makeText(
-                            ClienteDetalheActivity.this,
-                            "Pedido já sincronizado com a empresa !!!",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    Toast.makeText(ClienteDetalheActivity.this, "Pedido já sincronizado com a empresa !!!", Toast.LENGTH_SHORT).show();
 
                     loadPedido();
                     showPedido();
@@ -2036,11 +1865,7 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
         try {
             startActivity(_i);
         } catch (Exception e) {
-            Toast.makeText(
-                    ClienteDetalheActivity.this,
-                    e.getMessage(),
-                    Toast.LENGTH_LONG
-            ).show();
+            Toast.makeText(ClienteDetalheActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
     // endregion
@@ -2064,13 +1889,13 @@ public class ClienteDetalheActivity extends AppCompatActivity implements Activit
             if (_tpCliente != null) {
 
                 // region Verificando se existe contato com o telefone fixo registrado
-                if (MSVUtil.isNullOrEmpty(_tpCliente.TelefoneFixo) == false) {
+                if (!MSVUtil.isNullOrEmpty(_tpCliente.TelefoneFixo)) {
                     _tpContactFixo = MSVUtil.contactExist(ClienteDetalheActivity.this, _tpCliente.TelefoneFixo);
                 }
                 // endregion
 
                 // region Verificando se existe contato com o telefone celular registrado
-                if (MSVUtil.isNullOrEmpty(_tpCliente.TelefoneCelular) == false) {
+                if (!MSVUtil.isNullOrEmpty(_tpCliente.TelefoneCelular)) {
                     _tpContactCelular = MSVUtil.contactExist(ClienteDetalheActivity.this, _tpCliente.TelefoneCelular);
                 }
                 // endregion
