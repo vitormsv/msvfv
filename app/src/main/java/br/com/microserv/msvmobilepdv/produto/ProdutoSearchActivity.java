@@ -1,11 +1,14 @@
 package br.com.microserv.msvmobilepdv.produto;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,9 +17,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.microserv.framework.msvdal.dbGrupo;
 import br.com.microserv.framework.msvdal.dbProduto;
 import br.com.microserv.framework.msvdto.tpEmpresa;
 import br.com.microserv.framework.msvdto.tpGrupo;
@@ -29,6 +35,8 @@ import br.com.microserv.framework.msvinterface.ActivityInterface;
 import br.com.microserv.framework.msvinterface.OnCloseDialog;
 import br.com.microserv.framework.msvutil.MSVMsgBox;
 import br.com.microserv.framework.msvutil.MSVUtil;
+import br.com.microserv.framework.msvutil.SQLClauseHelper;
+import br.com.microserv.framework.msvutil.eSQLSortType;
 import br.com.microserv.msvmobilepdv.R;
 import br.com.microserv.msvmobilepdv.adapter.GrupoDialogSearchAdapter;
 import br.com.microserv.msvmobilepdv.adapter.LinhaDialogSearchAdapter;
@@ -70,12 +78,14 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     LinearLayout _pnlTabelaPrecoCnt = null;
     LinearLayout _pnlTabelaPreco = null;
     LinearLayout _pnlProdutoCnt = null;
+    LinearLayout _pnlProdutoGrupo = null;
     LinearLayout _pnlProduto = null;
     LinearLayout _pnlRodapeCnt = null;
 
     // TextView
     TextView _txtTituloDescricao = null;
     TextView _txtTabelaPrecoDescricao = null;
+    TextView _txtProdutoGrupo = null;
     TextView _txtProdutoDescricao = null;
     TextView _txtRodapeRegistro = null;
 
@@ -120,6 +130,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     // String
     String[] _asLinha;
     String[] _asGrupo;
+    String _sGrupo = "";
     String _sProduto = "";
     String _sourceActivity = "";
     // endregion
@@ -254,12 +265,14 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         _pnlTabelaPrecoCnt = (LinearLayout) findViewById(R.id.pnlTabelaPrecoCnt);
         _pnlTabelaPreco = (LinearLayout) findViewById(R.id.pnlTabelaPreco);
         _pnlProdutoCnt = (LinearLayout) findViewById(R.id.pnlProdutoCnt);
+        _pnlProdutoGrupo = (LinearLayout) findViewById(R.id.pnlProdutoGrupo);
         _pnlProduto = (LinearLayout) findViewById(R.id.pnlProduto);
         _pnlRodapeCnt = (LinearLayout) findViewById(R.id.pnlRodapeCnt);
 
         // TextView
         _txtTituloDescricao = (TextView) findViewById(R.id.txtTituloDescricao);
         _txtTabelaPrecoDescricao = (TextView) findViewById(R.id.txtTabelaPrecoDescricao);
+        _txtProdutoGrupo = (TextView) findViewById(R.id.txtProdutoGrupoDescricao);
         _txtProdutoDescricao = (TextView) findViewById(R.id.txtProdutoDescricao);
         _txtRodapeRegistro = (TextView) findViewById(R.id.txtRodapeRegistro);
 
@@ -285,6 +298,69 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         // endregion
 
 
+        // region Click em ARGUMENTO de PESQUISA do GRUPO DE PRODUTO
+        _pnlProdutoGrupo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // region Criando o adaptador para alista de linha de produto
+                final GrupoDialogSearchAdapter _adp = new GrupoDialogSearchAdapter(ProdutoSearchActivity.this, _lstGrupo);
+                // endregion
+
+                // region Inflando o layout customizado para o AlertDialog
+                // inflando o layout
+                LayoutInflater _inflater = (LayoutInflater) getBaseContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View _v = (View) _inflater.inflate(R.layout.dialog_personalizado_lista, null);
+
+
+                // bucando o elemento do título
+                final TextView _txtDialogTitle = (TextView) _v.findViewById(R.id.txtDialogTitle);
+
+                if(_iGrupo != -1) {
+
+                    _txtDialogTitle.setText(_lstGrupo.get(_iGrupo).Descricao);
+
+                }
+                // buscando o elemento ListView
+                ListView _lv = (ListView) _v.findViewById(R.id.livDialogData);
+
+                _lv.setAdapter(_adp);
+
+                _lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        _iGrupo = position;
+                        _txtDialogTitle.setText(_lstGrupo.get(position).Descricao);
+                    }
+                });
+                // endregion
+
+                // region Criando a janela modal AlertDialog
+                final AlertDialog.Builder _builder = new AlertDialog.Builder(ProdutoSearchActivity.this);
+
+                _builder.setView(_v);
+                _builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // aqui vamos realizar o refresh do grupo e do produto
+                        refreshGrupo();
+                        loadProduto();
+                    }
+                });
+                _builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // não faz nada
+                    }
+                });
+
+                AlertDialog _dialog = _builder.create();
+                _dialog.show();
+
+            }
+        });
+        // endregion
+
         // region Click em ARGUMENTO de PESQUISA do PRODUTO
         _pnlProduto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -302,6 +378,8 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
 
                                 _sProduto = value.trim().toUpperCase();
 
+                                PedidoMobileEditarActivity._PESQUISA_VALUE = _sProduto;
+
                                 if (MSVUtil.isNullOrEmpty(_sProduto)) {
 
                                     _txtProdutoDescricao.setText("");
@@ -314,7 +392,6 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
 
                                 } else {
                                     _txtProdutoDescricao.setText(_sProduto.toUpperCase());
-                                    PedidoMobileEditarActivity._PESQUISA_VALUE = _sProduto;
                                     loadProduto();
                                 }
 
@@ -325,8 +402,6 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
 
             }
         });
-        // endregion
-
 
         // region Click no ITEM da LISTA de PRODUTO
         // aqui só vamos vincular o evento se a activity foi invocada a partir
@@ -373,9 +448,59 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         refreshFilterContent();
         // endregion
 
+        // region Atualizando os dados do grupo de produto
+        this.loadGrupo();
+        //endregion
+
         // region Atualizando os dados da tabela de preço
         this.refreshTabelaPreco();
         // endregion
+
+    }
+    // endregion
+
+
+    // region refreshGrupo
+    private void refreshGrupo() {
+
+        String _sGrupo;
+
+        if (_iGrupo > -1) {
+            _sGrupo = _lstGrupo.get(_iGrupo).Descricao;
+        } else {
+            _sGrupo = "NÃO EXISTE GRUPO";
+        }
+
+        _txtProdutoGrupo.setText(_sGrupo);
+
+    }
+    // endregion
+
+    // region loadGrupo
+    private void loadGrupo() {
+
+        _iGrupo = -1;
+
+        SQLiteHelper _sqh = new SQLiteHelper(getBaseContext());
+        _sqh.open(false);
+
+        try {
+
+            // preenchendo o objeto helper
+            SQLClauseHelper _sch = new SQLClauseHelper();
+            _sch.addEqualInteger("IdEmpresa", _tpEmpresa.IdEmpresa);
+            _sch.addOrderBy("Descricao", eSQLSortType.ASC);
+
+            dbGrupo _dbGrupo = new dbGrupo(_sqh);
+            _lstGrupo = (ArrayList<tpGrupo>) _dbGrupo.getList(tpGrupo.class, _sch);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (_sqh.isOpen()) {
+                _sqh.close();
+            }
+        }
 
     }
     // endregion
@@ -395,6 +520,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
 
         // region Inicializando variáveis
         _iProduto = -1;
+        int _idGrupoProduto = -1;
         // endregion
 
         // region Declarando objetos para uso do banco de dados
@@ -415,11 +541,21 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
             // endregion
 
             // region Carregando a lista de produtos de acordo com a empresa e grupo
-            _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.search(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _sProduto);
+
+            if(_iGrupo != -1 && _lstGrupo.get(_iGrupo) != null)
+            {
+                _idGrupoProduto = _lstGrupo.get(_iGrupo).IdGrupo;
+            }
+
+            if (_sProduto.isEmpty() && _idGrupoProduto != -1) {
+                _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.searchByIdGrupo(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _idGrupoProduto);
+            } else {
+                _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.search(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _sProduto,_idGrupoProduto );
+            }
             // endregion
 
             // region Trabalhando com a lista de produtos recuperada
-            if (_lstProdutoSearchResult.size() != 0) {
+            if (_lstProdutoSearchResult != null && _lstProdutoSearchResult.size() != 0) {
 
                 // region Instânciando uma lista de produtos filtrados
                 _lstProdutoSearch = _lstProdutoSearchResult;
@@ -435,7 +571,14 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
                 this.refreshProduto();
                 // endregion
 
+            }else{
+                _lstProdutoSearch = new ArrayList<tpProdutoSearch>();
+
+                // region Atualizando as informações do produto na tela
+                this.refreshProduto();
+                // endregion
             }
+
             // endregion
 
         } catch (Exception e) {

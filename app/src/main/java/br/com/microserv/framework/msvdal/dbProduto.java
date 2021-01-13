@@ -250,7 +250,7 @@ public class dbProduto extends dbBase implements dbInterface {
 
 
     // region search
-    public List<tpProdutoSearch> search(long idEmpresa, long idTabelaPreco, String Descricao) {
+    public List<tpProdutoSearch> search(long idEmpresa, long idTabelaPreco, String Descricao, int _IdGrupo) {
 
         // region Declarando variaveis locais
         List<tpProdutoSearch> _out = null;
@@ -276,6 +276,86 @@ public class dbProduto extends dbBase implements dbInterface {
         _sb.append("      WHERE Pro.Descricao LIKE '" + Descricao + "' ");
         _sb.append(" 	    AND Pem.IdEmpresa = " + String.valueOf(idEmpresa));
         _sb.append("        AND Tpp.IdTabelaPreco = " + String.valueOf(idTabelaPreco));
+
+        if(_IdGrupo > 0)
+        {
+            _sb.append("        AND Gru.IdGrupo = " + String.valueOf(_IdGrupo));
+        }
+
+        _sb.append("      ORDER BY Pro.Descricao");
+        // endregion
+
+        // region Bloco protegido
+        try {
+
+            _crs = this.executeWithResult(_sb.toString());
+
+            if (_crs != null) {
+
+                while (_crs.moveToNext()) {
+
+                    tpProdutoSearch _tp = new tpProdutoSearch();
+
+                    _tp._id = _crs.getLong(_crs.getColumnIndexOrThrow("_id"));
+                    _tp.IdProduto = _crs.getLong(_crs.getColumnIndexOrThrow("IdProduto"));
+                    _tp.Codigo = _crs.getString(_crs.getColumnIndexOrThrow("Codigo"));
+                    _tp.Descricao = _crs.getString(_crs.getColumnIndexOrThrow("Descricao"));
+                    _tp.Ean13 = _crs.getString(_crs.getColumnIndexOrThrow("Ean13"));
+                    _tp.UnidadeMedida = _crs.getString(_crs.getColumnIndexOrThrow("UnidadeMedida"));
+                    _tp.Linha = _crs.getString(_crs.getColumnIndexOrThrow("Linha"));
+                    _tp.Grupo = _crs.getString(_crs.getColumnIndexOrThrow("Grupo"));
+                    _tp.Preco = _crs.getDouble(_crs.getColumnIndexOrThrow("Preco"));
+
+                    if (_out == null) {
+                        _out = new ArrayList<tpProdutoSearch>();
+                    }
+
+                    _out.add(_tp);
+                }
+
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            if ((_crs != null) && (_crs.isClosed() == false)) {
+                _crs.close();
+            }
+
+        }
+        // endregion
+
+        // region Final
+        return _out;
+        // endregion
+
+    }
+    // endregion
+
+
+    // region search
+    public List<tpProdutoSearch> searchByIdGrupo(long idEmpresa, long idTabelaPreco, int _IdGrupo) {
+
+        // region Declarando variaveis locais
+        List<tpProdutoSearch> _out = null;
+        Cursor _crs = null;
+        StringBuilder _sb = null;
+        // endregion
+
+        // region Formatando a senteça para seleção de dados no banco
+        _sb = new StringBuilder();
+
+        _sb.append("     SELECT Pro._id, Pro.IdProduto, Pro.Codigo, Pro.Descricao, Pro.Ean13, Pro.UnidadeMedida, Lin.Descricao AS Linha, Gru.Descricao AS Grupo, Tpp.Preco ");
+        _sb.append("       FROM Produto            AS Pro ");
+        _sb.append(" INNER JOIN ProdutoEmpresa     AS Pem ON Pro.IdProduto = Pem.IdProduto ");
+        _sb.append(" INNER JOIN Grupo              AS Gru ON Pro.IdGrupo   = Gru.IdGrupo ");
+        _sb.append(" INNER JOIN Linha              AS Lin ON Gru.IdLinha   = Lin.IdLinha ");
+        _sb.append(" INNER JOIN TabelaPrecoProduto AS Tpp ON Pro.IdProduto = Tpp.IdProduto ");
+        _sb.append("      WHERE Pem.IdEmpresa = " + String.valueOf(idEmpresa));
+        _sb.append("        AND Tpp.IdTabelaPreco = " + String.valueOf(idTabelaPreco));
+        _sb.append("        AND Gru.IdGrupo = " + String.valueOf(_IdGrupo));
         _sb.append("      ORDER BY Pro.Descricao");
         // endregion
 
