@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -844,7 +846,7 @@ public class PedidoMobileItemEditarActivity
                 MSVMsgBox.getDoubleValue(
                         PedidoMobileItemEditarActivity.this,
                         "DESCONTO (%)",
-                        "Informe o percentual de desconto a ser aplicano no valor unitário do item",
+                        "Informe o percentual de desconto a ser aplicado no valor unitário do item",
                         _tpPedidoMobileItem.UnidadeDescontoPercentual,
                         new OnCloseDialog() {
                             @Override
@@ -1737,7 +1739,7 @@ public class PedidoMobileItemEditarActivity
         } else {
 
             // calculando o desconto em valor
-            _tp.UnidadeDescontoValor = ((_tp.UnidadeValor * _tp.UnidadeDescontoPercentual) / 100);
+            _tp.UnidadeDescontoValor = this.round(((_tp.UnidadeValor * _tp.UnidadeDescontoPercentual) / 100), 2);
 
             // calculando o valor unitário líquido
             _tp.UnidadeValorLiquido = (_tp.UnidadeValor - _tp.UnidadeDescontoValor);
@@ -2091,6 +2093,14 @@ public class PedidoMobileItemEditarActivity
 
     }
     //endregion
+
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(Double.toString(value));
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 
 
 }

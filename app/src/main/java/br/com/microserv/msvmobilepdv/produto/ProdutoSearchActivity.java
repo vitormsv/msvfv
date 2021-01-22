@@ -39,6 +39,7 @@ import br.com.microserv.framework.msvutil.SQLClauseHelper;
 import br.com.microserv.framework.msvutil.eSQLSortType;
 import br.com.microserv.msvmobilepdv.R;
 import br.com.microserv.msvmobilepdv.adapter.GrupoDialogSearchAdapter;
+import br.com.microserv.msvmobilepdv.adapter.LetraInicialAdapter;
 import br.com.microserv.msvmobilepdv.adapter.LinhaDialogSearchAdapter;
 import br.com.microserv.msvmobilepdv.adapter.ProdutoSearchAdapter;
 import br.com.microserv.msvmobilepdv.pedido.PedidoMobileEditarActivity;
@@ -77,6 +78,8 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     LinearLayout _pnlTituloCnt = null;
     LinearLayout _pnlTabelaPrecoCnt = null;
     LinearLayout _pnlTabelaPreco = null;
+    LinearLayout _pnlLetraInicialCnt = null;
+    LinearLayout _pnlLetraInicial = null;
     LinearLayout _pnlProdutoCnt = null;
     LinearLayout _pnlProdutoGrupo = null;
     LinearLayout _pnlProduto = null;
@@ -85,6 +88,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     // TextView
     TextView _txtTituloDescricao = null;
     TextView _txtTabelaPrecoDescricao = null;
+    TextView _txtLetraInicial = null;
     TextView _txtProdutoGrupo = null;
     TextView _txtProdutoDescricao = null;
     TextView _txtRodapeRegistro = null;
@@ -116,6 +120,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     // int
     int _iLinha = -1;
     int _iGrupo = -1;
+    String _sLetraInicial = "";
     int _iProduto = -1;
     int _iAux = 0;
     int _metodoEdicao = 0;
@@ -264,6 +269,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         _pnlTituloCnt = (LinearLayout) findViewById(R.id.pnlTituloCnt);
         _pnlTabelaPrecoCnt = (LinearLayout) findViewById(R.id.pnlTabelaPrecoCnt);
         _pnlTabelaPreco = (LinearLayout) findViewById(R.id.pnlTabelaPreco);
+        _pnlLetraInicial = (LinearLayout) findViewById(R.id.pnlLetraInicial);
         _pnlProdutoCnt = (LinearLayout) findViewById(R.id.pnlProdutoCnt);
         _pnlProdutoGrupo = (LinearLayout) findViewById(R.id.pnlProdutoGrupo);
         _pnlProduto = (LinearLayout) findViewById(R.id.pnlProduto);
@@ -272,6 +278,7 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
         // TextView
         _txtTituloDescricao = (TextView) findViewById(R.id.txtTituloDescricao);
         _txtTabelaPrecoDescricao = (TextView) findViewById(R.id.txtTabelaPrecoDescricao);
+        _txtLetraInicial = (TextView) findViewById(R.id.txtLetraInicial);
         _txtProdutoGrupo = (TextView) findViewById(R.id.txtProdutoGrupoDescricao);
         _txtProdutoDescricao = (TextView) findViewById(R.id.txtProdutoDescricao);
         _txtRodapeRegistro = (TextView) findViewById(R.id.txtRodapeRegistro);
@@ -296,6 +303,99 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
             }
         });
         // endregion
+
+
+
+        // region Click em ARGUMENTO de PESQUISA do GRUPO DE PRODUTO
+        _pnlLetraInicial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                 final ArrayList<String> _lstLetraInicial = new ArrayList<String>();
+
+                _lstLetraInicial.add("");
+                _lstLetraInicial.add("A");
+                _lstLetraInicial.add("B");
+                _lstLetraInicial.add("C");
+                _lstLetraInicial.add("D");
+                _lstLetraInicial.add("E");
+                _lstLetraInicial.add("F");
+                _lstLetraInicial.add("G");
+                _lstLetraInicial.add("H");
+                _lstLetraInicial.add("I");
+                _lstLetraInicial.add("J");
+                _lstLetraInicial.add("K");
+                _lstLetraInicial.add("L");
+                _lstLetraInicial.add("M");
+                _lstLetraInicial.add("N");
+                _lstLetraInicial.add("O");
+                _lstLetraInicial.add("P");
+                _lstLetraInicial.add("Q");
+                _lstLetraInicial.add("R");
+                _lstLetraInicial.add("S");
+                _lstLetraInicial.add("T");
+                _lstLetraInicial.add("U");
+                _lstLetraInicial.add("V");
+                _lstLetraInicial.add("W");
+                _lstLetraInicial.add("X");
+                _lstLetraInicial.add("Y");
+                _lstLetraInicial.add("Z");
+
+                // region Criando o adaptador para alista de linha de produto
+                final LetraInicialAdapter _adp = new LetraInicialAdapter(ProdutoSearchActivity.this, _lstLetraInicial);
+                // endregion
+
+                // region Inflando o layout customizado para o AlertDialog
+                // inflando o layout
+                LayoutInflater _inflater = (LayoutInflater) getBaseContext().getSystemService(getBaseContext().LAYOUT_INFLATER_SERVICE);
+                View _v = (View) _inflater.inflate(R.layout.dialog_personalizado_lista, null);
+
+
+                // bucando o elemento do título
+                final TextView _txtDialogTitle = (TextView) _v.findViewById(R.id.txtDialogTitle);
+
+                _txtDialogTitle.setText(_sLetraInicial);
+
+                // buscando o elemento ListView
+                ListView _lv = (ListView) _v.findViewById(R.id.livDialogData);
+
+                _lv.setAdapter(_adp);
+
+                _lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        _sLetraInicial = _lstLetraInicial.get(position);
+                        _txtDialogTitle.setText(_lstLetraInicial.get(position));
+                    }
+                });
+                // endregion
+
+                // region Criando a janela modal AlertDialog
+                final AlertDialog.Builder _builder = new AlertDialog.Builder(ProdutoSearchActivity.this);
+
+                _builder.setView(_v);
+                _builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // aqui vamos realizar o refresh do grupo e do produto
+                        refreshLetraInicial();
+                        loadProduto();
+                    }
+                });
+                _builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // não faz nada
+                    }
+                });
+
+                AlertDialog _dialog = _builder.create();
+                _dialog.show();
+
+            }
+        });
+        // endregion
+
 
 
         // region Click em ARGUMENTO de PESQUISA do GRUPO DE PRODUTO
@@ -476,6 +576,14 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
     }
     // endregion
 
+    // region refreshLetraInicial
+    private void refreshLetraInicial() {
+
+        _txtLetraInicial.setText(_sLetraInicial);
+
+    }
+    // endregion
+
     // region loadGrupo
     private void loadGrupo() {
 
@@ -542,16 +650,20 @@ public class ProdutoSearchActivity extends AppCompatActivity implements Activity
 
             // region Carregando a lista de produtos de acordo com a empresa e grupo
 
-            if(_iGrupo != -1 && _lstGrupo.get(_iGrupo) != null)
+            if(_iGrupo != -1)
             {
                 _idGrupoProduto = _lstGrupo.get(_iGrupo).IdGrupo;
             }
 
-            if (_sProduto.isEmpty() && _idGrupoProduto != -1) {
-                _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.searchByIdGrupo(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _idGrupoProduto);
-            } else {
-                _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.search(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _sProduto,_idGrupoProduto );
-            }
+            //if (_sProduto.isEmpty() && _idGrupoProduto != -1) {
+            //    _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.searchByIdGrupo(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _idGrupoProduto);
+            //} else {
+            //    _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.search(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _sProduto,_idGrupoProduto );
+            //}
+
+            _lstProdutoSearchResult = (ArrayList<tpProdutoSearch>) _dbProduto.search(_tpEmpresa.IdEmpresa, _tpTabelaPreco.IdTabelaPreco, _sProduto, _idGrupoProduto, _sLetraInicial);
+
+
             // endregion
 
             // region Trabalhando com a lista de produtos recuperada

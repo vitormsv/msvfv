@@ -250,7 +250,7 @@ public class dbProduto extends dbBase implements dbInterface {
 
 
     // region search
-    public List<tpProdutoSearch> search(long idEmpresa, long idTabelaPreco, String Descricao, int _IdGrupo) {
+    public List<tpProdutoSearch> search(long idEmpresa, long idTabelaPreco, String Descricao, int _IdGrupo, String _LetraInicial) {
 
         // region Declarando variaveis locais
         List<tpProdutoSearch> _out = null;
@@ -276,6 +276,11 @@ public class dbProduto extends dbBase implements dbInterface {
         _sb.append("      WHERE Pro.Descricao LIKE '" + Descricao + "' ");
         _sb.append(" 	    AND Pem.IdEmpresa = " + String.valueOf(idEmpresa));
         _sb.append("        AND Tpp.IdTabelaPreco = " + String.valueOf(idTabelaPreco));
+
+        if(_LetraInicial != null && _LetraInicial != "")
+        {
+            _sb.append("        AND Pro.Descricao LIKE '" + _LetraInicial + "%'");
+        }
 
         if(_IdGrupo > 0)
         {
