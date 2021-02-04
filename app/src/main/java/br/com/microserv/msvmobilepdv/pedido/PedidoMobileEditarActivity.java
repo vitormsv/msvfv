@@ -335,6 +335,9 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
         // region Incovando o método de inicializacao da activity
         initialize();
         // endregion
+
+        setValoresFixosAguinaldo();
+
     }
     // endregion
 
@@ -899,7 +902,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             @Override
             public void onClick(View v) {
 
-                if (!isAddTabelaPrecoCondicaoPagamento()){
+                if (!isAddTabelaPreco()){
                     return;
                 }
 
@@ -952,7 +955,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             @Override
             public boolean onLongClick(View view) {
 
-                if (!isAddTabelaPrecoCondicaoPagamento()){
+                if (!isAddTabelaPreco()){
                     return false;
                 }
 
@@ -1152,17 +1155,17 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
     // endregion
 
 
-    // region isAddTabelaPrecoCondicaoPagamento
-    private boolean isAddTabelaPrecoCondicaoPagamento() {
+    // region isAddTabelaPreco
+    private boolean isAddTabelaPreco() {
         if (_iTabelaPreco == -1) {
             Toast.makeText(PedidoMobileEditarActivity.this, "Selecione uma tabela de preço", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (_iCondicaoPagamento == -1) {
-            Toast.makeText(PedidoMobileEditarActivity.this, "Selecione uma condição de pagamento", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        //if (_iCondicaoPagamento == -1) {
+        //    Toast.makeText(PedidoMobileEditarActivity.this, "Selecione uma condição de pagamento", Toast.LENGTH_SHORT).show();
+        //    return false;
+        //}
 
         return true;
     }
@@ -1307,6 +1310,46 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
 
             MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this,
                     "[PedidoMobileEditarActivity|initialize()] - Erro ao inicializar um novo pedido", e.getMessage());
+            finish();
+        }
+    }
+    // endregion
+
+
+    // region setValoresFixosAguinaldo
+    public void setValoresFixosAguinaldo() {
+
+        try {
+
+            if(_tpEmpresa.Descricao.contains("MONTEIRO"))
+            {
+                if (_metodoEdicao == _INSERT_VALUE) {
+
+                    if(_lstCondicaoPagamento.size() > 0 && _iCondicaoPagamento == -1)
+                    {
+
+                        _iCondicaoPagamento = 0;
+                        _tpPedidoMobile.IdCondicaoPagamento = _lstCondicaoPagamento.get(_iCondicaoPagamento).IdCondicaoPagamento;
+
+                    }
+
+                    if(_lstTipoPedido.size() > 0)
+                    {
+
+                        _iTipoPedido = 2;
+                        _tpPedidoMobile.IdTipoPedido = _lstTipoPedido.get(_iTipoPedido).IdTipoPedido;
+
+                    }
+
+                    this.refreshPrincipal();
+                }
+
+            }
+
+        } catch (Exception e) {
+
+            MSVMsgBox.showMsgBoxError(PedidoMobileEditarActivity.this,
+                    "[PedidoMobileEditarActivity|setValoresFixosAguinaldo()] - Erro ao inicializar um novo pedido", e.getMessage());
             finish();
         }
     }
@@ -2168,6 +2211,12 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
             // region TabelaPreco
             if ((_lstTabelaPreco != null) && (_lstTabelaPreco.size() > 0)) {
                 _iTabelaPreco = -1;
+                if(_lstTabelaPreco.size() == 1)
+                {
+                    _iTabelaPreco = 0;
+                    _tpPedidoMobile.IdTabelaPreco = _lstTabelaPreco.get(_iTabelaPreco).IdTabelaPreco;
+                }
+                else
                 if (_tpCliente != null && _tpCliente.IdTabelaPreco != 0) {
                     _tpPedidoMobile.IdTabelaPreco = _tpCliente.IdTabelaPreco;
 
@@ -2175,6 +2224,7 @@ public class PedidoMobileEditarActivity extends AppCompatActivity implements Act
                         if (_tpCliente.IdTabelaPreco == _lstTabelaPreco.get(i).IdTabelaPreco) {
                             _lstTabelaPreco.get(i).Descricao += " ( Padrão )";
                             _iTabelaPreco = i;
+                            _tpPedidoMobile.IdTabelaPreco = _lstTabelaPreco.get(_iTabelaPreco).IdTabelaPreco;
                             break;
                         }
                     }
